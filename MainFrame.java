@@ -40,6 +40,7 @@ public class MainFrame extends JFrame {
         labelWelcome.setVerticalAlignment(JLabel.TOP);
         labelWelcome.setHorizontalAlignment(JLabel.CENTER);
         // --------
+        // import
 
         // Components
         this.add(labelIcon);
