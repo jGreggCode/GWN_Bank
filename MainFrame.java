@@ -1,29 +1,23 @@
 // Imports
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 // --------
 
+import Components.LabelWelcome;
+
 public class MainFrame extends JFrame {
+
+    // Main Frame Components
+    LabelWelcome labelWelcome = new LabelWelcome();
+    // --------
 
     // Color
     ColorPalette colors = new ColorPalette();
     // --------
 
-    // Images
-    ImageIcon logo = new ImageIcon("BankLogoNB128.png");
-
-    // Labels
-    JLabel labelWelcome = new JLabel(), 
-    labelIcon = new JLabel(),
-    labelUsername = new JLabel(),
-    labelPassword = new JLabel();
-    // --------
-
     // Main frame
     public MainFrame() {
         // Main frame configuration
-        this.setTitle("JGBank");
+        this.setTitle("GWN Bank");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setSize(720, 720);
@@ -31,19 +25,7 @@ public class MainFrame extends JFrame {
         this.getContentPane().setBackground(colors.getColorBackground());
         // --------
 
-        // Icon Label
-        labelIcon.setIcon(logo);
-        // --------
-
-        // Welcome Label
-        labelWelcome.setText("Welcome To JGBank");
-        labelWelcome.setVerticalAlignment(JLabel.TOP);
-        labelWelcome.setHorizontalAlignment(JLabel.CENTER);
-        // --------
-        // import
-
-        // Components
-        this.add(labelIcon);
+        // Add Components
         this.add(labelWelcome);
         // --------
     }
