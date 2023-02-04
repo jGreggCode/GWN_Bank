@@ -1,13 +1,16 @@
+package Main;
 // Imports
 import javax.swing.JFrame;
+import Components.*;
 // --------
+import Utils.ColorPalette;
 
-import Components.LabelWelcome;
 
 public class MainFrame extends JFrame {
 
     // Main Frame Components
-    LabelWelcome labelWelcome = new LabelWelcome();
+    PanelHeader panelHeader = new PanelHeader();
+    PanelBody panelBody = new PanelBody();
     // --------
 
     // Color
@@ -16,18 +19,23 @@ public class MainFrame extends JFrame {
 
     // Main frame
     public MainFrame() {
+        initOfComponents();
+        this.setVisible(true);
+    }
+
+    public void initOfComponents() {
         // Main frame configuration
         this.setTitle("GWN Bank");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-        this.setSize(720, 720);
+        this.setSize(720, 500);
         this.setResizable(false);
+        setLayout(null);
         this.getContentPane().setBackground(colors.getColorBackground());
         // --------
 
         // Add Components
-        this.add(labelWelcome);
+        this.add(panelHeader);
+        this.add(panelBody);
         // --------
     }
-    // --------
 }
