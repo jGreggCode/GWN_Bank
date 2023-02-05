@@ -1,11 +1,14 @@
-package Components;
+package Containers;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
-import Utils.*;
+import Utils.MyTextField;
+import Utils.MyPasswordField;
+import Utils.Defaults;
 import Utils.Button;
+import Utils.ColorPalette;
 
 public class PanelBody extends JPanel {
 
@@ -13,30 +16,40 @@ public class PanelBody extends JPanel {
     private MyTextField customTextField = new MyTextField();
     private MyPasswordField customPasswordField = new MyPasswordField();
     private Button login = new Button();
+    private ColorPalette colorPalette = new ColorPalette();
+    private Defaults def = new Defaults();
 
     public PanelBody() {
         this.setOpaque(false);
         setLayout(null);
-        setBounds(105, 158, 500, 200);
+        setBounds(def.getFrameWidth() / 2 - (1000 / 2), 306, 1000, 400);
 
-        labelLogin.setText("L o g i n   t o   y o u r   a c c o u n t");
+        int x = this.getSize().width / 2;
+        int y = this.getSize().height;
+
+        System.out.println(x);
+
+        labelLogin.setText("Login to your account");
         labelLogin.setForeground(Color.white);
-        labelLogin.setFont(new Font("Monospace", Font.BOLD, 13));
+        labelLogin.setFont(new Font(def.getFontFam(), Font.BOLD, 18));
         labelLogin.setHorizontalAlignment(JLabel.CENTER);
-        labelLogin.setBounds(0, 0, 500, 50);
-
+        labelLogin.setBounds(0, 20, 1000, 50);
+        
         
         customTextField.setHint("Account Name");
+        customTextField.setFont(new Font(def.getFontFam(), 0, 18));
         customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
-        customTextField.setBounds(125, 50, 250, 40);
+        customTextField.setBounds(x - (500 / 2), 100, 500, 60);
         customPasswordField.setHint("Pin Code");
+        customPasswordField.setFont(new Font(def.getFontFam(), 0, 18));
         customPasswordField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/pass.png")));
-        customPasswordField.setBounds(125, 100, 250, 40);
+        customPasswordField.setBounds(x - (500 / 2), 200, 500, 60);
 
-        login.setBackground(Color.black);
+        login.setBackground(colorPalette.getColorButtons());
         login.setForeground(Color.white);
         login.setText("L o g i n");
-        login.setBounds(200, 150, 100, 40);
+        login.setFont(new Font(def.getFontFam(), 0, 18));
+        login.setBounds(x - (200 / 2), 300, 200, 60);
 
         this.add(login);
         this.add(labelLogin);

@@ -1,9 +1,11 @@
 package Main;
+import java.awt.Dimension;
+
 // Imports
 import javax.swing.JFrame;
-import Components.*;
+import Containers.*;
+import Utils.*;
 // --------
-import Utils.ColorPalette;
 
 
 public class MainFrame extends JFrame {
@@ -13,9 +15,20 @@ public class MainFrame extends JFrame {
     PanelBody panelBody = new PanelBody();
     // --------
 
+
     // Color
     ColorPalette colors = new ColorPalette();
+
+    Defaults def = new Defaults();
     // --------
+
+    public int getHeight() {
+        return this.getPreferredSize().height;
+    }
+    
+    public int getWidth() {
+        return this.getPreferredSize().width;
+    }
 
     // Main frame
     public MainFrame() {
@@ -26,8 +39,9 @@ public class MainFrame extends JFrame {
     public void initOfComponents() {
         // Main frame configuration
         this.setTitle("GWN Bank");
+        this.setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(720, 500);
+        this.setSize(getPreferredSize().width, getPreferredSize().height);
         this.setResizable(false);
         setLayout(null);
         this.getContentPane().setBackground(colors.getColorBackground());
