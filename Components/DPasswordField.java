@@ -1,16 +1,15 @@
 package Components;
 
+import javax.swing.BorderFactory;
+import javax.swing.JPasswordField;
+
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
-import javax.swing.JTextField;
+public class DPasswordField extends JPasswordField {
 
-public class DTextField extends JTextField {
-
-    public DTextField() {
-        setHorizontalAlignment(JTextField.CENTER);
+    public DPasswordField() {
+        setHorizontalAlignment(JPasswordField.CENTER);
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 0));
         setFocusable(true);

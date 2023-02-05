@@ -8,12 +8,15 @@ import java.awt.*;
 public class PanelHeader extends JPanel {
 
     JLabel labelWelcome = new JLabel();
-    ImageIcon logo = new ImageIcon("Images/BankLogoNB128.png");
+    ImageIcon logo = new ImageIcon("Images/BankLogoN.png");
+    Image image = logo.getImage();
+    Image resizedImg = image.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+    ImageIcon newLogo = new ImageIcon(resizedImg);
 
     public PanelHeader() {
         this.setOpaque(false);
         // Icon Label
-        labelWelcome.setIcon(logo);
+        labelWelcome.setIcon(newLogo);
         labelWelcome.setVerticalTextPosition(JLabel.BOTTOM);
         labelWelcome.setHorizontalTextPosition(JLabel.CENTER);
         labelWelcome.setIconTextGap(-10);
