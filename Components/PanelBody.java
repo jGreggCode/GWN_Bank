@@ -1,19 +1,18 @@
 package Components;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-
 import java.awt.*;
-import java.awt.event.*;
+import Utils.*;
+import Utils.Button;
 
-public class PanelBody extends JPanel implements FocusListener {
+public class PanelBody extends JPanel {
 
-    JLabel labelLogin = new JLabel();
-    DTextField usernameTextField = new DTextField();
-    DPasswordField passwordField = new DPasswordField();
-    JSeparator userSeparator = new JSeparator();
-    JSeparator passSeparator = new JSeparator();
+    private JLabel labelLogin = new JLabel();
+    private MyTextField customTextField = new MyTextField();
+    private MyPasswordField customPasswordField = new MyPasswordField();
+    private Button login = new Button();
 
     public PanelBody() {
         this.setOpaque(false);
@@ -26,54 +25,23 @@ public class PanelBody extends JPanel implements FocusListener {
         labelLogin.setHorizontalAlignment(JLabel.CENTER);
         labelLogin.setBounds(0, 0, 500, 50);
 
-        usernameTextField.addFocusListener(this);
-
-        usernameTextField.setBounds(125, 50, 250, 30);
-        usernameTextField.setForeground(Color.white);
-        userSeparator.setOpaque(false);
-        userSeparator.setBounds(125, 80, 250, 3);
-        userSeparator.setForeground(Color.white);
-
-        passwordField.setText("Password");
-        passwordField.addFocusListener(this);
-        passwordField.setBounds(125, 100, 250, 30);
-        passwordField.setForeground(Color.white);
-        passSeparator.setOpaque(false);
-        passSeparator.setBounds(125, 130, 250, 3);
-        passSeparator.setForeground(Color.white);
-
-        this.add(labelLogin);
-        this.add(usernameTextField);
-        this.add(userSeparator);
-        this.add(passwordField);
-        this.add(passSeparator);
-    }
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        if (e.getSource() == usernameTextField) {
-            usernameTextField.setForeground(Color.gray);
-            usernameTextField.setText("");
-        }
-
-        if (e.getSource() == passwordField) {
-            passwordField.setForeground(Color.gray);
-            passwordField.setText("");
-        }
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        if (e.getSource() == usernameTextField) {
-            usernameTextField.setForeground(Color.gray);
-            usernameTextField.setText("Account Number");
-        }
-
-        if (e.getSource() == passwordField) {
-            passwordField.setForeground(Color.gray);
-            passwordField.setText("Password");
-        }
         
+        customTextField.setHint("Account Name");
+        customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
+        customTextField.setBounds(125, 50, 250, 40);
+        customPasswordField.setHint("Pin Code");
+        customPasswordField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/pass.png")));
+        customPasswordField.setBounds(125, 100, 250, 40);
+
+        login.setBackground(Color.black);
+        login.setForeground(Color.white);
+        login.setText("L o g i n");
+        login.setBounds(200, 150, 100, 40);
+
+        this.add(login);
+        this.add(labelLogin);
+        this.add(customTextField);
+        this.add(customPasswordField);
     }
 
     

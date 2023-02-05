@@ -21,13 +21,12 @@ public class PanelHeader extends JPanel {
         labelWelcome.setHorizontalTextPosition(JLabel.CENTER);
         labelWelcome.setIconTextGap(-10);
 
-        // --------
 
         // Welcome Label
         labelWelcome.setText("Welcome To GWN Bank");
         labelWelcome.setForeground(Color.white);
         labelWelcome.setFont(new Font("Monospace", Font.BOLD, 13));
-        setBounds(280, 10, 148, 148);
+        setBounds(270, 10, 160, 148);
         // --------
 
 

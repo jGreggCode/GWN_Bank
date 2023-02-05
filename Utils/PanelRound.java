@@ -1,5 +1,4 @@
-
-package com.jgfbank.swing;
+package Utils;
 
 import java.awt.Color;
 import java.awt.Graphics;
