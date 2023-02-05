@@ -9,10 +9,12 @@ import Utils.Defaults;
 public class PanelHeader extends JPanel {
 
     JLabel labelWelcome = new JLabel();
+
     ImageIcon logo = new ImageIcon("Images/BankLogoN.png");
     Image image = logo.getImage();
     Image resizedImg = image.getScaledInstance(128 * 2, 128 * 2, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);
+    
     Defaults def = new Defaults();
 
     int x = def.getFrameWidth() / 2;

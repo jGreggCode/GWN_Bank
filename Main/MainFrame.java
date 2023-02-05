@@ -46,6 +46,7 @@ public class MainFrame extends JFrame {
         this.setResizable(false);
         setLayout(null);
         this.getContentPane().setBackground(colors.getColorBackground());
+        this.setLocationRelativeTo(null);
         // --------
 
         // Add Components

@@ -38,6 +38,7 @@ public class PanelBody extends JPanel {
         customTextField.setFont(new Font(def.getFontFam(), 0, 18));
         customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
         customTextField.setBounds(x - (500 / 2), 100, 500, 60);
+        
         customPasswordField.setHint("Pin Code");
         customPasswordField.setFont(new Font(def.getFontFam(), 0, 18));
         customPasswordField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/pass.png")));
