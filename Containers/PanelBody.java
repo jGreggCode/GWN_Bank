@@ -27,8 +27,6 @@ public class PanelBody extends JPanel {
         int x = this.getSize().width / 2;
         int y = this.getSize().height;
 
-        System.out.println(x);
-
         labelLogin.setText("Login to your account");
         labelLogin.setForeground(Color.white);
         labelLogin.setFont(new Font(def.getFontFam(), Font.BOLD, 18));

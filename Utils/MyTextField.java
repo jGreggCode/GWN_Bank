@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 
 public class MyTextField extends JTextField {
 
+    private ColorPalette colorPalette = new ColorPalette();
+
     public String getHint() {
         return hint;
     }
@@ -48,7 +50,7 @@ public class MyTextField extends JTextField {
         setBackground(new Color(0, 0, 0, 0));
         setForeground(Color.decode("#7A8C8D"));
         setFont(new java.awt.Font("sansserif", 0, 13));
-        setSelectionColor(new Color(75, 175, 152));
+        setSelectionColor(colorPalette.getColorBackground());
     }
 
     @Override

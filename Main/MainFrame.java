@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
     // Main Frame Components
     PanelHeader panelHeader = new PanelHeader();
     PanelBody panelBody = new PanelBody();
+    PanelFooter panelFooter = new PanelFooter();
     // --------
 
 
@@ -50,6 +51,8 @@ public class MainFrame extends JFrame {
         // Add Components
         this.add(panelHeader);
         this.add(panelBody);
+        this.add(panelFooter);
+
         // --------
     }
 }
