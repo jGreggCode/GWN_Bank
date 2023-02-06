@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
-import java.beans.Customizer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -32,7 +30,8 @@ public class PanelFooter extends JPanel implements MouseListener {
     labelFooter = new JLabel(),
     labelFooterp = new JLabel(),
     labelPrivacy = new JLabel(),
-    labelTerms = new JLabel();
+    labelTerms = new JLabel(),
+    labelProject = new JLabel();
 
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
     Image image = logo.getImage();
@@ -109,13 +108,20 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelPrivacy.setText("Privacy Policy".toUpperCase(getLocale()));
         labelPrivacy.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
         labelPrivacy.setForeground(colorPalette.getColorButtons());
+        labelPrivacy.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelPrivacy.setBounds(1150, 90, 250, 30);
 
         labelTerms.setText("Terms and condition".toUpperCase(getLocale()));
         labelTerms.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
         labelTerms.setForeground(colorPalette.getColorButtons());
+        labelTerms.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelTerms.setBounds(1150, 125, 250, 30);
-        
+
+        labelProject.setText("Programmed and Designed by: Gregg");
+        labelProject.setBounds(1050, 180, 250, 30);
+        labelProject.setFont(new Font(def.getFontFam(), Font.BOLD, 14));
+        labelProject.setForeground(Color.white);
+
         add(labelNoCred);
         add(labelStart);
         add(custoMyTextField);
@@ -127,11 +133,12 @@ public class PanelFooter extends JPanel implements MouseListener {
         add(labelTerms);
         add(labelFooter);
         add(labelFooterp);
+        add(labelProject);
     }
 
     @Override
     public void mouseClicked(java.awt.event.MouseEvent e) {
-        System.out.println("Hello");
+        String email = custoMyTextField.getText().trim();
     }
 
     @Override

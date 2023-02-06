@@ -3,6 +3,7 @@ package Containers;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import java.awt.*;
 import Utils.MyTextField;
 import Utils.MyPasswordField;
@@ -14,7 +15,9 @@ public class PanelBody extends JPanel {
 
     private JLabel labelLogin = new JLabel();
     private MyTextField customTextField = new MyTextField();
+
     private MyPasswordField customPasswordField = new MyPasswordField();
+
     private Button login = new Button();
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
@@ -40,6 +43,7 @@ public class PanelBody extends JPanel {
         customTextField.setBounds(x - (500 / 2), 100, 500, 60);
         
         customPasswordField.setHint("Pin Code");
+        customPasswordField.setColumns(6);
         customPasswordField.setFont(new Font(def.getFontFam(), 0, 18));
         customPasswordField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/pass.png")));
         customPasswordField.setBounds(x - (500 / 2), 200, 500, 60);
