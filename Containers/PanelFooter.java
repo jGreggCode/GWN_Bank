@@ -23,12 +23,16 @@ public class PanelFooter extends JPanel implements MouseListener {
     private ColorPalette colorPalette = new ColorPalette();
     private JSeparator emailSeparator = new JSeparator();
     private MyTextField custoMyTextField = new MyTextField();
+    private Defaults def = new Defaults();
+
     private JLabel labelNoCred = new JLabel(),
     labelStart = new JLabel(),
     labelCopyright = new JLabel(),
     labelEmailSend = new JLabel(),
-    labelFooter = new JLabel();
-    private Defaults def = new Defaults();
+    labelFooter = new JLabel(),
+    labelFooterp = new JLabel(),
+    labelPrivacy = new JLabel(),
+    labelTerms = new JLabel();
 
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
     Image image = logo.getImage();
@@ -63,7 +67,7 @@ public class PanelFooter extends JPanel implements MouseListener {
         custoMyTextField.setForeground(Color.white);
         custoMyTextField.setBackground(colorPalette.getColorBackground1());
         custoMyTextField.setCaretColor(Color.white);
-        custoMyTextField.setBounds(40, 110, 400, 40);
+        custoMyTextField.setBounds(40, 110, 350, 40);
 
         /* Optional
         labelEmailSend.setText("Send");
@@ -71,8 +75,15 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelEmailSend.setForeground(Color.white);
         */
 
+        labelEmailSend.setText("Get started");
+        labelEmailSend.setBorder(BorderFactory.createLineBorder(colorPalette.getColorButtons(), 1));
+        labelEmailSend.setFont(new Font(def.getFontFam(), Font.PLAIN, 12));
+        labelEmailSend.setOpaque(true);
+        labelEmailSend.setBackground(colorPalette.getColorButtons());
+        labelEmailSend.setForeground(Color.white);
+        labelEmailSend.setIconTextGap(5);
         labelEmailSend.setIcon(new ImageIcon(getClass().getResource("/Images/paper.png")));
-        labelEmailSend.setBounds(460, 118, 100, 24);
+        labelEmailSend.setBounds(390, 118, 100, 24);
         labelEmailSend.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelEmailSend.addMouseListener(this);
 
@@ -89,6 +100,21 @@ public class PanelFooter extends JPanel implements MouseListener {
 
         labelFooter.setIcon(newFooterLogo);
         labelFooter.setBounds(930, 20, (592 / 2) / 2 + 50, (422 / 2) / 2 + 50);
+
+        labelFooterp.setText("Make the right choice, choose GWN Bank.");
+        labelFooterp.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
+        labelFooterp.setForeground(Color.white);
+        labelFooterp.setBounds(1150, 50, 250, 30);
+
+        labelPrivacy.setText("Privacy Policy".toUpperCase(getLocale()));
+        labelPrivacy.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
+        labelPrivacy.setForeground(colorPalette.getColorButtons());
+        labelPrivacy.setBounds(1150, 90, 250, 30);
+
+        labelTerms.setText("Terms and condition".toUpperCase(getLocale()));
+        labelTerms.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
+        labelTerms.setForeground(colorPalette.getColorButtons());
+        labelTerms.setBounds(1150, 125, 250, 30);
         
         add(labelNoCred);
         add(labelStart);
@@ -97,7 +123,10 @@ public class PanelFooter extends JPanel implements MouseListener {
         add(labelEmailSend);
         add(labelCopyright);
 
+        add(labelPrivacy);
+        add(labelTerms);
         add(labelFooter);
+        add(labelFooterp);
     }
 
     @Override

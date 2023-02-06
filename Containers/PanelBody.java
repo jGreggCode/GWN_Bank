@@ -34,7 +34,7 @@ public class PanelBody extends JPanel {
         labelLogin.setBounds(0, 20, 1000, 50);
         
         
-        customTextField.setHint("Account Name");
+        customTextField.setHint("Account Number");
         customTextField.setFont(new Font(def.getFontFam(), 0, 18));
         customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
         customTextField.setBounds(x - (500 / 2), 100, 500, 60);
