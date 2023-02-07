@@ -10,6 +10,6 @@ Timing Framework v0.55
 - Run the Main class from Main/Main.java
 
 # Note
-- Screen size is fixed to 1440x1000 for better quality,
+- Frame size is fixed to 1440x1000 for better quality,
 - Screen resolution must be at least 1080p to view the full size of the program.
 - Used null layout so even if the frame is set to resizable some components would not show if downscaled.
