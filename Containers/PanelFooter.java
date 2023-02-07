@@ -68,12 +68,6 @@ public class PanelFooter extends JPanel implements MouseListener {
         custoMyTextField.setCaretColor(Color.white);
         custoMyTextField.setBounds(40, 110, 350, 40);
 
-        /* Optional
-        labelEmailSend.setText("Send");
-        labelEmailSend.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
-        labelEmailSend.setForeground(Color.white);
-        */
-
         labelEmailSend.setText("Get started");
         labelEmailSend.setBorder(BorderFactory.createLineBorder(colorPalette.getColorButtons(), 1));
         labelEmailSend.setFont(new Font(def.getFontFam(), Font.PLAIN, 12));
