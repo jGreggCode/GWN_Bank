@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+import Main.MainFrame;
 import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.MyTextField;
@@ -45,7 +46,6 @@ public class PanelFooter extends JPanel implements MouseListener {
 
     public PanelFooter() {
 
-        super();
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setLayout(null);
@@ -117,8 +117,8 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelTerms.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelTerms.setBounds(1150, 125, 250, 30);
 
-        labelProject.setText("Programmed and Designed by: Gregg");
-        labelProject.setBounds(1050, 180, 250, 30);
+        labelProject.setText("Programmed and Designed by: GWN Group");
+        labelProject.setBounds(1050, 180, 300, 30);
         labelProject.setFont(new Font(def.getFontFam(), Font.BOLD, 14));
         labelProject.setForeground(Color.white);
 

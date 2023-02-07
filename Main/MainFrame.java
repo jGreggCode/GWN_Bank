@@ -12,32 +12,26 @@ public class MainFrame extends JFrame {
 
     // Main Frame Components
     PanelHeader panelHeader = new PanelHeader();
-    PanelBody panelBody = new PanelBody();
+    PanelBody panelBody = new PanelBody(this);
     PanelFooter panelFooter = new PanelFooter();
     // --------
 
 
     // Color
     ColorPalette colors = new ColorPalette();
-
     Defaults def = new Defaults();
     // --------
+
+    public final JFrame getJFrame() {
+        return this;
+    }
 
     public int getHeight() {
         return this.getPreferredSize().height;
     }
-    
-    public int getWidth() {
-        return this.getPreferredSize().width;
-    }
 
     // Main frame
     public MainFrame() {
-        initOfComponents();
-        this.setVisible(true);
-    }
-
-    public void initOfComponents() {
         // Main frame configuration
         this.setTitle("GWN Bank");
         this.setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
@@ -49,6 +43,7 @@ public class MainFrame extends JFrame {
         this.setLocationRelativeTo(null);
         // --------
 
+        
         // Add Components
         this.add(panelHeader);
         this.add(panelBody);

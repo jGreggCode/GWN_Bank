@@ -4,6 +4,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Main.HomeFrame;
+import Main.MainFrame;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.awt.*;
 import Utils.MyTextField;
 import Utils.MyPasswordField;
@@ -11,10 +17,12 @@ import Utils.Defaults;
 import Utils.Button;
 import Utils.ColorPalette;
 
-public class PanelBody extends JPanel {
+public class PanelBody extends JPanel implements ActionListener { 
 
     private JLabel labelLogin = new JLabel();
     private MyTextField customTextField = new MyTextField();
+
+    MainFrame m;
 
     private MyPasswordField customPasswordField = new MyPasswordField();
 
@@ -22,7 +30,8 @@ public class PanelBody extends JPanel {
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
 
-    public PanelBody() {
+    public PanelBody(MainFrame m) {
+        this.m = m;
         this.setOpaque(false);
         setLayout(null);
         setBounds(def.getFrameWidth() / 2 - (1000 / 2), 306, 1000, 400);
@@ -53,11 +62,20 @@ public class PanelBody extends JPanel {
         login.setText("L o g i n");
         login.setFont(new Font(def.getFontFam(), 0, 18));
         login.setBounds(x - (200 / 2), 300, 200, 60);
+        login.addActionListener(this);
 
         this.add(login);
         this.add(labelLogin);
         this.add(customTextField);
         this.add(customPasswordField);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Test
+        m.dispose();
+        new HomeFrame().setVisible(true);
+        
     }
 
     
