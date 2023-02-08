@@ -4,15 +4,17 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import Containers.PanelHNavBar;
-import Containers.PanelHFooterBar;
+import Containers.*;
 import Utils.*;
 
 public class HomeFrame extends JFrame {
     
+    PanelHUserBar panelHUserBar = new PanelHUserBar();
+    PanelHDepositBar panelDepBar = new PanelHDepositBar();
+
     ColorPalette colors = new ColorPalette();
     Defaults def = new Defaults();
-    PanelHNavBar panelHNavBar = new PanelHNavBar();
+    PanelHNavBar panelHNavBar = new PanelHNavBar(panelHUserBar, panelDepBar);
     PanelHFooterBar panelHFooter = new PanelHFooterBar();
 
     public HomeFrame() {
@@ -27,5 +29,7 @@ public class HomeFrame extends JFrame {
 
         add(panelHNavBar);
         add(panelHFooter);
+        add(panelHUserBar);
+        add(panelDepBar);
     }
 }

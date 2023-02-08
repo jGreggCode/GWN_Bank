@@ -1,6 +1,5 @@
 package Containers;
 
-import java.awt.BorderLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;

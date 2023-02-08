@@ -18,7 +18,9 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
-    private JPanel panelFooter = new JPanel();
+
+    PanelHUserBar userBar;
+    PanelHDepositBar depBar;
 
     // Just for design
     private boolean userOpen, withdrawOpen, depositOpen, transferOpen, settingOpen;
@@ -30,7 +32,11 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     labelSettings = new JLabel(),
     labelIcon = new JLabel();
 
-    public PanelHNavBar() {
+    public PanelHNavBar(PanelHUserBar userBar, PanelHDepositBar depBar) {
+
+        this.userBar = userBar;
+        this.depBar = depBar;
+
         setOpaque(true);
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 50));
         setBackground(colorPalette.getColorBackground1());
@@ -96,7 +102,12 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         
+
         if (e.getSource() == labelProfile) {
+
+            userBar.setVisible(true);
+            depBar.setVisible(false);
+
             userOpen = true;
             withdrawOpen = false;
             depositOpen = false;
@@ -125,6 +136,10 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         }
 
         if (e.getSource() == labelDeposit) {
+
+            depBar.setVisible(true);
+            userBar.setVisible(false);
+
             userOpen = false;
             withdrawOpen = false;
             depositOpen = true;
