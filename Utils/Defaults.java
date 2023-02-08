@@ -1,8 +1,8 @@
 package Utils;
 
 public class Defaults {
-    private final int frameHeight = 1000;
-    private final int frameWidth = 1440;
+    private final int frameHeight = 500;
+    private final int frameWidth = 720;
     private final String fontFam = "Karla";
 
     public int getFrameHeight() {
