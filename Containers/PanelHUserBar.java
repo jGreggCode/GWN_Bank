@@ -1,6 +1,5 @@
 package Containers;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,15 +8,19 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 
 import Utils.ColorPalette;
+import Utils.Defaults;
 
 public class PanelHUserBar extends JPanel {
 
     private ColorPalette colorPalette = new ColorPalette();
+    private Defaults def = new Defaults();
 
-    private JLabel labelUserIcon = new JLabel();
+    private JLabel labelUserIcon = new JLabel(),
+    labelUserName = new JLabel(),
+    labelAccountStatus = new JLabel(),
+    labelUserLogout = new JLabel();
 
     private JPanel panelUser = new JPanel() {
         @Override
@@ -74,7 +77,16 @@ public class PanelHUserBar extends JPanel {
         labelUserIcon.setIcon(new ImageIcon(getClass().getResource("/Images/man.png")));
         labelUserIcon.setBounds(10, 11, 128, 128);
 
+        labelUserName.setText("John Gregg V. Felicisimo");
+        labelAccountStatus.setText("Black Account");
+        labelUserLogout.setText("Log out");
 
+        labelUserName.setBounds(150, 42, 452, 20);
+        labelUserName.setForeground(Color.white);
+        labelUserName.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+
+
+        panelUser.add(labelUserName);
         panelUser.add(labelUserIcon);
         // --------
 
