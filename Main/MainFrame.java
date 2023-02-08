@@ -1,5 +1,7 @@
 package Main;
 import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import Containers.*;
 import Utils.*;
@@ -10,6 +12,7 @@ public class MainFrame extends JFrame {
     PanelHeader panelHeader = new PanelHeader();
     PanelBody panelBody = new PanelBody(this);
     PanelFooter panelFooter = new PanelFooter();
+    ImageIcon logo = new ImageIcon("Images/JustLogo.png");
 
     // Color
     ColorPalette colors = new ColorPalette();
@@ -18,6 +21,7 @@ public class MainFrame extends JFrame {
     // Main frame
     public MainFrame() {
         // Main frame configuration
+        setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
         setTitle("GWN Bank");
         setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

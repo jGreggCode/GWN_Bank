@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import Main.MainFrame;
 import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.MyTextField;
@@ -83,7 +82,6 @@ public class PanelFooter extends JPanel implements MouseListener {
         emailSeparator.setForeground(Color.gray);
         emailSeparator.setBounds(40, 150, 450, 30);
         
-
         labelCopyright.setText("Copyright © 2023 GWN. | All rights reserved.");
         labelCopyright.setIcon(newLogo);
         labelCopyright.setFont(new Font(def.getFontFam(), Font.BOLD, 14));

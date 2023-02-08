@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Containers.*;
@@ -18,14 +19,15 @@ public class HomeFrame extends JFrame {
     PanelHFooterBar panelHFooter = new PanelHFooterBar();
 
     public HomeFrame() {
-        this.setTitle("Home");
-        this.setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(getPreferredSize().width, getPreferredSize().height);
-        this.setResizable(false);
-        this.setLayout(null);
-        this.getContentPane().setBackground(colors.getColorBackground());
-        this.setLocationRelativeTo(null);
+        setTitle("Home");
+        setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
+        setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(getPreferredSize().width, getPreferredSize().height);
+        setResizable(false);
+        setLayout(null);
+        getContentPane().setBackground(colors.getColorBackground());
+        setLocationRelativeTo(null);
 
         add(panelHNavBar);
         add(panelHFooter);
