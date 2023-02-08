@@ -1,6 +1,7 @@
 package Containers;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -17,29 +18,31 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
+    private JPanel panelFooter = new JPanel();
 
     // Just for design
     private boolean userOpen, withdrawOpen, depositOpen, transferOpen, settingOpen;
-    private boolean userFocus, withdrawFocus, depositFocus, transferFocus, settingFocus;
 
     private JLabel labelProfile = new JLabel(),
     labelDeposit = new JLabel(),
     labelWIthdraw = new JLabel(),
     labelBankTransfer = new JLabel(),
-    labelSettings = new JLabel();
+    labelSettings = new JLabel(),
+    labelIcon = new JLabel();
 
     public PanelHNavBar() {
         setOpaque(true);
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 50));
         setBackground(colorPalette.getColorBackground1());
         //setBorder(BorderFactory.createLineBorder(colorPalette.getColorButtons(), 1));
-        setBounds(0, 0, 80, 1000);
+        setBounds(0, 0, 80, 800);
 
         labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
         labelProfile.setText("Profile");
         labelProfile.setForeground(Color.white);
         labelProfile.setFont(new Font(def.getFontFam(), Font.BOLD, 13));
         labelProfile.setIconTextGap(5);
+        labelProfile.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelProfile.setHorizontalTextPosition(JLabel.CENTER);
         labelProfile.setVerticalTextPosition(JLabel.BOTTOM);
         labelProfile.addMouseListener(this);
@@ -49,6 +52,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         labelDeposit.setForeground(Color.white);
         labelDeposit.setIconTextGap(5);
         labelDeposit.setHorizontalTextPosition(JLabel.CENTER);
+        labelDeposit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelDeposit.setVerticalTextPosition(JLabel.BOTTOM);
         labelDeposit.addMouseListener(this);
 
@@ -56,6 +60,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         labelWIthdraw.setText("Withdraw");
         labelWIthdraw.setForeground(Color.white);
         labelWIthdraw.setIconTextGap(5);
+        labelWIthdraw.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelWIthdraw.setHorizontalTextPosition(JLabel.CENTER);
         labelWIthdraw.setVerticalTextPosition(JLabel.BOTTOM);
         labelWIthdraw.addMouseListener(this);
@@ -64,6 +69,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         labelBankTransfer.setText("Transfer");
         labelBankTransfer.setForeground(Color.white);
         labelBankTransfer.setIconTextGap(5);
+        labelBankTransfer.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelBankTransfer.setHorizontalTextPosition(JLabel.CENTER);
         labelBankTransfer.setVerticalTextPosition(JLabel.BOTTOM);
         labelBankTransfer.addMouseListener(this);
@@ -72,15 +78,19 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         labelSettings.setText("Settings");
         labelSettings.setForeground(Color.white);
         labelSettings.setIconTextGap(5);
+        labelSettings.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelSettings.setHorizontalTextPosition(JLabel.CENTER);
         labelSettings.setVerticalTextPosition(JLabel.BOTTOM);
         labelSettings.addMouseListener(this);
+
+        labelIcon.setIcon(new ImageIcon(getClass().getResource("/Images/BankLogoN.png")));
 
         add(labelProfile);
         add(labelDeposit);
         add(labelWIthdraw);
         add(labelBankTransfer);
         add(labelSettings);
+        add(labelIcon);
     }
 
     @Override
@@ -171,7 +181,8 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+        // TODO Auto-generated method stub
+
     }
 
     @Override

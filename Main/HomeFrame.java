@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import Containers.PanelHNavBar;
+import Containers.PanelHFooterBar;
 import Utils.*;
 
 public class HomeFrame extends JFrame {
@@ -12,6 +13,7 @@ public class HomeFrame extends JFrame {
     ColorPalette colors = new ColorPalette();
     Defaults def = new Defaults();
     PanelHNavBar panelHNavBar = new PanelHNavBar();
+    PanelHFooterBar panelHFooter = new PanelHFooterBar();
 
     public HomeFrame() {
         this.setTitle("Home");
@@ -24,5 +26,6 @@ public class HomeFrame extends JFrame {
         this.setLocationRelativeTo(null);
 
         add(panelHNavBar);
+        add(panelHFooter);
     }
 }
