@@ -39,7 +39,7 @@ public class PanelFooter extends JPanel implements MouseListener {
     Image resizedImg = image.getScaledInstance(16, 20, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);
 
-    ImageIcon footerLogo = new ImageIcon("Images/footer.png");
+    ImageIcon footerLogo = new ImageIcon("Images/footerpic.png");
     Image footerImage = footerLogo.getImage();
     Image resizedFooterImg = footerImage.getScaledInstance((592 / 2) / 2 + 50, (422 / 2) / 2 + 50, Image.SCALE_SMOOTH);
     ImageIcon newFooterLogo = new ImageIcon(resizedFooterImg);
@@ -92,7 +92,7 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelCopyright.setBounds(40, 180, 400, 20);
 
         labelFooter.setIcon(newFooterLogo);
-        labelFooter.setBounds(930, 20, (592 / 2) / 2 + 50, (422 / 2) / 2 + 50);
+        labelFooter.setBounds(922, 20, (592 / 2) / 2 + 50, (422 / 2) / 2 + 50);
 
         labelFooterp.setText("Make the right choice, choose GWN Bank.");
         labelFooterp.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
@@ -111,8 +111,8 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelTerms.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelTerms.setBounds(1150, 125, 250, 30);
 
-        labelProject.setText("Programmed and Designed by: GWN Group");
-        labelProject.setBounds(1050, 180, 300, 30);
+        labelProject.setText("All users of our services are subject to our Privacy Statement");
+        labelProject.setBounds(970, 180, 460, 30);
         labelProject.setFont(new Font(def.getFontFam(), Font.BOLD, 14));
         labelProject.setForeground(Color.white);
 
