@@ -23,7 +23,7 @@ public class HomeFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getPreferredSize().width, getPreferredSize().height);
         this.setResizable(false);
-        setLayout(null);
+        this.setLayout(null);
         this.getContentPane().setBackground(colors.getColorBackground());
         this.setLocationRelativeTo(null);
 
