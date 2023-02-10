@@ -40,7 +40,6 @@ public class PanelHUserBar extends JPanel {
            Graphics2D graphics = (Graphics2D) g;
            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
    
-   
            //Draws the rounded opaque panel with borders.
            graphics.setColor(getBackground());
            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint background
@@ -104,9 +103,10 @@ public class PanelHUserBar extends JPanel {
         labelUserIcon.setIcon(new ImageIcon(getClass().getResource("/Images/man.png")));
         labelUserIcon.setBounds(10, 11, 128, 128);
 
-        String status = "Black Account"; // change later
+        String status = "Fully Activated"; // change later
+        String accountName = "John Gregg V. Felicisimo"; // change later
 
-        labelUserName.setText("John Gregg V. Felicisimo");
+        labelUserName.setText(accountName);
         labelAccountStatus.setText("Account Status: " + status);
         labelUserLogout.setText("Log out");
 
@@ -174,7 +174,7 @@ public class PanelHUserBar extends JPanel {
         panelTrans.setLayout(null);
         panelTrans.setOpaque(false);
         panelTrans.setBackground(colorPalette.getColorBackground1());
-
+        // --------
 
         add(panelUser);
         add(panelInfo);
