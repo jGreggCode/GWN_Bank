@@ -6,10 +6,13 @@ import javax.swing.JPanel;
 
 import Main.HomeFrame;
 import Main.MainFrame;
+import Model.ModelLogin;
+import Model.ModelUser;
+import Backend.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
 import java.awt.*;
 import Utils.MyTextField;
 import Utils.MyPasswordField;
@@ -18,7 +21,9 @@ import Utils.Button;
 import Utils.ColorPalette;
 
 public class PanelBody extends JPanel implements ActionListener { 
-
+    
+    public User log = new User();
+    private ModelLogin dataLogin;
     private JLabel labelLogin = new JLabel();
     private MyTextField customTextField = new MyTextField();
 
@@ -73,29 +78,24 @@ public class PanelBody extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        /* change later
-        String accountNumber;
-        char[] pinCode;
-        accountNumber = customTextField.getText().trim();
-        pinCode = customPasswordField.getPassword();
+        int accountNumber = Integer.parseInt(customTextField.getText());
+        String userPinCode = String.valueOf(customPasswordField.getPassword());
+        dataLogin = new ModelLogin(accountNumber, userPinCode);
 
-        String strPinCode = String.valueOf(pinCode);
-
-        if (accountNumber.equals("gregg") && strPinCode.equals("123")) {
-
-            m.dispose();
-            new HomeFrame().setVisible(true);
-        } else {
-            System.out.println(accountNumber);
-            System.out.println(strPinCode);
-            System.out.println("Error");
+        try {
+            ModelUser user = log.login(dataLogin);
+            if (user != null) {
+                m.dispose();
+                new HomeFrame(user).setVisible(true);
+            } else {
+                System.out.println("Incorrect");
+            }
+        } catch (SQLException s) {
+            System.out.println(s);
         }
 
-        */
 
-        // Test
-        m.dispose();
-        new HomeFrame().setVisible(true);
+        
         
     }
 

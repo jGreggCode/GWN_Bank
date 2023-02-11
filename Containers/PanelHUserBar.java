@@ -20,6 +20,7 @@ import Main.*;
 
 public class PanelHUserBar extends JPanel implements MouseListener {
 
+    PanelBody panelBody;
     HomeFrame homeFrame;
     MainFrame mainFrame;
 
@@ -100,7 +101,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         }
     };
 
-    public PanelHUserBar(HomeFrame homeFrame, MainFrame mainFrame) {
+    public PanelHUserBar(HomeFrame homeFrame, MainFrame mainFrame ) {
         this.homeFrame = homeFrame;
         this.mainFrame = mainFrame;
         setOpaque(true);
@@ -120,7 +121,9 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelUserIcon.setBounds(10, 11, 128, 128);
 
         String status = "Fully Verified"; // change later
-        String accountName = "John Gregg V. Felicisimo"; // change later
+        String accountName = homeFrame.username;
+
+        System.out.println(accountName);
 
         labelUserName.setText(accountName);
         labelAccountStatus.setText("Account Status: " + status);

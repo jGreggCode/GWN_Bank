@@ -6,11 +6,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Containers.*;
+import Model.ModelUser;
 import Utils.*;
 
 public class HomeFrame extends JFrame {
 
     MainFrame mainFrame;
+    ModelUser user;
+    PanelBody panelBody;
+    public String username;
     
     PanelHUserBar panelHUserBar = new PanelHUserBar(this, mainFrame);
     PanelHDepositBar panelDepBar = new PanelHDepositBar();
@@ -20,7 +24,11 @@ public class HomeFrame extends JFrame {
     PanelHNavBar panelHNavBar = new PanelHNavBar(panelHUserBar, panelDepBar);
     PanelHFooterBar panelHFooter = new PanelHFooterBar();
 
-    public HomeFrame() {
+    public HomeFrame(ModelUser user) {
+        this.user = user;
+
+        username = user.getUserName();
+
         setTitle("Home");
         setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
         setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
@@ -30,6 +38,7 @@ public class HomeFrame extends JFrame {
         setLayout(null);
         getContentPane().setBackground(colors.getColorBackground());
         setLocationRelativeTo(null);
+
 
         add(panelHNavBar);
         add(panelHFooter);
