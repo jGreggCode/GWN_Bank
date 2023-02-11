@@ -4,16 +4,24 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import Utils.ColorPalette;
 import Utils.Defaults;
 
-public class PanelHUserBar extends JPanel {
+import Main.*;
+
+public class PanelHUserBar extends JPanel implements MouseListener {
+
+    HomeFrame homeFrame;
+    MainFrame mainFrame;
 
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
@@ -28,7 +36,13 @@ public class PanelHUserBar extends JPanel {
     private JLabel labelCash = new JLabel(),
     labelCashAmmount = new JLabel(),
     labelCashDollars = new JLabel(),
-    labelCashDollarsAmmount = new JLabel();
+    labelCashDollarsAmmount = new JLabel(),
+    labelDepositQuota = new JLabel(),
+    labelWithdrawQuota = new JLabel(),
+    labelDepositQuotaAmmount = new JLabel(),
+    labelWithdrawQuotaAmmount = new JLabel();
+
+    private JSeparator separatorLine = new JSeparator();
 
     private JPanel panelUser = new JPanel() {
         @Override
@@ -86,7 +100,9 @@ public class PanelHUserBar extends JPanel {
         }
     };
 
-    public PanelHUserBar() {
+    public PanelHUserBar(HomeFrame homeFrame, MainFrame mainFrame) {
+        this.homeFrame = homeFrame;
+        this.mainFrame = mainFrame;
         setOpaque(true);
         setBackground(colorPalette.getColorBackground());
         setVisible(false);
@@ -103,7 +119,7 @@ public class PanelHUserBar extends JPanel {
         labelUserIcon.setIcon(new ImageIcon(getClass().getResource("/Images/man.png")));
         labelUserIcon.setBounds(10, 11, 128, 128);
 
-        String status = "Fully Activated"; // change later
+        String status = "Fully Verified"; // change later
         String accountName = "John Gregg V. Felicisimo"; // change later
 
         labelUserName.setText(accountName);
@@ -126,6 +142,7 @@ public class PanelHUserBar extends JPanel {
         labelUserLogout.setBackground(colorPalette.getColorButtons());
         labelUserLogout.setBorder(BorderFactory.createLineBorder(colorPalette.getColorButtons(), 1));
         labelUserLogout.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+        labelUserLogout.addMouseListener(this);
 
         panelUser.add(labelUserName);
         panelUser.add(labelUserIcon);
@@ -144,7 +161,9 @@ public class PanelHUserBar extends JPanel {
         labelCash.setForeground(Color.white);
         labelCash.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
 
-        double cash = 10000000; // change later
+        double cash = 500000; // change later
+        double withdrawn = 500.0;
+        double deposited = 10000.0;
 
         labelCashAmmount.setText(String.format("PHP %,.2f", cash)); 
         labelCashAmmount.setHorizontalAlignment(JLabel.TRAILING);
@@ -155,7 +174,7 @@ public class PanelHUserBar extends JPanel {
         labelCashDollars.setText("Balance in dollars:");
         labelCashDollars.setBounds(15, 50, 200, 25);
         labelCashDollars.setForeground(Color.white);
-        labelCashDollars.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+        labelCashDollars.setFont(new Font(def.getFontFam(), Font.PLAIN, 15));
 
         labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79))); 
         labelCashDollarsAmmount.setHorizontalAlignment(JLabel.TRAILING);
@@ -163,10 +182,42 @@ public class PanelHUserBar extends JPanel {
         labelCashDollarsAmmount.setForeground(Color.white);
         labelCashDollarsAmmount.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
 
+        separatorLine.setForeground(colorPalette.getColorButtons());
+        separatorLine.setBounds(620 / 2 - (300 / 2), 75, 300, 10);
+
+        labelWithdrawQuota.setText("Daily withdraw quota:");
+        labelWithdrawQuota.setBounds(15, 80, 200, 25);
+        labelWithdrawQuota.setForeground(Color.white);
+        labelWithdrawQuota.setFont(new Font(def.getFontFam(), Font.PLAIN, 15));
+
+        labelWithdrawQuotaAmmount.setText(String.format("PHP %,.2f" + " / 100,000.00", withdrawn)); 
+        labelWithdrawQuotaAmmount.setHorizontalAlignment(JLabel.TRAILING);
+        labelWithdrawQuotaAmmount.setBounds(350, 80, 250, 25);
+        labelWithdrawQuotaAmmount.setForeground(Color.white);
+        labelWithdrawQuotaAmmount.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+
+        labelDepositQuota.setText("Daily deposit quota:");
+        labelDepositQuota.setBounds(15, 100, 200, 25);
+        labelDepositQuota.setForeground(Color.white);
+        labelDepositQuota.setFont(new Font(def.getFontFam(), Font.PLAIN, 15));
+
+        labelDepositQuotaAmmount.setText(String.format("PHP %,.2f"  + " / 500,000.00", deposited)); 
+        labelDepositQuotaAmmount.setHorizontalAlignment(JLabel.TRAILING);
+        labelDepositQuotaAmmount.setBounds(350, 100, 250, 25);
+        labelDepositQuotaAmmount.setForeground(Color.white);
+        labelDepositQuotaAmmount.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+
         panelInfo.add(labelCash);
         panelInfo.add(labelCashAmmount);
         panelInfo.add(labelCashDollars);
         panelInfo.add(labelCashDollarsAmmount);
+
+        panelInfo.add(separatorLine);
+
+        panelInfo.add(labelWithdrawQuota);
+        panelInfo.add(labelWithdrawQuotaAmmount);
+        panelInfo.add(labelDepositQuota);
+        panelInfo.add(labelDepositQuotaAmmount);
         // --------
 
         // Trans panel
@@ -179,6 +230,38 @@ public class PanelHUserBar extends JPanel {
         add(panelUser);
         add(panelInfo);
         add(panelTrans);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        homeFrame.dispose();
+        mainFrame = new MainFrame();
+        mainFrame.setVisible(true);
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
 

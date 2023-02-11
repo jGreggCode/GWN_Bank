@@ -9,8 +9,10 @@ import Containers.*;
 import Utils.*;
 
 public class HomeFrame extends JFrame {
+
+    MainFrame mainFrame;
     
-    PanelHUserBar panelHUserBar = new PanelHUserBar();
+    PanelHUserBar panelHUserBar = new PanelHUserBar(this, mainFrame);
     PanelHDepositBar panelDepBar = new PanelHDepositBar();
 
     ColorPalette colors = new ColorPalette();

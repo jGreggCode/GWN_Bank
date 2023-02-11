@@ -72,6 +72,27 @@ public class PanelBody extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        /* change later
+        String accountNumber;
+        char[] pinCode;
+        accountNumber = customTextField.getText().trim();
+        pinCode = customPasswordField.getPassword();
+
+        String strPinCode = String.valueOf(pinCode);
+
+        if (accountNumber.equals("gregg") && strPinCode.equals("123")) {
+
+            m.dispose();
+            new HomeFrame().setVisible(true);
+        } else {
+            System.out.println(accountNumber);
+            System.out.println(strPinCode);
+            System.out.println("Error");
+        }
+
+        */
+
         // Test
         m.dispose();
         new HomeFrame().setVisible(true);
