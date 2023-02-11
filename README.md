@@ -20,8 +20,8 @@ Intermediate Programming Final Project
 - Screen resolution must be at least 1080p to view the full size of the program.
 - Used null layout so even if the frame is set to resizable some components would not show if downscaled.
 
-### Copyright and license
-GWN Bank is copyright 2023 GWN Bank Team.
+## Copyright and license
+GWN Bank is copyright 2023 jGreggCode.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this software except in compliance with the License.
 
