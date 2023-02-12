@@ -8,6 +8,7 @@ import Main.HomeFrame;
 import Main.MainFrame;
 import Model.ModelLogin;
 import Model.ModelUser;
+import Backend.Session;
 import Backend.User;
 
 import java.awt.event.ActionEvent;
@@ -86,6 +87,16 @@ public class PanelBody extends JPanel implements ActionListener {
             ModelUser user = log.login(dataLogin);
             if (user != null) {
                 m.dispose();
+
+                // Create the session of the user
+                Session.userID = user.getUserID();
+                Session.userBalance = user.getUserBalance();
+                Session.userAccoundNumber = user.getUserAccoundNumber();
+                Session.userEmail = user.getUserEmail();
+                Session.userName = user.getUserName();
+                Session.verificationType = user.getVerificationType();
+                // ----
+
                 new HomeFrame(user).setVisible(true);
             } else {
                 System.out.println("Incorrect");

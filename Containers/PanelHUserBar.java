@@ -4,7 +4,16 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
+import Backend.Session;
+import Connection.DatabaseConnection;
 
 import java.awt.*;
 import java.awt.Graphics;
@@ -12,10 +21,14 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import Utils.ColorPalette;
 import Utils.Defaults;
-
+import Utils.TransTable;
 import Main.*;
 
 public class PanelHUserBar extends JPanel implements MouseListener {
@@ -26,6 +39,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
 
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
+    public double cash;
 
     // User labels
     private JLabel labelUserIcon = new JLabel(),
@@ -42,6 +56,10 @@ public class PanelHUserBar extends JPanel implements MouseListener {
     labelWithdrawQuota = new JLabel(),
     labelDepositQuotaAmmount = new JLabel(),
     labelWithdrawQuotaAmmount = new JLabel();
+
+    // Transaction
+    public TransTable tableTransaction = new TransTable();
+    private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
 
     private JSeparator separatorLine = new JSeparator();
 
@@ -101,7 +119,10 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         }
     };
 
-    public PanelHUserBar(HomeFrame homeFrame, MainFrame mainFrame ) {
+    public PanelHUserBar(HomeFrame homeFrame, MainFrame mainFrame) {
+
+        
+
         this.homeFrame = homeFrame;
         this.mainFrame = mainFrame;
         setOpaque(true);
@@ -109,6 +130,8 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         setVisible(false);
         setLayout(null);
         setBounds(80,0, 1360, 1000);
+
+        
 
         // User Panel
         panelUser.setLayout(null);
@@ -120,10 +143,8 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelUserIcon.setIcon(new ImageIcon(getClass().getResource("/Images/man.png")));
         labelUserIcon.setBounds(10, 11, 128, 128);
 
-        String status = "Fully Verified"; // change later
-        String accountName = homeFrame.username;
-
-        System.out.println(accountName);
+        String status = Session.verificationType; // change later
+        String accountName = Session.userName;
 
         labelUserName.setText(accountName);
         labelAccountStatus.setText("Account Status: " + status);
@@ -163,10 +184,10 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelCash.setBounds(15, 20, 200, 40);
         labelCash.setForeground(Color.white);
         labelCash.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
-
-        double cash = 500000; // change later
-        double withdrawn = 500.0;
-        double deposited = 10000.0;
+         // change later
+        cash = Session.userBalance;
+        double withdrawn = 0;
+        double deposited = 0;
 
         labelCashAmmount.setText(String.format("PHP %,.2f", cash)); 
         labelCashAmmount.setHorizontalAlignment(JLabel.TRAILING);
@@ -228,7 +249,14 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         panelTrans.setLayout(null);
         panelTrans.setOpaque(false);
         panelTrans.setBackground(colorPalette.getColorBackground1());
+
+        tableScrollPane.setBounds(0,0,1260,700);
+        tableTransaction.setDefaultEditor(Object.class, null);
+
+        
+        panelTrans.add(tableScrollPane);
         // --------
+
 
         add(panelUser);
         add(panelInfo);

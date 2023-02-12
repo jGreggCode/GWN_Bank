@@ -7,6 +7,8 @@ import java.util.Properties;
 
 public class DatabaseConnection {
 
+    private boolean initial = false;
+
     // init database constants
     private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/gwn_bank";
@@ -34,7 +36,8 @@ public class DatabaseConnection {
             try {
                 Class.forName(DATABASE_DRIVER);
                 connection = DriverManager.getConnection(DATABASE_URL, getProperties());
-                System.out.println("Connected");
+                if (!initial)
+                    System.out.println("Database connection established successfully | 100%"); initial = true;
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }

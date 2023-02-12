@@ -15,7 +15,6 @@ public class User {
     private final Connection con;
 
     public User() {
-        System.out.println("Connected");
         DatabaseConnection mysqlConnect = new DatabaseConnection();
         con = mysqlConnect.connect();
     }
