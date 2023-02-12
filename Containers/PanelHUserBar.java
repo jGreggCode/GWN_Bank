@@ -6,25 +6,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import Backend.Session;
-import Connection.DatabaseConnection;
 
 import java.awt.*;
 import java.awt.Graphics;
+
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import Utils.ColorPalette;
 import Utils.Defaults;
@@ -100,7 +91,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         }
     };
 
-    private JPanel panelTrans = new JPanel() {
+    public JPanel panelTrans = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
            super.paintComponent(g);

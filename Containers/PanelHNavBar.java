@@ -119,7 +119,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+
 
         if (e.getSource() == labelProfile) {
 
@@ -128,9 +128,11 @@ public class PanelHNavBar extends JPanel implements MouseListener {
                 p.setInt(1, Session.userAccoundNumber);
                 ResultSet r = p.executeQuery();
                 ResultSetMetaData rsmd = (ResultSetMetaData) r.getMetaData();
+
                 DefaultTableModel modelBlank = new DefaultTableModel();
 
                 userBar.tableTransaction.setModel(modelBlank);
+                
                 DefaultTableModel model = (DefaultTableModel) userBar.tableTransaction.getModel();
     
                 int cols = rsmd.getColumnCount();
@@ -163,6 +165,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             } catch (SQLException q) {
                 System.out.println(q);
             }
+            userBar.panelTrans.setVisible(true);
 
             userBar.setVisible(true);
             depBar.setVisible(false);
