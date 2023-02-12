@@ -8,13 +8,27 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
+import Backend.Session;
+import Connection.DatabaseConnection;
+import Main.HomeFrame;
 
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import Utils.ColorPalette;
 import Utils.Defaults;
 
 public class PanelHNavBar extends JPanel implements MouseListener {
+    private final Connection con;
+
+    HomeFrame hm;
 
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
@@ -32,10 +46,14 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     labelSettings = new JLabel(),
     labelIcon = new JLabel();
 
-    public PanelHNavBar(PanelHUserBar userBar, PanelHDepositBar depBar) {
+    public PanelHNavBar(PanelHUserBar userBar, PanelHDepositBar depBar, HomeFrame hm) {
+
+        DatabaseConnection mysqlConnect = new DatabaseConnection();
+        con = mysqlConnect.connect();
 
         this.userBar = userBar;
         this.depBar = depBar;
+        this.hm = hm;
 
         setOpaque(true);
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 50));
@@ -104,6 +122,47 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         
 
         if (e.getSource() == labelProfile) {
+
+            try {
+                PreparedStatement p = con.prepareStatement("SELECT transactionID, `Transaction Type`, `Transaction Time`, `Transaction Location`, `Old Balance`, `New Balance` FROM transactions WHERE BINARY(`Transaction Account`) = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                p.setInt(1, Session.userAccoundNumber);
+                ResultSet r = p.executeQuery();
+                ResultSetMetaData rsmd = (ResultSetMetaData) r.getMetaData();
+                DefaultTableModel modelBlank = new DefaultTableModel();
+
+                userBar.tableTransaction.setModel(modelBlank);
+                DefaultTableModel model = (DefaultTableModel) userBar.tableTransaction.getModel();
+    
+                int cols = rsmd.getColumnCount();
+    
+                System.out.println(cols);
+                String[] colName = new String[cols];
+                for (int i = 0; i < cols; i++) {
+                    colName[i] = rsmd.getColumnName(i + 1);
+                }
+                model.setColumnIdentifiers(colName);
+    
+                
+                String transactionID, oldBal, newBal;
+                String transType, transTime, transLoc;
+                
+                while (r.next()) {
+                    transactionID = String.valueOf(r.getInt(1));
+                    transType = r.getString(2);
+                    transTime = r.getString(3);
+                    transLoc = r.getString(4);
+                    oldBal = String.valueOf(r.getInt(5));
+                    newBal = String.valueOf(r.getInt(6));
+    
+                    String[] row = {transactionID, transType, transTime, transLoc, oldBal, newBal};
+                    model.addRow(row);
+                }
+    
+                r.close();
+                p.close();
+            } catch (SQLException q) {
+                System.out.println(q);
+            }
 
             userBar.setVisible(true);
             depBar.setVisible(false);
