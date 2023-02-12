@@ -1,15 +1,8 @@
 package Main;
 
-import java.sql.*;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-
-
 public class Test {
 
+    // This java file is inteded for testing components, frames, databases etc
+    // This is not included in the main program
     
 }

@@ -97,7 +97,7 @@ public class PanelBody extends JPanel implements ActionListener {
                 Session.verificationType = user.getVerificationType();
                 // ----
 
-                new HomeFrame(user).setVisible(true);
+                new HomeFrame().setVisible(true);
             } else {
                 System.out.println("Incorrect");
             }

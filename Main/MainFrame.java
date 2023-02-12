@@ -1,6 +1,7 @@
 package Main;
-import java.awt.Dimension;
 
+// Imports
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import Containers.*;
@@ -14,7 +15,7 @@ public class MainFrame extends JFrame {
     PanelFooter panelFooter = new PanelFooter();
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
 
-    // Color
+    // Utilities
     ColorPalette colors = new ColorPalette();
     Defaults def = new Defaults();
 
