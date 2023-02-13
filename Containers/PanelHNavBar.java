@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import Backend.Session;
+import Backend.Transaction;
 import Connection.DatabaseConnection;
 import Main.HomeFrame;
 
@@ -123,49 +124,9 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
         if (e.getSource() == labelProfile) {
 
-            try {
-                PreparedStatement p = con.prepareStatement("SELECT transactionID, `Transaction Type`, `Transaction Time`, `Transaction Location`, `Old Balance`, `New Balance` FROM transactions WHERE BINARY(`Transaction Account`) = ? ", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                p.setInt(1, Session.userAccoundNumber);
-                ResultSet r = p.executeQuery();
-                ResultSetMetaData rsmd = (ResultSetMetaData) r.getMetaData();
+            Transaction trans = new Transaction(userBar);
 
-                DefaultTableModel modelBlank = new DefaultTableModel();
-
-                userBar.tableTransaction.setModel(modelBlank);
-                
-                DefaultTableModel model = (DefaultTableModel) userBar.tableTransaction.getModel();
-    
-                int cols = rsmd.getColumnCount();
-    
-                System.out.println(cols);
-                String[] colName = new String[cols];
-                for (int i = 0; i < cols; i++) {
-                    colName[i] = rsmd.getColumnName(i + 1);
-                }
-                model.setColumnIdentifiers(colName);
-    
-                
-                String transactionID, oldBal, newBal;
-                String transType, transTime, transLoc;
-                
-                while (r.next()) {
-                    transactionID = String.valueOf(r.getInt(1));
-                    transType = r.getString(2);
-                    transTime = r.getString(3);
-                    transLoc = r.getString(4);
-                    oldBal = String.valueOf(r.getInt(5));
-                    newBal = String.valueOf(r.getInt(6));
-    
-                    String[] row = {transactionID, transType, transTime, transLoc, oldBal, newBal};
-                    model.addRow(row);
-                }
-    
-                r.close();
-                p.close();
-            } catch (SQLException q) {
-                System.out.println(q);
-            }
-            userBar.panelTrans.setVisible(true);
+            trans.transactionTable();
 
             userBar.setVisible(true);
             depBar.setVisible(false);

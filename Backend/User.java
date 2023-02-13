@@ -34,6 +34,9 @@ public class User {
             String userVerificationType = r.getString(6);
             data = new ModelUser(userID, userBalance, userAccountNumber, userEmail, userName, "", userVerificationType);
         }
+        
+        System.out.println("Database connection established successfully | Using Login"); 
+        
         r.close();
         p.close();
         return data;
