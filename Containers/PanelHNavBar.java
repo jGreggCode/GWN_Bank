@@ -124,6 +124,8 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
         if (e.getSource() == labelProfile) {
 
+            hm.setTitle("User Profile");
+
             Transaction trans = new Transaction(userBar);
 
             trans.transactionTable();
@@ -159,6 +161,9 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         }
 
         if (e.getSource() == labelDeposit) {
+
+            
+            hm.setTitle("Cash Deposit");
 
             depBar.setVisible(true);
             userBar.setVisible(false);

@@ -35,6 +35,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
     private JLabel labelUserIcon = new JLabel(),
     labelUserName = new JLabel(),
     labelAccountStatus = new JLabel(),
+    labelAccountNumber = new JLabel(),
     labelUserLogout = new JLabel();
 
     // Information components
@@ -46,11 +47,11 @@ public class PanelHUserBar extends JPanel implements MouseListener {
     labelWithdrawQuota = new JLabel(),
     labelDepositQuotaAmmount = new JLabel(),
     labelWithdrawQuotaAmmount = new JLabel();
+    private JSeparator separatorLine = new JSeparator();
 
     // Transaction components
     public TransTable tableTransaction = new TransTable();
     private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
-    private JSeparator separatorLine = new JSeparator();
 
     // User panel design
     private JPanel panelUser = new JPanel() {
@@ -131,20 +132,25 @@ public class PanelHUserBar extends JPanel implements MouseListener {
 
         String status = Session.verificationType; // change later
         String accountName = Session.userName;
+        int accountNumber = Session.userAccoundNumber;
 
         labelUserName.setText(accountName);
-        labelAccountStatus.setText("Account Status: " + status);
-        labelUserLogout.setText("Log out");
-
         labelUserName.setBounds(150, 30, 452, 20);
         labelUserName.setForeground(Color.white);
         labelUserName.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
 
-        labelAccountStatus.setBounds(150, 50, 452, 20);
+        labelAccountNumber.setText("Account Number: " + String.valueOf(accountNumber));
+        labelAccountNumber.setBounds(150, 50, 452, 20);
+        labelAccountNumber.setForeground(Color.white);
+        labelAccountNumber.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+
+        labelAccountStatus.setText("Account Status: " + status);
+        labelAccountStatus.setBounds(150, 70, 452, 20);
         labelAccountStatus.setForeground(Color.white);
         labelAccountStatus.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
 
-        labelUserLogout.setBounds(150, 82, 72, 20);
+        labelUserLogout.setText("Log out");
+        labelUserLogout.setBounds(150, 92, 72, 20);
         labelUserLogout.setHorizontalAlignment(JLabel.CENTER);
         labelUserLogout.setForeground(Color.white);
         labelUserLogout.setOpaque(true);
@@ -155,6 +161,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelUserLogout.addMouseListener(this);
 
         // Add components
+        panelUser.add(labelAccountNumber);
         panelUser.add(labelUserName);
         panelUser.add(labelUserIcon);
         panelUser.add(labelAccountStatus);
@@ -237,7 +244,13 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         panelTrans.setBackground(colorPalette.getColorBackground1());
 
         tableScrollPane.setBounds(0,0,1260,700);
+        tableScrollPane.setOpaque(true);
+        tableScrollPane.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+
         tableTransaction.setDefaultEditor(Object.class, null);
+        tableTransaction.setOpaque(true);
+        tableTransaction.setFillsViewportHeight(true);
+        tableTransaction.setBackground(colorPalette.getColorBackground1());
 
         // Add components
         panelTrans.add(tableScrollPane);
