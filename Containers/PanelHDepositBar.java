@@ -39,8 +39,21 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
     private JLabel labelAmmount = new JLabel();
     private JLabel labelMoney = new JLabel();
     private JSliderCustom sliderCash = new JSliderCustom();
-    private MyTextField txtCash = new MyTextField();
-    private ButtonOutLine btnDeposit = new ButtonOutLine();
+    private MyTextField txtCash = new MyTextField() {
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (getText().length() == 0) {
+                int h = getHeight();
+                int w = getWidth();
+                ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                FontMetrics fm = g.getFontMetrics();
+                g.setColor(new Color(200, 200, 200));
+                g.drawString("Enter desire ammount", w / 2 - 110, h / 2 + fm.getAscent() / 2 - 2);
+            }
+    }
+    };
+    private Button btnDeposit = new Button();
     private ButtonOutLine btnClear = new ButtonOutLine();
 
     public PanelHDepositBar() {
@@ -110,23 +123,29 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         labelAmmount.setHorizontalAlignment(JLabel.CENTER);
         labelAmmount.setBounds(0, 220, 1000, 25);
 
-        labelMoney.setText("PHP " + "0.00");
-        labelMoney.setFont(new Font(def.getFontFam(), Font.BOLD, 30));
-        labelMoney.setForeground(Color.white);
-        labelMoney.setHorizontalAlignment(JLabel.CENTER);
-        labelMoney.setBounds(0, 250, 1000, 25);
+        //txtCash.setHint("Enter desire ammount");
+        txtCash.setBounds(1000 / 2 - (300 / 2), 250, 300, 50);
+        txtCash.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
+        txtCash.setHorizontalAlignment(JLabel.CENTER);
+        txtCash.setOpaque(false);
 
-        sliderCash.setBounds(1000 / 2 - (500 / 2), 280, 500, 50);
+        sliderCash.setBounds(1000 / 2 - (500 / 2), 300, 500, 50);
         sliderCash.addChangeListener(this);
 
-        txtCash.setHint("Enter desire ammount");
-        txtCash.setBounds(getVisibleRect());;
-
         btnDeposit.setText("Deposit");
-        btnDeposit.setBounds(getVisibleRect());
+        btnDeposit.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
+        btnDeposit.setForeground(Color.white);
+        btnDeposit.setBackground(colorPalette.getColorButtons());
+        btnDeposit.setHorizontalAlignment(JLabel.CENTER);
+        btnDeposit.setBounds(1000 / 2 - (150 / 2) - 100, 360, 150, 40);
+        btnDeposit.setFocusable(false);
 
         btnClear.setText("Clear");
-        btnClear.setBounds(getVisibleRect());
+        btnClear.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
+        btnClear.setForeground(Color.white);
+        btnClear.setHorizontalAlignment(JLabel.CENTER);
+        btnClear.setBounds(1000 / 2 - (150 / 2) + 100, 360, 150, 40);
+        btnClear.setFocusable(false);
 
         // Add components
         add(labelCash);
@@ -144,7 +163,6 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         add(separatorLine);
 
         add(labelAmmount);
-        add(labelMoney);
         add(sliderCash);
 
         add(txtCash);
@@ -171,6 +189,6 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
-        labelMoney.setText("PHP " + sliderCash.getValue());
+        txtCash.setText("PHP " + sliderCash.getValue());
     }
 }
