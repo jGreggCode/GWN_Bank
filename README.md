@@ -1,4 +1,4 @@
-# GWN Bank (Ongoing)
+# GWN Bank Mini Project (Ongoing)
 Intermediate Programming Final Project
 
 # Referenced Libraries Needed
