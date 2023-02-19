@@ -26,6 +26,7 @@ public class User {
         p.setString(2, login.getUserPinCode());
         ResultSet r = p.executeQuery();
         if (r.first()) {
+            System.out.println("\nA user has logged in\n"); 
             int userID = r.getInt(1);
             int userBalance = r.getInt(2);
             int userAccountNumber = r.getInt(3);
@@ -35,7 +36,6 @@ public class User {
             data = new ModelUser(userID, userBalance, userAccountNumber, userEmail, userName, "", userVerificationType);
         }
         
-        System.out.println("\nA user has logged in\n"); 
         
         r.close();
         p.close();

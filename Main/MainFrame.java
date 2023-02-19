@@ -11,8 +11,9 @@ import Utils.*;
 public class MainFrame extends JFrame {
 
     // Main Frame Components
+    LoginMessage loginMsg = new LoginMessage();
     PanelHeader panelHeader = new PanelHeader();
-    PanelBody panelBody = new PanelBody(this);
+    PanelBody panelBody = new PanelBody(this, loginMsg);
     PanelFooter panelFooter = new PanelFooter();
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
 
@@ -24,7 +25,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         // Main frame configuration
         setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
-        setTitle("GWN Bank");
+        setTitle("GWN Bank (Alpha Build)");
         setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(getPreferredSize().width, getPreferredSize().height);
@@ -34,6 +35,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
 
         // Add Components
+        add(loginMsg);
         add(panelHeader);
         add(panelBody);
         add(panelFooter);
