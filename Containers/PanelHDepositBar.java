@@ -1,17 +1,14 @@
 package Containers;
 
-import javax.swing.BorderFactory;
+// Imports
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import Backend.Session;
 import Utils.*;
 import Utils.Button;
-
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,7 +21,7 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
     double cash;
 
     // top tab components
-    private JLabel labelCash = new JLabel(),
+    public JLabel labelCash = new JLabel(),
     labelCashAmmount = new JLabel(),
     labelCashDollars = new JLabel(),
     labelCashDollarsAmmount = new JLabel(),
@@ -37,7 +34,6 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
 
     // bottom tab components
     private JLabel labelAmmount = new JLabel();
-    private JLabel labelMoney = new JLabel();
     private JSliderCustom sliderCash = new JSliderCustom();
     private MyTextField txtCash = new MyTextField() {
         @Override
@@ -117,7 +113,7 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         separatorLine.setForeground(colorPalette.getColorButtons());
         separatorLine.setBounds(1000 / 2 - (900 / 2), 140, 900, 10);
 
-        labelAmmount.setText("AMMOUNT");
+        labelAmmount.setText("Ammount to deposit");
         labelAmmount.setFont(new Font(def.getFontFam(), Font.BOLD, 30));
         labelAmmount.setForeground(Color.white);
         labelAmmount.setHorizontalAlignment(JLabel.CENTER);
@@ -133,7 +129,7 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         sliderCash.addChangeListener(this);
 
         btnDeposit.setText("Deposit");
-        btnDeposit.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
+        btnDeposit.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         btnDeposit.setForeground(Color.white);
         btnDeposit.setBackground(colorPalette.getColorButtons());
         btnDeposit.setHorizontalAlignment(JLabel.CENTER);
@@ -141,7 +137,7 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         btnDeposit.setFocusable(false);
 
         btnClear.setText("Clear");
-        btnClear.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
+        btnClear.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         btnClear.setForeground(Color.white);
         btnClear.setHorizontalAlignment(JLabel.CENTER);
         btnClear.setBounds(1000 / 2 - (150 / 2) + 100, 360, 150, 40);

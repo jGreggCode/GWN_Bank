@@ -4,24 +4,26 @@ package Main;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Containers.*;
 import Utils.*;
 
 public class HomeFrame extends JFrame {
 
-    // Home panel navigation bar
     MainFrame mainFrame;
-    PanelHUserBar panelHUserBar = new PanelHUserBar(this, mainFrame);
+
+    // Home panel navigation bars
     PanelHDepositBar panelDepBar = new PanelHDepositBar();
-    PanelHNavBar panelHNavBar = new PanelHNavBar(panelHUserBar, panelDepBar, this);
+    PanelHWithdrawBar withBar = new PanelHWithdrawBar();
+    PanelHTransferBar transBar = new PanelHTransferBar();
+    PanelHSettingBar settingBar = new PanelHSettingBar();
+    PanelHUserBar panelHUserBar = new PanelHUserBar(this, mainFrame);
+    PanelHNavBar panelHNavBar = new PanelHNavBar(panelHUserBar, panelDepBar, withBar, transBar, this);
     PanelHFooterBar panelHFooter = new PanelHFooterBar();
 
     // Utilities
     ColorPalette colors = new ColorPalette();
     Defaults def = new Defaults();
-
 
     public HomeFrame() {
         // Home frame configuration
@@ -40,5 +42,8 @@ public class HomeFrame extends JFrame {
         add(panelHFooter);
         add(panelHUserBar);
         add(panelDepBar);
+        add(withBar);
+        add(transBar);
+        add(settingBar);
     }
 }

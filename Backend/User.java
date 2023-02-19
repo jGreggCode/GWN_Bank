@@ -35,7 +35,7 @@ public class User {
             data = new ModelUser(userID, userBalance, userAccountNumber, userEmail, userName, "", userVerificationType);
         }
         
-        System.out.println("Database connection established successfully | Using Login"); 
+        System.out.println("\nA user has logged in\n"); 
         
         r.close();
         p.close();

@@ -8,9 +8,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import Backend.Session;
 import Backend.Transaction;
@@ -19,9 +17,6 @@ import Main.HomeFrame;
 
 import java.awt.event.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import Utils.ColorPalette;
 import Utils.Defaults;
@@ -36,6 +31,8 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
     PanelHUserBar userBar;
     PanelHDepositBar depBar;
+    PanelHWithdrawBar withBar;
+    PanelHTransferBar transBar;
 
     // Just for design
     private boolean userOpen, withdrawOpen, depositOpen, transferOpen, settingOpen;
@@ -47,13 +44,16 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     labelSettings = new JLabel(),
     labelIcon = new JLabel();
 
-    public PanelHNavBar(PanelHUserBar userBar, PanelHDepositBar depBar, HomeFrame hm) {
+    public PanelHNavBar(PanelHUserBar userBar, PanelHDepositBar depBar, PanelHWithdrawBar withBar, 
+    PanelHTransferBar transBar, HomeFrame hm) {
 
         DatabaseConnection mysqlConnect = new DatabaseConnection();
         con = mysqlConnect.connect();
 
         this.userBar = userBar;
         this.depBar = depBar;
+        this.withBar = withBar;
+        this.transBar = transBar;
         this.hm = hm;
 
         setOpaque(true);
@@ -125,13 +125,18 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         if (e.getSource() == labelProfile) {
 
             hm.setTitle("User Profile");
-
+            Double cash = (double) Session.userBalance;
             Transaction trans = new Transaction(userBar);
 
             trans.transactionTable();
+            userBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
+            userBar.labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79))); 
+            userBar.labelUserName.setText(Session.userName); 
 
             userBar.setVisible(true);
             depBar.setVisible(false);
+            withBar.setVisible(false);
+            transBar.setVisible(false);
 
             userOpen = true;
             withdrawOpen = false;
@@ -147,6 +152,18 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         }
 
         if (e.getSource() == labelWIthdraw) {
+
+            hm.setTitle("Cash Withdrawal");
+
+            Double cash = (double) Session.userBalance;
+            withBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
+            withBar.labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79)));
+            
+            withBar.setVisible(true);
+            depBar.setVisible(false);
+            userBar.setVisible(false);
+            transBar.setVisible(false);
+
             userOpen = false;
             withdrawOpen = true;
             depositOpen = false;
@@ -162,11 +179,16 @@ public class PanelHNavBar extends JPanel implements MouseListener {
 
         if (e.getSource() == labelDeposit) {
 
-            
             hm.setTitle("Cash Deposit");
+
+            Double cash = (double) Session.userBalance;
+            depBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
+            depBar.labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79))); 
 
             depBar.setVisible(true);
             userBar.setVisible(false);
+            withBar.setVisible(false);
+            transBar.setVisible(false);
 
             userOpen = false;
             withdrawOpen = false;
@@ -183,6 +205,14 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         }
 
         if (e.getSource() == labelBankTransfer) {
+
+            hm.setTitle("Money Transfer");
+
+            transBar.setVisible(true);
+            depBar.setVisible(false);
+            userBar.setVisible(false);
+            withBar.setVisible(false);
+
             userOpen = false;
             withdrawOpen = false;
             depositOpen = false;

@@ -18,6 +18,7 @@ import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.TransTable;
 import Main.*;
+import Backend.Session;
 
 public class PanelHUserBar extends JPanel implements MouseListener {
 
@@ -32,21 +33,21 @@ public class PanelHUserBar extends JPanel implements MouseListener {
     public double cash;
 
     // User components
-    private JLabel labelUserIcon = new JLabel(),
+    JLabel labelUserIcon = new JLabel(),
     labelUserName = new JLabel(),
     labelAccountStatus = new JLabel(),
     labelAccountNumber = new JLabel(),
     labelUserLogout = new JLabel();
 
     // Information components
-    private JLabel labelCash = new JLabel(),
-    labelCashAmmount = new JLabel(),
-    labelCashDollars = new JLabel(),
-    labelCashDollarsAmmount = new JLabel(),
-    labelDepositQuota = new JLabel(),
-    labelWithdrawQuota = new JLabel(),
-    labelDepositQuotaAmmount = new JLabel(),
-    labelWithdrawQuotaAmmount = new JLabel();
+    private JLabel labelCash = new JLabel();
+    JLabel labelCashAmmount = new JLabel();
+    private JLabel labelCashDollars = new JLabel();
+    JLabel labelCashDollarsAmmount = new JLabel();
+    private JLabel labelDepositQuota = new JLabel();
+    private JLabel labelWithdrawQuota = new JLabel();
+    private JLabel labelDepositQuotaAmmount = new JLabel();
+    private JLabel labelWithdrawQuotaAmmount = new JLabel();
     private JSeparator separatorLine = new JSeparator();
 
     // Transaction components
@@ -130,11 +131,9 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelUserIcon.setIcon(new ImageIcon(getClass().getResource("/Images/man.png")));
         labelUserIcon.setBounds(10, 11, 128, 128);
 
-        String status = Session.verificationType; // change later
-        String accountName = Session.userName;
+        String status = Session.userVerificationType; // change later
         int accountNumber = Session.userAccoundNumber;
 
-        labelUserName.setText(accountName);
         labelUserName.setBounds(150, 30, 452, 20);
         labelUserName.setForeground(Color.white);
         labelUserName.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
@@ -178,11 +177,9 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelCash.setForeground(Color.white);
         labelCash.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
 
-        cash = Session.userBalance;
         double withdrawn = 0;
         double deposited = 0;
 
-        labelCashAmmount.setText(String.format("PHP %,.2f", cash)); 
         labelCashAmmount.setHorizontalAlignment(JLabel.TRAILING);
         labelCashAmmount.setBounds(350, 20, 250, 40);
         labelCashAmmount.setForeground(Color.white);
@@ -193,7 +190,6 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         labelCashDollars.setForeground(Color.white);
         labelCashDollars.setFont(new Font(def.getFontFam(), Font.PLAIN, 15));
 
-        labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79))); 
         labelCashDollarsAmmount.setHorizontalAlignment(JLabel.TRAILING);
         labelCashDollarsAmmount.setBounds(350, 50, 250, 25);
         labelCashDollarsAmmount.setForeground(Color.white);
@@ -266,7 +262,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
         homeFrame.dispose();
         mainFrame = new MainFrame();
         mainFrame.setVisible(true);
-        
+        Session.userAccoundNumber = 0;
     }
 
     @Override

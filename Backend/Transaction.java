@@ -68,7 +68,6 @@ public class Transaction {
                 model.addRow(row);
             }
 
-            System.out.println("Database connection established successfully | Using reload of transaction table"); 
             r.close();
             p.close();
         } catch (SQLException q) {

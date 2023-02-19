@@ -94,7 +94,7 @@ public class PanelBody extends JPanel implements ActionListener {
                 Session.userAccoundNumber = user.getUserAccoundNumber();
                 Session.userEmail = user.getUserEmail();
                 Session.userName = user.getUserName();
-                Session.verificationType = user.getVerificationType();
+                Session.userVerificationType = user.getVerificationType();
                 // ----
 
                 new HomeFrame().setVisible(true);
