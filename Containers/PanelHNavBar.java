@@ -128,7 +128,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             Double cash = (double) Session.userBalance;
             Transaction trans = new Transaction(userBar);
 
-            trans.transactionTable();
+            trans.transactionUserTable();
             userBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
             userBar.labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79))); 
             userBar.labelUserName.setText(Session.userName); 
@@ -154,6 +154,9 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         if (e.getSource() == labelWIthdraw) {
 
             hm.setTitle("Cash Withdrawal");
+            Transaction trans = new Transaction(withBar);
+
+            trans.transactionWithTable();
 
             Double cash = (double) Session.userBalance;
             withBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
@@ -180,6 +183,9 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         if (e.getSource() == labelDeposit) {
 
             hm.setTitle("Cash Deposit");
+            Transaction trans = new Transaction(depBar);
+
+            trans.transactionDepTable();
 
             Double cash = (double) Session.userBalance;
             depBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
@@ -207,6 +213,13 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         if (e.getSource() == labelBankTransfer) {
 
             hm.setTitle("Money Transfer");
+            Transaction trans = new Transaction(transBar);
+
+            trans.transactionTransTable();
+
+            Double cash = (double) Session.userBalance;
+            transBar.labelCashAmmount.setText(String.format("PHP %,.2f", cash));
+            transBar.labelCashDollarsAmmount.setText(String.format("USD %,.2f", (cash * 54.79))); 
 
             transBar.setVisible(true);
             depBar.setVisible(false);

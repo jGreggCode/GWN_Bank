@@ -7,18 +7,38 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 
 public class Main {
+    // Main thread
     public static void main(String[] args) {
         // Run this to execute the whole program
 
         // A new thread for clearing the console
         Main main = new Main();
         DatabaseThread dbThread = main.new DatabaseThread();
+        ConsoleClearing consoleThread = main.new ConsoleClearing();
         dbThread.start();
+        consoleThread.start();
 
         new MainFrame().setVisible(true);
 
     }
+    
+    // Clear the console every 10 seconds
+    public class ConsoleClearing extends Thread {
+        @Override
+        synchronized public void run() {
+            try {
+                while (true) {
+                    System.out.print("\033[H\033[2J");  
+                    System.out.println("\nNOTE: Console will be cleared every 10 seconds.");
+                    Thread.sleep(10000);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    // Reload the database every 5 seconds
     public class DatabaseThread extends Thread {
 
         public Connection con;
@@ -28,12 +48,6 @@ public class Main {
             boolean connected = false;
             while (true) {
                 try {
-                    /* 
-                    // Clear the console every 10 seconds
-                    Thread.sleep(10000);
-                    System.out.print("\033[H\033[2J");  
-                    System.out.println("\nNOTE: Console will be cleared every 10 seconds."); 
-                    */
                     Thread.sleep(5000);
                     DatabaseConnection mysqlConnect = new DatabaseConnection();
                     con = mysqlConnect.connect();

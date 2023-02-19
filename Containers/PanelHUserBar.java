@@ -241,7 +241,7 @@ public class PanelHUserBar extends JPanel implements MouseListener {
 
         tableScrollPane.setBounds(0,0,1260,700);
         tableScrollPane.setOpaque(true);
-        tableScrollPane.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+        tableScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         tableTransaction.setDefaultEditor(Object.class, null);
         tableTransaction.setOpaque(true);

@@ -29,7 +29,7 @@ public class TransTable extends JTable {
             Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             com.setBackground(colorPalette.getColorBackground1());
             com.setForeground(Color.white);
-            com.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+            com.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
             return com;
         }
     }

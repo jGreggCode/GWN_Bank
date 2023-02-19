@@ -38,7 +38,7 @@ public class PanelBody extends JPanel implements ActionListener {
 
     public PanelBody(MainFrame m) {
         this.m = m;
-        this.setOpaque(false);
+        setOpaque(false);
         setLayout(null);
         setBounds(def.getFrameWidth() / 2 - (1000 / 2), 306, 1000, 400);
 

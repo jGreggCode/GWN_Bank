@@ -20,7 +20,6 @@ public class PanelHFooterBar extends JPanel {
 
     public PanelHFooterBar() {
 
-
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setLayout(null);

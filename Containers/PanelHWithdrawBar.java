@@ -1,8 +1,10 @@
 package Containers;
 
+import javax.swing.BorderFactory;
 // Imports
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -51,6 +53,10 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
     };
     private Button btnWithdraw = new Button();
     private ButtonOutLine btnClear = new ButtonOutLine();
+    
+    // Transaction components
+    public TransTable tableTransaction = new TransTable();
+    private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
 
     public PanelHWithdrawBar() {
         // Withdraw bar panel configuration
@@ -118,7 +124,7 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         labelAmmount.setFont(new Font(def.getFontFam(), Font.BOLD, 30));
         labelAmmount.setForeground(Color.white);
         labelAmmount.setHorizontalAlignment(JLabel.CENTER);
-        labelAmmount.setBounds(0, 220, 1000, 25);
+        labelAmmount.setBounds(0, 215, 1000, 25);
 
         //txtCash.setHint("Enter desire ammount");
         txtCash.setBounds(1000 / 2 - (300 / 2), 250, 300, 50);
@@ -144,6 +150,15 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         btnClear.setBounds(1000 / 2 - (150 / 2) + 100, 360, 150, 40);
         btnClear.setFocusable(false);
 
+        tableScrollPane.setBounds(0,420,1000,280);
+        tableScrollPane.setOpaque(true);
+        tableScrollPane.setBorder(BorderFactory.createEmptyBorder());
+
+        tableTransaction.setDefaultEditor(Object.class, null);
+        tableTransaction.setOpaque(true);
+        tableTransaction.setFillsViewportHeight(true);
+        tableTransaction.setBackground(colorPalette.getColorBackground1());
+
         // Add components
         add(labelCash);
         add(labelCashAmmount);
@@ -165,6 +180,8 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         add(txtCash);
         add(btnClear);
         add(btnWithdraw);
+
+        add(tableScrollPane);
     }
 
     @Override
