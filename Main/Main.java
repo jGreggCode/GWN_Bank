@@ -22,7 +22,7 @@ public class Main {
 
     }
     
-    // Clear the console every 10 seconds
+    // Clear the console every 30 seconds
     public class ConsoleClearing extends Thread {
         @Override
         synchronized public void run() {
@@ -30,7 +30,7 @@ public class Main {
                 while (true) {
                     System.out.print("\033[H\033[2J");  
                     System.out.println("\nNOTE: Console will be cleared every 10 seconds.");
-                    Thread.sleep(10000);
+                    Thread.sleep(30000);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

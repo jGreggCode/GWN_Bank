@@ -9,6 +9,7 @@ import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import Backend.Session;
+import Backend.UserBalance;
 import Backend.Withdraw;
 import Utils.*;
 import Utils.Button;
@@ -16,12 +17,15 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.sql.SQLException;
 
 public class PanelHWithdrawBar extends JPanel implements ChangeListener {
 
     ColorPalette colorPalette = new ColorPalette();
     Defaults def = new Defaults();
     double cash;
+
+    ModalBox modalBox;
 
     // top tab components
     public JLabel labelCash = new JLabel(),
@@ -59,7 +63,8 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
     public TransTable tableTransaction = new TransTable();
     private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
 
-    public PanelHWithdrawBar() {
+    public PanelHWithdrawBar(ModalBox modalBox) {
+        this.modalBox = modalBox;
         // Withdraw bar panel configuration
         setOpaque(false);
         setBackground(colorPalette.getColorBackground1());
@@ -137,7 +142,7 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         sliderCash.setBounds(1000 / 2 - (500 / 2), 300, 500, 50);
         sliderCash.addChangeListener(this);
 
-        btnWithdraw.setText("Deposit");
+        btnWithdraw.setText("Withdraw");
         btnWithdraw.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         btnWithdraw.setForeground(Color.white);
         btnWithdraw.setBackground(colorPalette.getColorButtons());
@@ -145,16 +150,40 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         btnWithdraw.setBounds(1000 / 2 - (150 / 2) - 100, 360, 150, 40);
         btnWithdraw.setFocusable(false);
         btnWithdraw.addActionListener(e -> {
+
             double ammount = Double.valueOf(txtCash.getText().substring(4));
+            UserBalance userBalance = new UserBalance();
             Withdraw with = new Withdraw();
-            if (ammount < 200) {
-                System.out.println("Minimum Withdrawal is 200");
-            } else if (ammount > Session.userBalance) {
-                System.out.println("The amount you're trying to withdraw is greater than your current balance!");
-            } else {
-                with.withdraw(ammount, Session.userAccoundNumber);
-                System.out.println("Transaction Completed");
+            ModalMessage modalMessage = new ModalMessage();
+            double balance = 0;
+            try {
+                balance = userBalance.getUserBalance(Session.userAccoundNumber);
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
+
+            if (ammount > balance) {
+                modalBox.labelMessageDetail.setText("Insufficient Balance");
+                modalBox.labelMessageType.setText("Transaction Failed");
+                modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                modalMessage.start();
+            } else {
+
+                with.withdraw(ammount, Session.userAccoundNumber);
+                try {
+
+                    double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                    labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
+
+                    modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+
+                    modalMessage.start();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+            }
+
         });
 
         btnClear.setText("Clear");
@@ -219,5 +248,21 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         // TODO Auto-generated method stub
         txtCash.setText("PHP " + sliderCash.getValue());
     }
-    
+
+    public class ModalMessage extends Thread {
+        @Override
+        public void run() {
+            try {
+                add(modalBox);
+                modalBox.setVisible(true);
+                Thread.sleep(2000);
+                modalBox.setVisible(false);
+                remove(modalBox);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
+    }
 }

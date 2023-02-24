@@ -72,8 +72,6 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         setLayout(null);
         setBounds((1360 / 2 - (1000 / 2)) + 70,1000 / 2 - (700 / 2) - 20, 1000, 700);
 
-        add(modalBox);
-
         cash = Session.userBalance;
         double withdrawn = 0;
         double deposited = 0;
@@ -147,15 +145,16 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         btnDeposit.setBounds(1000 / 2 - (150 / 2) - 100, 360, 150, 40);
         btnDeposit.setFocusable(false);
         btnDeposit.addActionListener(e -> {
-            
+
             double ammount = Double.valueOf(txtCash.getText().substring(4));
             UserBalance userBalance = new UserBalance();
             Deposit dep = new Deposit();
             ModalMessage modalMessage = new ModalMessage();
 
             if (ammount < 200) {
-
-                modalBox.labelMessageDetail.setText("Insufficient Balance");
+                modalBox.labelMessageDetail.setText("Minimum Withdrawal is PHP 200");
+                modalBox.labelMessageType.setText("Transaction Failed");
+                modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
                 modalMessage.start();
             } else {
 
@@ -246,11 +245,13 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         @Override
         public void run() {
             try {
-
-                modalBox.setVisible(true);
-                Thread.sleep(4000);
-                modalBox.setVisible(false);
                 
+                add(modalBox);
+                modalBox.setVisible(true);
+                Thread.sleep(2000);
+                modalBox.setVisible(false);
+                remove(modalBox);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

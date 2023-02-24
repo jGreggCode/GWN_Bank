@@ -15,7 +15,7 @@ public class HomeFrame extends JFrame {
 
     // Home panel navigation bars
     PanelHDepositBar panelDepBar = new PanelHDepositBar(modalBox);
-    PanelHWithdrawBar withBar = new PanelHWithdrawBar();
+    PanelHWithdrawBar withBar = new PanelHWithdrawBar(modalBox);
     PanelHTransferBar transBar = new PanelHTransferBar();
     PanelHSettingBar settingBar = new PanelHSettingBar();
     PanelHUserBar panelHUserBar = new PanelHUserBar(this, mainFrame);

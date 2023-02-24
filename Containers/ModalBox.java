@@ -23,10 +23,12 @@ public class ModalBox extends JPanel {
         setVisible(false);
         setBounds(1000 / 2 - (700 / 2), 75 / 2 - (50 / 2) + 140, 700, 50);
 
+        labelMessageType.setText("Transaction Completed");
         labelMessageType.setForeground(Color.white);
         labelMessageType.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
         labelMessageType.setBounds(20, 0, 400, 50);
 
+        labelMessageDetail.setText("Thank you for using GWN BANK");
         labelMessageDetail.setForeground(Color.white);
         labelMessageDetail.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
         labelMessageDetail.setHorizontalAlignment(JLabel.TRAILING);
