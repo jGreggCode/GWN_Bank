@@ -11,14 +11,15 @@ import Utils.*;
 public class HomeFrame extends JFrame {
 
     MainFrame mainFrame;
+    ModalBox modalBox = new ModalBox();
 
     // Home panel navigation bars
-    PanelHDepositBar panelDepBar = new PanelHDepositBar();
+    PanelHDepositBar panelDepBar = new PanelHDepositBar(modalBox);
     PanelHWithdrawBar withBar = new PanelHWithdrawBar();
     PanelHTransferBar transBar = new PanelHTransferBar();
     PanelHSettingBar settingBar = new PanelHSettingBar();
     PanelHUserBar panelHUserBar = new PanelHUserBar(this, mainFrame);
-    PanelHNavBar panelHNavBar = new PanelHNavBar(panelHUserBar, panelDepBar, withBar, transBar, this);
+    PanelHNavBar panelHNavBar = new PanelHNavBar(panelHUserBar, panelDepBar, withBar, transBar, settingBar, this);
     PanelHFooterBar panelHFooter = new PanelHFooterBar();
 
     // Utilities

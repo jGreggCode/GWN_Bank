@@ -9,6 +9,7 @@ import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import Backend.Session;
+import Backend.Withdraw;
 import Utils.*;
 import Utils.Button;
 import java.awt.*;
@@ -131,6 +132,7 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         txtCash.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         txtCash.setHorizontalAlignment(JLabel.CENTER);
         txtCash.setOpaque(false);
+        txtCash.setEditable(false);
 
         sliderCash.setBounds(1000 / 2 - (500 / 2), 300, 500, 50);
         sliderCash.addChangeListener(this);
@@ -142,6 +144,18 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         btnWithdraw.setHorizontalAlignment(JLabel.CENTER);
         btnWithdraw.setBounds(1000 / 2 - (150 / 2) - 100, 360, 150, 40);
         btnWithdraw.setFocusable(false);
+        btnWithdraw.addActionListener(e -> {
+            double ammount = Double.valueOf(txtCash.getText().substring(4));
+            Withdraw with = new Withdraw();
+            if (ammount < 200) {
+                System.out.println("Minimum Withdrawal is 200");
+            } else if (ammount > Session.userBalance) {
+                System.out.println("The amount you're trying to withdraw is greater than your current balance!");
+            } else {
+                with.withdraw(ammount, Session.userAccoundNumber);
+                System.out.println("Transaction Completed");
+            }
+        });
 
         btnClear.setText("Clear");
         btnClear.setFont(new Font(def.getFontFam(), Font.BOLD, 20));

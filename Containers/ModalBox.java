@@ -8,22 +8,21 @@ import javax.swing.JPanel;
 import Utils.ColorPalette;
 import Utils.Defaults;
 
-public class LoginMessage extends JPanel {
+public class ModalBox extends JPanel {
 
     Defaults def = new Defaults();
     ColorPalette colorPalette = new ColorPalette();
     JLabel labelMessageType = new JLabel();
     JLabel labelMessageDetail = new JLabel();
 
-    public LoginMessage() {
+    public ModalBox() {
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setBorder(BorderFactory.createLineBorder(Color.red, 1));
         setLayout(null);
         setVisible(false);
-        setBounds(1440 / 2 - (700 / 2), 40, 700, 50);
+        setBounds(1000 / 2 - (700 / 2), 75 / 2 - (50 / 2) + 140, 700, 50);
 
-        labelMessageType.setText("Login Failed");
         labelMessageType.setForeground(Color.white);
         labelMessageType.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
         labelMessageType.setBounds(20, 0, 400, 50);

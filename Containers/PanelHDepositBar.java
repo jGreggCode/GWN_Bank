@@ -8,19 +8,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import Backend.Deposit;
 import Backend.Session;
+import Backend.UserBalance;
 import Utils.*;
 import Utils.Button;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.sql.SQLException;
 
 public class PanelHDepositBar extends JPanel implements ChangeListener {
 
     ColorPalette colorPalette = new ColorPalette();
     Defaults def = new Defaults();
     double cash;
+
+    ModalBox modalBox;
 
     // top tab components
     public JLabel labelCash = new JLabel(),
@@ -58,17 +64,15 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
     public TransTable tableTransaction = new TransTable();
     private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
 
-    public PanelHDepositBar() {
+    public PanelHDepositBar(ModalBox modalBox) {
+        this.modalBox = modalBox;
         setOpaque(false);
         setBackground(colorPalette.getColorBackground1());
         setVisible(false);
         setLayout(null);
         setBounds((1360 / 2 - (1000 / 2)) + 70,1000 / 2 - (700 / 2) - 20, 1000, 700);
 
-        labelCash.setText("Balance:");
-        labelCash.setBounds(20, 20, 200, 40);
-        labelCash.setForeground(Color.white);
-        labelCash.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
+        add(modalBox);
 
         cash = Session.userBalance;
         double withdrawn = 0;
@@ -130,6 +134,7 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         txtCash.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         txtCash.setHorizontalAlignment(JLabel.CENTER);
         txtCash.setOpaque(false);
+        txtCash.setEditable(false);
 
         sliderCash.setBounds(1000 / 2 - (500 / 2), 300, 500, 50);
         sliderCash.addChangeListener(this);
@@ -141,6 +146,38 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         btnDeposit.setHorizontalAlignment(JLabel.CENTER);
         btnDeposit.setBounds(1000 / 2 - (150 / 2) - 100, 360, 150, 40);
         btnDeposit.setFocusable(false);
+        btnDeposit.addActionListener(e -> {
+            
+            double ammount = Double.valueOf(txtCash.getText().substring(4));
+            UserBalance userBalance = new UserBalance();
+            Deposit dep = new Deposit();
+            ModalMessage modalMessage = new ModalMessage();
+
+            if (ammount < 200) {
+
+                modalBox.labelMessageDetail.setText("Insufficient Balance");
+                modalMessage.start();
+            } else {
+
+                dep.deposit(ammount, Session.userAccoundNumber);
+                try {
+
+                    double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                    labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
+
+                    modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                    modalBox.labelMessageType.setText("Transaction Completed");
+                    modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+
+                    modalMessage.start();
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+            }
+
+        });
 
         btnClear.setText("Clear");
         btnClear.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
@@ -203,5 +240,21 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
         txtCash.setText("PHP " + sliderCash.getValue());
+    }
+
+    public class ModalMessage extends Thread {
+        @Override
+        public void run() {
+            try {
+
+                modalBox.setVisible(true);
+                Thread.sleep(4000);
+                modalBox.setVisible(false);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
     }
 }

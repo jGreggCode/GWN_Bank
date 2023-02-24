@@ -104,11 +104,11 @@ public class Transaction {
         NumberFormat numberFormat = NumberFormat.getInstance();
 
         try {
-            PreparedStatement p = con.prepareStatement("SELECT `Transaction ID`, `Transaction Type`, `Transaction Time`, `Transaction Location`, `Old Balance`, `New Balance` FROM transactions WHERE BINARY(`Transaction Account`) = ? and BINARY(`Transaction Type`) = ? limit 5", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            p.setInt(1, Session.userAccoundNumber);
-            p.setString(2, "Withdraw".trim());
-            ResultSet r = p.executeQuery();
-            ResultSetMetaData rsmd = (ResultSetMetaData) r.getMetaData();
+            PreparedStatement  psSelect = con.prepareStatement("SELECT `Transaction ID`, `Transaction Type`, `Transaction Time`, `Transaction Location`, `Old Balance`, `New Balance` FROM transactions WHERE BINARY(`Transaction Account`) = ? and BINARY(`Transaction Type`) = ? limit 5", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            psSelect.setInt(1, Session.userAccoundNumber);
+            psSelect.setString(2, "Withdraw".trim());
+            ResultSet rsSelect = psSelect.executeQuery();
+            ResultSetMetaData rsmd = (ResultSetMetaData) rsSelect.getMetaData();
 
             DefaultTableModel modelBlank = new DefaultTableModel();
 
@@ -127,21 +127,22 @@ public class Transaction {
             String transactionID, oldBal, newBal;
             String transType, transTime, transLoc;
             
-            while (r.next()) {
+            while (rsSelect.next()) {
 
-                transactionID = String.valueOf(r.getInt(1));
-                transType = r.getString(2);
-                transTime = r.getString(3);
-                transLoc = r.getString(4);
-                oldBal = "PHP " + String.valueOf(numberFormat.format(r.getInt(5)));
-                newBal = "PHP " + String.valueOf(numberFormat.format(r.getInt(6)));
+                transactionID = String.valueOf(rsSelect.getInt(1));
+                transType = rsSelect.getString(2);
+                transTime = rsSelect.getString(3);
+                transLoc = rsSelect.getString(4);
+                oldBal = "PHP " + String.valueOf(numberFormat.format(rsSelect.getInt(5)));
+                newBal = "PHP " + String.valueOf(numberFormat.format(rsSelect.getInt(6)));
 
                 String[] row = {transactionID, transType, transTime, transLoc, oldBal, newBal};
                 model.addRow(row);
+
             }
 
-            r.close();
-            p.close();
+            rsSelect.close();
+            psSelect.close();
         } catch (SQLException q) {
             System.out.println(q);
         }

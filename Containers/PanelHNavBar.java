@@ -33,6 +33,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     PanelHDepositBar depBar;
     PanelHWithdrawBar withBar;
     PanelHTransferBar transBar;
+    PanelHSettingBar settingBar;
 
     // Just for design
     private boolean userOpen, withdrawOpen, depositOpen, transferOpen, settingOpen;
@@ -45,7 +46,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     labelIcon = new JLabel();
 
     public PanelHNavBar(PanelHUserBar userBar, PanelHDepositBar depBar, PanelHWithdrawBar withBar, 
-    PanelHTransferBar transBar, HomeFrame hm) {
+    PanelHTransferBar transBar, PanelHSettingBar settingBar, HomeFrame hm) {
 
         DatabaseConnection mysqlConnect = new DatabaseConnection();
         con = mysqlConnect.connect();
@@ -54,12 +55,12 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         this.depBar = depBar;
         this.withBar = withBar;
         this.transBar = transBar;
+        this.settingBar = settingBar;
         this.hm = hm;
 
         setOpaque(true);
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 50));
         setBackground(colorPalette.getColorBackground1());
-        //setBorder(BorderFactory.createLineBorder(colorPalette.getColorButtons(), 1));
         setBounds(0, 0, 80, 800);
 
         labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
@@ -137,6 +138,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             depBar.setVisible(false);
             withBar.setVisible(false);
             transBar.setVisible(false);
+            settingBar.setVisible(false);
 
             userOpen = true;
             withdrawOpen = false;
@@ -166,6 +168,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             depBar.setVisible(false);
             userBar.setVisible(false);
             transBar.setVisible(false);
+            settingBar.setVisible(false);
 
             userOpen = false;
             withdrawOpen = true;
@@ -195,6 +198,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             userBar.setVisible(false);
             withBar.setVisible(false);
             transBar.setVisible(false);
+            settingBar.setVisible(false);
 
             userOpen = false;
             withdrawOpen = false;
@@ -225,6 +229,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             depBar.setVisible(false);
             userBar.setVisible(false);
             withBar.setVisible(false);
+            settingBar.setVisible(false);
 
             userOpen = false;
             withdrawOpen = false;
@@ -242,6 +247,15 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         }
 
         if (e.getSource() == labelSettings) {
+
+            hm.setTitle("Money Transfer");
+
+            settingBar.setVisible(true);
+            transBar.setVisible(false);
+            depBar.setVisible(false);
+            userBar.setVisible(false);
+            withBar.setVisible(false);
+
             userOpen = false;
             withdrawOpen = false;
             depositOpen = false;

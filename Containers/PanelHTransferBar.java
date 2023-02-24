@@ -149,6 +149,7 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
         txtCash.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         txtCash.setHorizontalAlignment(JLabel.CENTER);
         txtCash.setOpaque(false);
+        txtCash.setEditable(false);
 
         sliderCash.setBounds(1000 / 2 - (500 / 2), 370, 500, 50);
         sliderCash.addChangeListener(this);
