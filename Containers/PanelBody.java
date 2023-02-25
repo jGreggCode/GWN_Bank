@@ -56,7 +56,6 @@ public class PanelBody extends JPanel implements ActionListener {
         labelLogin.setHorizontalAlignment(JLabel.CENTER);
         labelLogin.setBounds(0, 20, 1000, 50);
         
-        
         customTextField.setHint("Account Number");
         customTextField.setFont(new Font(def.getFontFam(), 0, 18));
         customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));

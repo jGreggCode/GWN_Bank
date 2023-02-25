@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -30,6 +31,7 @@ public class TransTable extends JTable {
             com.setBackground(colorPalette.getColorBackground1());
             com.setForeground(Color.white);
             com.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
+            setHorizontalAlignment(JLabel.CENTER);
             return com;
         }
     }

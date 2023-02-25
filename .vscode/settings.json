@@ -7,7 +7,9 @@
             "c:\\Users\\jovenil sacop\\Desktop\\javax.mail.jar",
             "c:\\Users\\jovenil sacop\\Desktop\\mysql-connector-java-5.1.23-bin.jar",
             "c:\\Users\\jovenil sacop\\Documents\\lib\\TimingFramework-0.55.jar",
-            "c:\\Users\\jovenil sacop\\Documents\\lib\\mysql-connector-j-8.0.32.jar"
+            "c:\\Users\\jovenil sacop\\Documents\\lib\\mysql-connector-j-8.0.32.jar",
+            "c:\\Users\\jovenil sacop\\Documents\\lib\\javax.mail.jar",
+            "c:\\Users\\jovenil sacop\\Documents\\lib\\activation-1.1.jar"
         ],
         "exclude": [
             "c:\\Users\\jovenil sacop\\Desktop\\timingframework-core-5.5.0.jar"

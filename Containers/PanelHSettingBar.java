@@ -79,11 +79,11 @@ public class PanelHSettingBar extends JPanel {
         labelPassword.setText("Password");
         labelPassword.setForeground(Color.white);
         labelPassword.setFont(new Font(def.getFontFam(), Font.PLAIN, 16));
-        labelPassword.setBounds(100, 160, 100, 25);
+        labelPassword.setBounds(100, 160, 100, 30);
 
-        txtChangePassword.setHint("********");
+        txtChangePassword.setText("Password");
         txtChangePassword.setEnabled(false);
-        txtChangePassword.setBounds(200, 160, 300, 25);
+        txtChangePassword.setBounds(200, 160, 300, 30);
 
         labelChangePassword.setText("Change password");
 

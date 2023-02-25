@@ -184,6 +184,9 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         btnClear.setHorizontalAlignment(JLabel.CENTER);
         btnClear.setBounds(1000 / 2 - (150 / 2) + 100, 360, 150, 40);
         btnClear.setFocusable(false);
+        btnClear.addActionListener(e2 -> {
+            txtCash.setText("");
+        });
 
         tableScrollPane.setBounds(0,420,1000,280);
         tableScrollPane.setOpaque(true);

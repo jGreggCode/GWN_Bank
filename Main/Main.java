@@ -2,6 +2,7 @@ package Main;
 
 import java.sql.Connection;
 import Connection.DatabaseConnection;
+import Utils.Mail;
 import Backend.Session;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;

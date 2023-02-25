@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
     LoginMessage loginMsg = new LoginMessage();
     PanelHeader panelHeader = new PanelHeader();
     PanelBody panelBody = new PanelBody(this, loginMsg);
-    PanelFooter panelFooter = new PanelFooter();
+    PanelFooter panelFooter = new PanelFooter(loginMsg);
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
 
     // Utilities

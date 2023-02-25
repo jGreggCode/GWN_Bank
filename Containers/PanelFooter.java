@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 
 import Utils.ColorPalette;
 import Utils.Defaults;
+import Utils.Mail;
 import Utils.MyTextField;
 
 public class PanelFooter extends JPanel implements MouseListener {
@@ -22,6 +23,7 @@ public class PanelFooter extends JPanel implements MouseListener {
     private JSeparator emailSeparator = new JSeparator();
     private MyTextField custoMyTextField = new MyTextField();
     private Defaults def = new Defaults();
+    LoginMessage loginMessage;
 
     private JLabel labelNoCred = new JLabel(),
     labelStart = new JLabel(),
@@ -43,8 +45,8 @@ public class PanelFooter extends JPanel implements MouseListener {
     Image resizedFooterImg = footerImage.getScaledInstance((592 / 2) / 2 + 50, (422 / 2) / 2 + 50, Image.SCALE_SMOOTH);
     ImageIcon newFooterLogo = new ImageIcon(resizedFooterImg);
 
-    public PanelFooter() {
-
+    public PanelFooter(LoginMessage emailMessage) {
+        this.loginMessage = emailMessage;
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setLayout(null);
@@ -131,6 +133,23 @@ public class PanelFooter extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(java.awt.event.MouseEvent e) {
         String email = custoMyTextField.getText().trim();
+        LogMessage logMessage = new LogMessage();
+
+        if (e.getSource() == labelEmailSend) {
+            Mail mail = new Mail();
+            boolean validEmail = mail.mail(email);
+
+            if (validEmail) {
+                loginMessage.labelMessageType.setText("Sent Successfully");
+                loginMessage.labelMessageDetail.setText("Check the verification code");
+                setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                logMessage.start();
+            } else {
+                loginMessage.labelMessageType.setText("Sent Failed");
+                loginMessage.labelMessageDetail.setText("Invalid Email Address");
+                logMessage.start();
+            }
+        }
     }
 
     @Override
@@ -155,5 +174,21 @@ public class PanelFooter extends JPanel implements MouseListener {
     public void mouseExited(java.awt.event.MouseEvent e) {
         // TODO Auto-generated method stub
         
+    }
+    
+    public class LogMessage extends Thread {
+        @Override
+        public void run() {
+            try {
+
+                loginMessage.setVisible(true);
+                Thread.sleep(4000);
+                loginMessage.setVisible(false);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
     }
 }
