@@ -30,10 +30,16 @@ public class Mail {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("Verify to create a GWN Bank account");
 
-            int verificationCode = 12332;
+            
+            Random verificationCode = new Random();
+            int minimum = 10000;
+            int maximum = 99999;
+            Defaults.verificationCode = verificationCode.nextInt(minimum, maximum);
+
+            int code = Defaults.verificationCode;
                 
             String msg = "To verify your email address, please use the following One Time Password (OTP): <br><br>";
-            String msgTwo = verificationCode + "</p> <br><br>";
+            String msgTwo = code + "</p> <br><br>";
             String msgThree = "Do not share this OTP with anyone. GWN Bank takes your account security very seriously. GWN Bank Customer Service will never ask you to disclose or verify your GWN Bank password, OTP, credit card, or banking account number. If you receive a suspicious email with a link to update your account information, do not click on the link-instead, report the email to GWN Bank for investigation<br><br>";
             String msgFour = "Thank you, <br>The GWN Bank Team";  
 

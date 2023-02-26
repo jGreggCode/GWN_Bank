@@ -4,6 +4,7 @@ public class Defaults {
     private final int frameHeight = 1000;
     private final int frameWidth = 1440;
     private final String fontFam = "Karla";
+    public static int verificationCode = 0;
 
     public int getFrameHeight() {
         return frameHeight;

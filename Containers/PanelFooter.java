@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+import Backend.VerificationCode;
+import Main.MainFrame;
+import Main.RegisterFrame;
 import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.Mail;
@@ -23,7 +26,10 @@ public class PanelFooter extends JPanel implements MouseListener {
     private JSeparator emailSeparator = new JSeparator();
     private MyTextField custoMyTextField = new MyTextField();
     private Defaults def = new Defaults();
+
     LoginMessage loginMessage;
+    MainFrame mainFrame;
+    RegisterFrame registerFrame;
 
     private JLabel labelNoCred = new JLabel(),
     labelStart = new JLabel(),
@@ -44,9 +50,13 @@ public class PanelFooter extends JPanel implements MouseListener {
     Image footerImage = footerLogo.getImage();
     Image resizedFooterImg = footerImage.getScaledInstance((592 / 2) / 2 + 50, (422 / 2) / 2 + 50, Image.SCALE_SMOOTH);
     ImageIcon newFooterLogo = new ImageIcon(resizedFooterImg);
+    boolean error = true;
 
-    public PanelFooter(LoginMessage emailMessage) {
+    public PanelFooter(LoginMessage emailMessage, MainFrame mainFrame, RegisterFrame registerFrame) {
         this.loginMessage = emailMessage;
+        this.mainFrame = mainFrame;
+        this.registerFrame = registerFrame;
+
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setLayout(null);
@@ -142,7 +152,8 @@ public class PanelFooter extends JPanel implements MouseListener {
             if (validEmail) {
                 loginMessage.labelMessageType.setText("Sent Successfully");
                 loginMessage.labelMessageDetail.setText("Check the verification code");
-                setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                loginMessage.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                error = false;
                 logMessage.start();
             } else {
                 loginMessage.labelMessageType.setText("Sent Failed");
@@ -184,6 +195,11 @@ public class PanelFooter extends JPanel implements MouseListener {
                 loginMessage.setVisible(true);
                 Thread.sleep(4000);
                 loginMessage.setVisible(false);
+                
+                if (!error) {
+                    mainFrame.dispose();
+                    registerFrame.setVisible(true);
+                }
                 
             } catch (Exception e) {
                 e.printStackTrace();

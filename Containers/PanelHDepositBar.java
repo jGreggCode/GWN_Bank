@@ -71,6 +71,11 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         setVisible(false);
         setLayout(null);
         setBounds((1360 / 2 - (1000 / 2)) + 70,1000 / 2 - (700 / 2) - 20, 1000, 700);
+        
+        labelCash.setText("Balance:");
+        labelCash.setBounds(20, 20, 200, 40);
+        labelCash.setForeground(Color.white);
+        labelCash.setFont(new Font(def.getFontFam(), Font.BOLD, 25));
 
         cash = Session.userBalance;
         double withdrawn = 0;

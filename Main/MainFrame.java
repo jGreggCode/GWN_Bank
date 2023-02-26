@@ -11,10 +11,11 @@ import Utils.*;
 public class MainFrame extends JFrame {
 
     // Main Frame Components
+    RegisterFrame registerFrame = new RegisterFrame(this);
     LoginMessage loginMsg = new LoginMessage();
     PanelHeader panelHeader = new PanelHeader();
     PanelBody panelBody = new PanelBody(this, loginMsg);
-    PanelFooter panelFooter = new PanelFooter(loginMsg);
+    PanelFooter panelFooter = new PanelFooter(loginMsg, this, registerFrame);
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
 
     // Utilities

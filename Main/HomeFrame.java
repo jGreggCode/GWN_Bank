@@ -2,6 +2,8 @@ package Main;
 
 // Imports
 import java.awt.Dimension;
+import java.awt.*;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -47,4 +49,5 @@ public class HomeFrame extends JFrame {
         add(transBar);
         add(settingBar);
     }
+
 }

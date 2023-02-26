@@ -20,6 +20,7 @@ public class Main {
         consoleThread.start();
 
         new MainFrame().setVisible(true);
+        //new RegisterFrame().setVisible(true);
 
     }
     

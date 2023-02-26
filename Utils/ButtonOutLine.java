@@ -24,7 +24,7 @@ public class ButtonOutLine extends JButton {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
-        g2.drawRoundRect(0, 0, width - 1, height - 1, 5, 5);
+        g2.drawRoundRect(0, 0, width - 1, height - 1, 10, 10);
         super.paintComponent(grphcs);
     }
 }
