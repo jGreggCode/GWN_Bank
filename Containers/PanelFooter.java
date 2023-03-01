@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import Backend.VerificationCode;
 import Main.MainFrame;
 import Main.RegisterFrame;
 import Utils.ColorPalette;
@@ -150,6 +149,7 @@ public class PanelFooter extends JPanel implements MouseListener {
             boolean validEmail = mail.mail(email);
 
             if (validEmail) {
+                Defaults.email = email;
                 loginMessage.labelMessageType.setText("Sent Successfully");
                 loginMessage.labelMessageDetail.setText("Check the verification code");
                 loginMessage.setBorder(BorderFactory.createLineBorder(Color.green, 1));

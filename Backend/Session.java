@@ -1,6 +1,5 @@
 package Backend;
 
-import java.util.Properties;
 
 public class Session {
     public static int userID;
