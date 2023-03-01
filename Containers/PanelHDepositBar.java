@@ -9,8 +9,12 @@ import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import java.util.Date;  
+
 import Backend.Deposit;
 import Backend.Session;
+import Backend.Transaction;
+import Backend.TransactionData;
 import Backend.UserBalance;
 import Utils.*;
 import Utils.Button;
@@ -19,6 +23,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 public class PanelHDepositBar extends JPanel implements ChangeListener {
 
@@ -155,6 +160,12 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
             UserBalance userBalance = new UserBalance();
             Deposit dep = new Deposit();
             ModalMessage modalMessage = new ModalMessage();
+            TransactionData transactionData = new TransactionData();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+            Date dateAndTime = new Date(); 
+            String dateToday = formatter.format(dateAndTime);
+            int oldBalance = Session.userBalance;
 
             if (ammount < 200) {
                 modalBox.labelMessageDetail.setText("Minimum Withdrawal is PHP 200");
@@ -167,12 +178,18 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
                 try {
 
                     double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                    int newBalance = (int) newAmmount;
                     labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
 
                     modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
                     modalBox.labelMessageType.setText("Transaction Completed");
                     modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+                    transactionData.addDeposit(Session.userAccoundNumber, "Deposit", dateToday, "Philippines", oldBalance, newBalance);
+                    
+                    Transaction trans = new Transaction(this);
 
+                    trans.transactionDepTable();
+                    
                     modalMessage.start();
                 } catch (SQLException e1) {
                     // TODO Auto-generated catch block
