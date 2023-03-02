@@ -3,7 +3,9 @@
         "include": [
             "lib/**/*.jar",
             "Libraries/flatlaf-3.0.jar",
-            "c:\\Users\\jovenil sacop\\Desktop\\TimingFramework-0.55.jar"
+            "c:\\Users\\jovenil sacop\\Desktop\\TimingFramework-0.55.jar",
+            "c:\\Users\\jovenil sacop\\Documents\\lib\\timingframework-core-5.5.0.jar",
+            "c:\\Users\\jovenil sacop\\Documents\\lib\\TimingFramework-0.55.jar"
         ],
         "exclude": [
             "c:\\Users\\jovenil sacop\\Desktop\\timingframework-core-5.5.0.jar"
