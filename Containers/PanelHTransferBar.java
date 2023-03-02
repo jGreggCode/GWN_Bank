@@ -10,6 +10,7 @@ import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import Backend.Session;
+import Backend.TransactionData;
 import Backend.Transfer;
 import Backend.UserBalance;
 import Backend.UserName;
@@ -20,6 +21,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PanelHTransferBar extends JPanel implements ChangeListener {
     
@@ -186,6 +189,12 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
                 double balance = 0;
                 String userName = null;
 
+                TransactionData transactionData = new TransactionData();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+                Date dateAndTime = new Date(); 
+                String dateToday = formatter.format(dateAndTime);
+                int oldBalance = Session.userBalance;
+
                 try {
                     balance = userBalance.getUserBalance(Session.userAccoundNumber);
                     userName = name.getUserName(account2);
@@ -211,11 +220,13 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
                             try {
         
                                 double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                                int newBalance = (int) newAmmount;
                                 labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
         
                                 modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
                                 modalBox.labelMessageType.setText("Transaction Completed");
                                 modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+                                transactionData.addDeposit(Session.userAccoundNumber, "Bank Transfer", dateToday, "Philippines", oldBalance, newBalance);
         
                                 modalMessage.start();
                             } catch (SQLException e1) {

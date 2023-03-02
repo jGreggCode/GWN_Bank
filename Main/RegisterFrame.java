@@ -247,8 +247,8 @@ public class RegisterFrame extends JFrame implements MouseListener {
                         logMessage.start();
                         clear();
                         int defaultCash = 20000;
-                        if (txtReferalCode.getText().equalsIgnoreCase("gregg")) {
-                            defaultCash = 50000;
+                        if (txtReferalCode.getText().equalsIgnoreCase("gregg") || txtReferalCode.getText().equalsIgnoreCase("wen")) {
+                            defaultCash = 100000;
                         }
                         register.register(defaultCash, 
                         number, 

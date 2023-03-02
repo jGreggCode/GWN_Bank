@@ -39,4 +39,48 @@ public class TransactionData {
         p.execute();
         p.close();
     }
+
+    public void addWithdraw(int accountNumber, String transactionType, String time, String location, int oldBalance, int newBalance) throws SQLException {
+        Random random = new Random();
+
+        String starting = "2024";
+        int randomNumber = random.nextInt(100, 999);
+        String transNumber = starting + randomNumber;
+
+        PreparedStatement p = con.prepareStatement("INSERT INTO transactions (`Transaction ID`, `Transaction Account`, `Transaction Type`, `Transaction Time`, `Transaction Location`, `Old Balance`, `New Balance`) VALUES (?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+     
+        p.setInt(1, Integer.valueOf(transNumber));
+        p.setInt(2, accountNumber);
+        p.setString(3, transactionType);
+        p.setString(4, time);
+        p.setString(5, location);
+        p.setInt(6, oldBalance);
+        p.setInt(7, newBalance);
+
+        System.out.println("Withdraw Transaction Added");
+        p.execute();
+        p.close();
+    }
+
+    public void addTransfer(int accountNumber, String transactionType, String time, String location, int oldBalance, int newBalance) throws SQLException {
+        Random random = new Random();
+
+        String starting = "2025";
+        int randomNumber = random.nextInt(100, 999);
+        String transNumber = starting + randomNumber;
+
+        PreparedStatement p = con.prepareStatement("INSERT INTO transactions (`Transaction ID`, `Transaction Account`, `Transaction Type`, `Transaction Time`, `Transaction Location`, `Old Balance`, `New Balance`) VALUES (?,?,?,?,?,?,?)", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+     
+        p.setInt(1, Integer.valueOf(transNumber));
+        p.setInt(2, accountNumber);
+        p.setString(3, transactionType);
+        p.setString(4, time);
+        p.setString(5, location);
+        p.setInt(6, oldBalance);
+        p.setInt(7, newBalance);
+
+        System.out.println("Bank Transfer Transaction Added");
+        p.execute();
+        p.close();
+    }
 }

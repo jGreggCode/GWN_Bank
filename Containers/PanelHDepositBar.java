@@ -186,9 +186,6 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
                     modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
                     transactionData.addDeposit(Session.userAccoundNumber, "Deposit", dateToday, "Philippines", oldBalance, newBalance);
                     
-                    Transaction trans = new Transaction(this);
-
-                    trans.transactionDepTable();
                     
                     modalMessage.start();
                 } catch (SQLException e1) {

@@ -9,6 +9,7 @@ import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import Backend.Session;
+import Backend.TransactionData;
 import Backend.UserBalance;
 import Backend.Withdraw;
 import Utils.*;
@@ -18,6 +19,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PanelHWithdrawBar extends JPanel implements ChangeListener {
 
@@ -155,7 +158,14 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
             UserBalance userBalance = new UserBalance();
             Withdraw with = new Withdraw();
             ModalMessage modalMessage = new ModalMessage();
+            TransactionData transactionData = new TransactionData();
             double balance = 0;
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+            Date dateAndTime = new Date(); 
+            String dateToday = formatter.format(dateAndTime);
+            int oldBalance = Session.userBalance;
+
             try {
                 balance = userBalance.getUserBalance(Session.userAccoundNumber);
             } catch (Exception e1) {
@@ -173,9 +183,13 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
                 try {
 
                     double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                    int newBalance = (int) newAmmount;
                     labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
 
                     modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                    modalBox.labelMessageType.setText("Transaction Completed");
+                    modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+                    transactionData.addDeposit(Session.userAccoundNumber, "Withdraw", dateToday, "Philippines", oldBalance, newBalance);
 
                     modalMessage.start();
                 } catch (SQLException e1) {
