@@ -2,16 +2,14 @@ package Main;
 
 // Imports
 import java.awt.Dimension;
-import java.awt.*;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
 import Containers.*;
 import Utils.*;
 
 public class HomeFrame extends JFrame {
 
+    // Prerequisite Objects
     MainFrame mainFrame;
     ModalBox modalBox = new ModalBox();
 

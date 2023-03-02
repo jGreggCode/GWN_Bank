@@ -1,19 +1,16 @@
 package Containers;
 
+// Imports
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import Main.HomeFrame;
 import Main.MainFrame;
 import Model.ModelLogin;
 import Model.ModelUser;
 import Backend.Session;
 import Backend.User;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -26,29 +23,38 @@ import Utils.ColorPalette;
 
 public class PanelBody extends JPanel implements ActionListener { 
     
-    public User log = new User();
+    // Prerequisite Objects
+    private MainFrame m;
+    private LoginMessage loginMessage;
+    private User log = new User();
     private ModelLogin dataLogin;
+
+    // Label
     private JLabel labelLogin = new JLabel();
+
+    // Text field
     private MyTextField customTextField = new MyTextField();
 
-    MainFrame m;
-    LoginMessage loginMessage;
-
+    // Password field
     private MyPasswordField customPasswordField = new MyPasswordField();
 
+    // Button
     private Button login = new Button();
+
+    // Defaults
     private ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
 
     public PanelBody(MainFrame m, LoginMessage loginMessage) {
+        // To get the object
         this.m = m;
         this.loginMessage = loginMessage;
+        // Panel body configuration
         setOpaque(false);
         setLayout(null);
         setBounds(def.getFrameWidth() / 2 - (1000 / 2), 306, 1000, 400);
 
         int x = this.getSize().width / 2;
-        int y = this.getSize().height;
 
         labelLogin.setText("Login to your account");
         labelLogin.setForeground(Color.white);
@@ -74,21 +80,26 @@ public class PanelBody extends JPanel implements ActionListener {
         login.setBounds(x - (200 / 2), 300, 200, 60);
         login.addActionListener(this);
 
-        this.add(login);
-        this.add(labelLogin);
-        this.add(customTextField);
-        this.add(customPasswordField);
+        // Components
+        add(login);
+        add(labelLogin);
+        add(customTextField);
+        add(customPasswordField);
     }
 
+    // Action event
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        // Log message object
         LogMessage logMsg = new LogMessage();
 
+        // Check if the account number typed is an integer
         boolean isNumber = Pattern.compile("^\\d+$")
                .matcher(customTextField.getText())
                .find(); 
 
+        // If the account number is an integer
         if(isNumber) {
             // Account number has only 10 characters
             if (customTextField.getText().length() > 10) {
@@ -101,8 +112,11 @@ public class PanelBody extends JPanel implements ActionListener {
                 dataLogin = new ModelLogin(accountNumber, userPinCode);
 
                 try {
+
                     ModelUser user = log.login(dataLogin);
+
                     if (user != null) {
+
                         m.dispose();
 
                         // Create the session of the user
@@ -114,14 +128,19 @@ public class PanelBody extends JPanel implements ActionListener {
                         Session.userVerificationType = user.getVerificationType();
                         // ----
 
+                        // Show the home frame
                         new HomeFrame().setVisible(true);
+
                     } else {
+                        // Show the login message
                         loginMessage.labelMessageDetail.setText("Incorrect Username and Password");
                         logMsg.start();
                     }
+
                 } catch (SQLException s) {
                     System.out.println(s);
                 }
+
             }
             
         } else {
@@ -132,9 +151,12 @@ public class PanelBody extends JPanel implements ActionListener {
 
     }
 
+    // Thread to show log message
     public class LogMessage extends Thread {
+
         @Override
         public void run() {
+
             try {
 
                 loginMessage.setVisible(true);
@@ -146,6 +168,7 @@ public class PanelBody extends JPanel implements ActionListener {
             }
             
         }
+
     }
 
     

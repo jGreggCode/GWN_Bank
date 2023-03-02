@@ -1,21 +1,18 @@
 package Main;
 
+// Imports
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import Backend.Register;
-import Containers.LoginMessage;
 import Containers.RegisterMessage;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.Random;
-
 import Utils.Button;
 import Utils.ButtonOutLine;
 import Utils.ColorPalette;
@@ -29,14 +26,19 @@ import Utils.MyTextField;
 
 public class RegisterFrame extends JFrame implements MouseListener {
     
+    // Prerequisite Obejects
     MainFrame mainFrame;
     RegisterMessage registerMessage;
+
     // Components
+
+    // Panels
     private JPanelCustom leftPanel = new JPanelCustom(50,0,50,0);
     private JPanel rightPanel = new JPanel();
 
     // Left Panel Components
     private JLabel labelBackground = new JLabel();
+    private ButtonOutLine btnLogin = new ButtonOutLine();
 
     // Right Panel Components
     private JLabel labelRegister = new JLabel(),
@@ -47,8 +49,10 @@ public class RegisterFrame extends JFrame implements MouseListener {
     labelHappy = new JLabel(),
     labelPassVisible = new JLabel();
 
+    // Check if password is visible
     boolean visible = false;
 
+    // Textfields
     private MyTextField txtFirstName = new MyTextField(),
     txtMiddleName = new MyTextField(),
     txtLastName = new MyTextField(),
@@ -57,15 +61,20 @@ public class RegisterFrame extends JFrame implements MouseListener {
     txtVerificationCode = new MyTextField(),
     txtReferalCode = new MyTextField();
 
+    // Collection of textfields
     private MyTextField[] txtFields = {txtFirstName, txtMiddleName, txtLastName, txtPhoneNumber, txtBirthday, txtVerificationCode};
 
+    // Passwordfield
     private MyPasswordField txtPassword = new MyPasswordField();
+
+    // Character used in password
     char defChar = txtPassword.getEchoChar(); 
 
+    // Checkbox
     private JCheckBoxCustom chkAgree = new JCheckBoxCustom();
 
+    // Button
     private Button btnRegister = new Button();
-    private ButtonOutLine btnLogin = new ButtonOutLine();
 
     // Utilities
     ColorPalette colors = new ColorPalette();
@@ -73,6 +82,8 @@ public class RegisterFrame extends JFrame implements MouseListener {
     Methods methods = new Methods();
     Register register = new Register();
 
+    // Methods Needed
+    // Clear the textfields
     public void clear() {
         txtFirstName.setText("");
         txtMiddleName.setText("");
@@ -85,6 +96,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
         chkAgree.setSelected(false);
     }
 
+    // Check if a textfiled is empty
     public boolean checkEmpty() {
         boolean empty = false;
         for (int i = 0; i < txtFields.length; i++) {
@@ -98,11 +110,14 @@ public class RegisterFrame extends JFrame implements MouseListener {
         return empty;
     }
 
+    // Image for design
     ImageIcon registerBg = new ImageIcon(getClass().getResource("/Images/registerVector.jpeg"));
 
     public RegisterFrame(MainFrame mainFrame, RegisterMessage registerMessage) {
+        // To get the object
         this.mainFrame = mainFrame;
         this.registerMessage = registerMessage;
+
         // Home frame configuration
         setTitle("Create an account");
         setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
@@ -112,8 +127,10 @@ public class RegisterFrame extends JFrame implements MouseListener {
         setLayout(null);
         getContentPane().setBackground(colors.getColorBackground1());
         setLocationRelativeTo(null);
+        // Make register message at the top of every components
         add(registerMessage);
 
+        // Left panel configuration
         leftPanel.setLayout(null);
         leftPanel.setBackground(new Color(255,255,255));
         leftPanel.setBounds(50,100, 620, 760);
@@ -144,11 +161,13 @@ public class RegisterFrame extends JFrame implements MouseListener {
             mainFrame.setVisible(true);
         });
 
+        // Left panel components
         leftPanel.add(labelBackground);
         leftPanel.add(labelHave);
         leftPanel.add(labelHappy);
         leftPanel.add(btnLogin);
 
+        // Right panel configuration
         rightPanel.setBackground(colors.getColorBackground1());
         rightPanel.setBounds(755,0, 620, 1000);
         rightPanel.setLayout(null);
@@ -234,8 +253,9 @@ public class RegisterFrame extends JFrame implements MouseListener {
         btnRegister.setBackground(colors.getColorButtons());
         btnRegister.setFocusable(false);
         btnRegister.setBounds(620 / 2 - (200 / 2),820, 200, 50);
+        // Lamba expression much easier to use
         btnRegister.addActionListener(e -> {
-
+            // Do this when register button is clicked
             LogMessage logMessage = new LogMessage();
             String password = String.valueOf(txtPassword.getPassword());
 
@@ -259,6 +279,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
                     registerMessage.labelMessageDetail.setText("Invalid Verification Code");
                     logMessage.start();
                 }
+
                 //System.out.println(code);
                 //System.out.println(verificationCode);
 
@@ -277,7 +298,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
                             logMessage.start();
                         } else {
                             registerMessage.labelMessageType.setText("Register Successfully");
-                            registerMessage.labelMessageDetail.setText("PLease check your email for your account number.");
+                            registerMessage.labelMessageDetail.setText("Check your email for your account number.");
                             registerMessage.setBorder(BorderFactory.createLineBorder(Color.green, 1));
                             logMessage.start();
                             clear();
@@ -304,6 +325,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
 
         });
 
+        // Right panel components
         rightPanel.add(labelRegister);
         rightPanel.add(labelGetStarted);
         rightPanel.add(txtFirstName);
@@ -317,13 +339,14 @@ public class RegisterFrame extends JFrame implements MouseListener {
         rightPanel.add(labelOptional);
         rightPanel.add(txtReferalCode);
         rightPanel.add(chkAgree);
-
         rightPanel.add(btnRegister);
 
+        // Adding panels to frame
         add(rightPanel);
         add(leftPanel);
     }
 
+    // Mouse event
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == labelPassVisible) {
@@ -339,6 +362,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
         }
     }
 
+    // Not needed but need to implement :( waste of line of code...
     @Override
     public void mousePressed(MouseEvent e) {
     }
@@ -355,7 +379,9 @@ public class RegisterFrame extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
+    // Thread to show the custom dialog box
     public class LogMessage extends Thread {
+        
         @Override
         public void run() {
             try {

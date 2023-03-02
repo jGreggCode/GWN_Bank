@@ -10,12 +10,14 @@ import Utils.Defaults;
 
 public class ModalBox extends JPanel {
 
+    // Prerequisite Objects
     Defaults def = new Defaults();
     ColorPalette colorPalette = new ColorPalette();
     JLabel labelMessageType = new JLabel();
     JLabel labelMessageDetail = new JLabel();
 
     public ModalBox() {
+        // Modal box configuration
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setBorder(BorderFactory.createLineBorder(Color.red, 1));
@@ -23,6 +25,7 @@ public class ModalBox extends JPanel {
         setVisible(false);
         setBounds(1000 / 2 - (700 / 2), 75 / 2 - (50 / 2) + 140, 700, 50);
 
+        // Configuration of components
         labelMessageType.setText("Transaction Completed");
         labelMessageType.setForeground(Color.white);
         labelMessageType.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
@@ -34,6 +37,7 @@ public class ModalBox extends JPanel {
         labelMessageDetail.setHorizontalAlignment(JLabel.TRAILING);
         labelMessageDetail.setBounds(400, 0, 280, 50);
 
+        // Components
         add(labelMessageType);
         add(labelMessageDetail);
     }

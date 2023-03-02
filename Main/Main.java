@@ -2,7 +2,6 @@ package Main;
 
 import java.sql.Connection;
 import Connection.DatabaseConnection;
-import Utils.Mail;
 import Backend.Session;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -14,51 +13,69 @@ public class Main {
 
         // A new thread for clearing the console
         Main main = new Main();
+        
+        // To start the thread
         DatabaseThread dbThread = main.new DatabaseThread();
         ConsoleClearing consoleThread = main.new ConsoleClearing();
         dbThread.start();
         consoleThread.start();
 
+        // Show the main frame
         new MainFrame().setVisible(true);
-        //new RegisterFrame().setVisible(true);
 
     }
     
-    // Clear the console every 30 seconds
+    // Thread to clear the console every 30 seconds
     public class ConsoleClearing extends Thread {
+
         @Override
         synchronized public void run() {
+
             try {
+
+                // Clear the console every 30 seconds
                 while (true) {
                     System.out.print("\033[H\033[2J");  
                     System.out.println("\nNOTE: Console will be cleared every 10 seconds.");
                     Thread.sleep(30000);
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
+
     }
 
-    // Reload the database every 5 seconds
+    // Thread to reload the database every 5 seconds
     public class DatabaseThread extends Thread {
 
+        // Databse connection
         public Connection con;
 
         @Override
         synchronized public void run() {
+
+            // To check for connection
             boolean connected = false;
+
+            // Loop while the program is open
             while (true) {
+
                 try {
+                    // Sleep every 5 seconds
                     Thread.sleep(5000);
                     DatabaseConnection mysqlConnect = new DatabaseConnection();
                     con = mysqlConnect.connect();
     
+                    // If conneted to db set the connected to true
                     if (!connected) {
                         System.out.println("| Database connection established successfully |\n| System log is currently running              |\n");
                         connected = true;
                     }
     
+                    // If no user is logged in Session must be empty
                     if (Session.userAccoundNumber == 0) {
                         System.out.println("Login Status | No user that is currently logged in.");
     
@@ -69,11 +86,15 @@ public class Main {
                         Session.userVerificationType = null;
     
                     } else {
+                        // If a user is logged in
                         System.out.println("Login Status | User " + Session.userAccoundNumber + " is currently logged in.");
     
+                        // SQL Syntax to get the user data
                         PreparedStatement p = con.prepareStatement("SELECT userID, userBalance, userEmail, userName, verificationType FROM users where BINARY(userAccountNumber) = ? limit 1", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                         p.setInt(1, Session.userAccoundNumber);
                         ResultSet r = p.executeQuery();
+                        
+                        // Get the user data and store it in the session
                         if (r.first()) {
                             int userID = r.getInt(1);
                             int userBalance = r.getInt(2);
@@ -87,12 +108,17 @@ public class Main {
                             Session.userName = userName;
                             Session.userVerificationType = userVerificationType;
                         }
+
                     }
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+
             }
+
         }
+
     }
+
 }

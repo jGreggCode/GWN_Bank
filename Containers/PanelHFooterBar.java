@@ -1,11 +1,10 @@
 package Containers;
 
+// Imports
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import Utils.ColorPalette;
 
 public class PanelHFooterBar extends JPanel {

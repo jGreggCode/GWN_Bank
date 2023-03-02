@@ -1,6 +1,9 @@
 package Model;
 
 public class ModelUser {
+
+    // Same as the modellogin
+    
     private int userID;
     private int userBalance;
     private int userAccoundNumber;

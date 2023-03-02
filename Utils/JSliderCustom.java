@@ -1,5 +1,6 @@
 package Utils;
 
+// Imports
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,8 @@ import javax.swing.JSlider;
 import javax.swing.plaf.basic.BasicSliderUI;
 
 public class JSliderCustom extends JSlider {
+
+     // For design only
 
     ColorPalette colorPalette = new ColorPalette();
 

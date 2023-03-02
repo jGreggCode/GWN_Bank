@@ -1,17 +1,17 @@
 package Containers;
 
+// Imports
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseListener;
-
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-
 import Main.MainFrame;
 import Main.RegisterFrame;
 import Utils.ColorPalette;
@@ -21,15 +21,14 @@ import Utils.MyTextField;
 
 public class PanelFooter extends JPanel implements MouseListener {
 
-    private ColorPalette colorPalette = new ColorPalette();
+    // Prerequisite Objects
     private JSeparator emailSeparator = new JSeparator();
     private MyTextField custoMyTextField = new MyTextField();
-    private Defaults def = new Defaults();
+    private LoginMessage loginMessage;
+    private MainFrame mainFrame;
+    private RegisterFrame registerFrame;
 
-    LoginMessage loginMessage;
-    MainFrame mainFrame;
-    RegisterFrame registerFrame;
-
+    // Lables
     private JLabel labelNoCred = new JLabel(),
     labelStart = new JLabel(),
     labelCopyright = new JLabel(),
@@ -40,22 +39,29 @@ public class PanelFooter extends JPanel implements MouseListener {
     labelTerms = new JLabel(),
     labelProject = new JLabel();
 
+    // Images
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
     Image image = logo.getImage();
     Image resizedImg = image.getScaledInstance(16, 20, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);
-
+    
     ImageIcon footerLogo = new ImageIcon("Images/footerpic.png");
     Image footerImage = footerLogo.getImage();
     Image resizedFooterImg = footerImage.getScaledInstance((592 / 2) / 2 + 50, (422 / 2) / 2 + 50, Image.SCALE_SMOOTH);
     ImageIcon newFooterLogo = new ImageIcon(resizedFooterImg);
+    
     boolean error = true;
 
+    // Defaults
+    private ColorPalette colorPalette = new ColorPalette();
+    private Defaults def = new Defaults();
+
     public PanelFooter(LoginMessage emailMessage, MainFrame mainFrame, RegisterFrame registerFrame) {
+        // To get the object
         this.loginMessage = emailMessage;
         this.mainFrame = mainFrame;
         this.registerFrame = registerFrame;
-
+        // Panel footer configuration
         setOpaque(true);
         setBackground(colorPalette.getColorBackground1());
         setLayout(null);
@@ -125,6 +131,7 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelProject.setFont(new Font(def.getFontFam(), Font.BOLD, 14));
         labelProject.setForeground(Color.white);
 
+        // Components
         add(labelNoCred);
         add(labelStart);
         add(custoMyTextField);
@@ -139,8 +146,9 @@ public class PanelFooter extends JPanel implements MouseListener {
         add(labelProject);
     }
 
+    // Mouse event
     @Override
-    public void mouseClicked(java.awt.event.MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         String email = custoMyTextField.getText().trim();
         LogMessage logMessage = new LogMessage();
 
@@ -163,6 +171,7 @@ public class PanelFooter extends JPanel implements MouseListener {
         }
     }
 
+    // Not needed but required to implements tsk
     @Override
     public void mousePressed(java.awt.event.MouseEvent e) {
         // TODO Auto-generated method stub
@@ -187,9 +196,12 @@ public class PanelFooter extends JPanel implements MouseListener {
         
     }
     
+    // Thread to show the login message
     public class LogMessage extends Thread {
+
         @Override
         public void run() {
+
             try {
 
                 loginMessage.setVisible(true);
@@ -206,5 +218,7 @@ public class PanelFooter extends JPanel implements MouseListener {
             }
             
         }
+
     }
+
 }

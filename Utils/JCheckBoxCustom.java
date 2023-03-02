@@ -1,13 +1,12 @@
 package Utils;
 
+// Imports
 import java.awt.*;
-
 import javax.swing.JCheckBox;
 
-/**
- * JCheckBoxCustom
- */
 public class JCheckBoxCustom extends JCheckBox {
+
+    // For design only
 
     private final int border = 4;
 

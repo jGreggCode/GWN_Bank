@@ -1,5 +1,6 @@
 package Utils;
 
+// Imports
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -9,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
 public class ButtonOutLine extends JButton {
+
+     // I want my other button customized so here
 
     public ButtonOutLine() {
         setContentAreaFilled(false);

@@ -4,19 +4,20 @@ package Main;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
 import Containers.*;
 import Utils.*;
 
 public class MainFrame extends JFrame {
 
-    // Main Frame Components
+    // Prerequisite Obejects
     LoginMessage loginMsg = new LoginMessage();
     RegisterMessage registerMessage = new RegisterMessage();
     RegisterFrame registerFrame = new RegisterFrame(this, registerMessage);
     PanelHeader panelHeader = new PanelHeader();
     PanelBody panelBody = new PanelBody(this, loginMsg);
     PanelFooter panelFooter = new PanelFooter(loginMsg, this, registerFrame);
+
+    // Image logo
     ImageIcon logo = new ImageIcon("Images/JustLogo.png");
 
     // Utilities

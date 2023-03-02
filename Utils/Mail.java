@@ -1,10 +1,15 @@
 package Utils;
 
+// Import
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 public class Mail {
+
+    // It's much cool this way so why not
+
+    // Check if the email is valid
     public Boolean mail(String email) {
         String to = email; // to address. It can be any like gmail, hotmail etc.
         final String from = "gwnbank@gmail.com"; // from address. As this is using Gmail SMTP.
@@ -36,8 +41,10 @@ public class Mail {
             int maximum = 99999;
             Defaults.verificationCode = verificationCode.nextInt(minimum, maximum);
 
+            // The verification code 
             int code = Defaults.verificationCode;
                 
+            // Email message
             String msg = "To verify your email address, please use the following One Time Password (OTP): <br><br>";
             String msgTwo = code + "</p> <br><br>";
             String msgThree = "Do not share this OTP with anyone. GWN Bank takes your account security very seriously. GWN Bank Customer Service will never ask you to disclose or verify your GWN Bank password, OTP, credit card, or banking account number. If you receive a suspicious email with a link to update your account information, do not click on the link-instead, report the email to GWN Bank for investigation<br><br>";
@@ -68,6 +75,7 @@ public class Mail {
         return true;
     }
 
+    // Send an email after registration
     public Boolean registered(String email, int accountNumber) {
         String to = email; // to address. It can be any like gmail, hotmail etc.
         final String from = "gwnbank@gmail.com"; // from address. As this is using Gmail SMTP.
@@ -107,12 +115,6 @@ public class Mail {
                 
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
-                
-            /* Dont need
-            MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-            attachmentBodyPart.attachFile(new File("E://Tools//Screenshot.JPG"));
-            multipart.addBodyPart(attachmentBodyPart);
-            */
 
             message.setContent(multipart);
             

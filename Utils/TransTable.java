@@ -1,16 +1,18 @@
 package Utils;
 
+// Imports
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class TransTable extends JTable {
+
+    // For design
 
     ColorPalette colorPalette = new ColorPalette();
     Defaults def = new Defaults();

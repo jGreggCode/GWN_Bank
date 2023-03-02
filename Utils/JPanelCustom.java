@@ -1,5 +1,6 @@
 package Utils;
 
+// Imports
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,6 +11,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 public class JPanelCustom extends JPanel {
+
+     // For design only
+
     public int getRoundTopLeft() {
         return roundTopLeft;
     }

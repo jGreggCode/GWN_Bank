@@ -1,19 +1,16 @@
 package Containers;
 
-import javax.swing.BorderFactory;
 // Imports
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import java.util.Date;  
-
 import Backend.Deposit;
 import Backend.Session;
-import Backend.Transaction;
 import Backend.TransactionData;
 import Backend.UserBalance;
 import Utils.*;

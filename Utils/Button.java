@@ -1,5 +1,6 @@
 package Utils;
 
+// Imports
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -17,6 +18,8 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class Button extends JButton {
+
+    // I want my button customized so here
 
     public Color getEffectColor() {
         return effectColor;

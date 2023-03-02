@@ -1,7 +1,11 @@
 package Utils;
+
+// Import
 import java.awt.Color;
 
 public class ColorPalette {
+
+    // Just some color pallete makes my coding easier
 
     // Logo Color Pallete
     // light blue = 37b6fa
