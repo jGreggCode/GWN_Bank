@@ -67,4 +67,61 @@ public class Mail {
         } 
         return true;
     }
+
+    public Boolean registered(String email, int accountNumber) {
+        String to = email; // to address. It can be any like gmail, hotmail etc.
+        final String from = "gwnbank@gmail.com"; // from address. As this is using Gmail SMTP.
+        final String password = "mhvzkukywtrkimcz"; // password for from mail address. 
+        
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "465");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        
+        Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(from, password);
+        }
+        });
+        
+        try {
+        
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("You're all set with GWN Bank!");
+
+            int accNum = accountNumber;
+                
+            String msg = "Please log in using your account number, see it below.<br><br>";
+            String msgTwo = accNum + "</p> <br><br>";
+            String msgThree = "Thank you for signing up. As a registration bonus we gave you PHP 20,000 as thanks for trusting our application.<br><br>";
+            String msgFour = "Thank you, <br>The GWN Bank Team";  
+
+            String fullMsg = msg + msgTwo + msgThree + msgFour;
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(fullMsg, "text/html");
+                
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+                
+            /* Dont need
+            MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+            attachmentBodyPart.attachFile(new File("E://Tools//Screenshot.JPG"));
+            multipart.addBodyPart(attachmentBodyPart);
+            */
+
+            message.setContent(multipart);
+            
+            Transport.send(message);
+        
+        } catch (MessagingException e) {
+            System.out.println("Invalid Email Address");
+            return false;
+        } 
+        return true;
+    }
 }

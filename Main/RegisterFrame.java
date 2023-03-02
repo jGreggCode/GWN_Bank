@@ -22,6 +22,7 @@ import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.JCheckBoxCustom;
 import Utils.JPanelCustom;
+import Utils.Mail;
 import Utils.Methods;
 import Utils.MyPasswordField;
 import Utils.MyTextField;
@@ -56,6 +57,8 @@ public class RegisterFrame extends JFrame implements MouseListener {
     txtVerificationCode = new MyTextField(),
     txtReferalCode = new MyTextField();
 
+    private MyTextField[] txtFields = {txtFirstName, txtMiddleName, txtLastName, txtPhoneNumber, txtBirthday, txtVerificationCode};
+
     private MyPasswordField txtPassword = new MyPasswordField();
     char defChar = txtPassword.getEchoChar(); 
 
@@ -80,6 +83,19 @@ public class RegisterFrame extends JFrame implements MouseListener {
         txtReferalCode.setText("");
         txtPassword.setText("");
         chkAgree.setSelected(false);
+    }
+
+    public boolean checkEmpty() {
+        boolean empty = false;
+        for (int i = 0; i < txtFields.length; i++) {
+            if (txtFields[i].getText().equalsIgnoreCase("")) {
+                txtFields[i].setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                empty = true;
+            } else {
+                txtFields[i].setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            }
+        }
+        return empty;
     }
 
     ImageIcon registerBg = new ImageIcon(getClass().getResource("/Images/registerVector.jpeg"));
@@ -220,51 +236,71 @@ public class RegisterFrame extends JFrame implements MouseListener {
         btnRegister.setBounds(620 / 2 - (200 / 2),820, 200, 50);
         btnRegister.addActionListener(e -> {
 
-            String fullname = txtFirstName.getText() + " " + txtMiddleName.getText().charAt(0) + ". " + txtLastName.getText();
-            String password = String.valueOf(txtPassword.getPassword());
-            int code = Defaults.verificationCode;
-            int verificationCode = Integer.valueOf(txtVerificationCode.getText());
-            //System.out.println(code);
-            //System.out.println(verificationCode);
-
-            Random random = new Random();
-            int number = random.nextInt(20000000, 90000000);
             LogMessage logMessage = new LogMessage();
+            String password = String.valueOf(txtPassword.getPassword());
 
-            try {
-                while (register.checkDuplicate(number)) {
-                    number = random.nextInt(20000000, 90000000);
-                }
-
-                if (chkAgree.isSelected()) {
-                    if (code != verificationCode) {
-                        registerMessage.labelMessageDetail.setText("Invalid Verification Code");
-                        logMessage.start();
-                    } else {
-                        registerMessage.labelMessageType.setText("Register Successfully");
-                        registerMessage.labelMessageDetail.setText("Your account number is: " + number);
-                        registerMessage.setBorder(BorderFactory.createLineBorder(Color.green, 1));
-                        logMessage.start();
-                        clear();
-                        int defaultCash = 20000;
-                        if (txtReferalCode.getText().equalsIgnoreCase("gregg") || txtReferalCode.getText().equalsIgnoreCase("wen")) {
-                            defaultCash = 100000;
-                        }
-                        register.register(defaultCash, 
-                        number, 
-                        Defaults.email, 
-                        fullname, 
-                        password, 
-                        "Fully Verified");
-                    }
-                } else {
-                    registerMessage.labelMessageDetail.setText("Please check the terms and condition");
-                    logMessage.start();
-                }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
+            if (password.equalsIgnoreCase("")) {
+                txtPassword.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+            } else {
+                txtPassword.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
             }
 
+            if (checkEmpty() || password.equalsIgnoreCase("")) {
+                registerMessage.labelMessageDetail.setText("Empty field");
+                logMessage.start();
+            } else {
+                String fullname = txtFirstName.getText() + " " + txtMiddleName.getText().charAt(0) + ". " + txtLastName.getText();
+                int code = Defaults.verificationCode;
+                int verificationCode = 0;
+
+                try {
+                    verificationCode = Integer.valueOf(txtVerificationCode.getText());
+                } catch(Exception ex) {
+                    registerMessage.labelMessageDetail.setText("Invalid Verification Code");
+                    logMessage.start();
+                }
+                //System.out.println(code);
+                //System.out.println(verificationCode);
+
+                Random random = new Random();
+                int number = random.nextInt(20000000, 90000000);
+                Mail mail = new Mail();
+
+                try {
+                    while (register.checkDuplicate(number)) {
+                        number = random.nextInt(20000000, 90000000);
+                    }
+    
+                    if (chkAgree.isSelected()) {
+                        if (code != verificationCode) {
+                            registerMessage.labelMessageDetail.setText("Invalid Verification Code");
+                            logMessage.start();
+                        } else {
+                            registerMessage.labelMessageType.setText("Register Successfully");
+                            registerMessage.labelMessageDetail.setText("PLease check your email for your account number.");
+                            registerMessage.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                            logMessage.start();
+                            clear();
+                            int defaultCash = 20000;
+                            if (txtReferalCode.getText().equalsIgnoreCase("gregg") || txtReferalCode.getText().equalsIgnoreCase("wen")) {
+                                defaultCash = 100000;
+                            }
+                            register.register(defaultCash, 
+                            number, 
+                            Defaults.email, 
+                            fullname, 
+                            password, 
+                            "Fully Verified");
+                            mail.registered(Defaults.email, number);
+                        }
+                    } else {
+                        registerMessage.labelMessageDetail.setText("Please check the terms and condition");
+                        logMessage.start();
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
 
         });
 
