@@ -109,4 +109,6 @@ public class MyTextField extends JTextField {
         }
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, left, 10, right));
     }
+
+    
 }

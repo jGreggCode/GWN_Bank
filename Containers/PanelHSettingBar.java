@@ -4,6 +4,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.MyPasswordField;
@@ -11,7 +13,7 @@ import Utils.MyTextField;
 
 import java.awt.Color;
 
-public class PanelHSettingBar extends JPanel {
+public class PanelHSettingBar extends JPanel implements MouseListener {
 
     ColorPalette colorPalette = new ColorPalette();
     private Defaults def = new Defaults();
@@ -86,6 +88,11 @@ public class PanelHSettingBar extends JPanel {
         txtChangePassword.setBounds(200, 160, 300, 30);
 
         labelChangePassword.setText("Change password");
+        labelChangePassword.setForeground(Color.blue);
+        labelChangePassword.setFont(new Font(def.getFontFam(), Font.BOLD, 16));
+        labelChangePassword.setBounds(520, 160, 200, 30);
+        labelChangePassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        labelChangePassword.addMouseListener(this);
 
         panelUserInfos.add(labelSecurity);
         panelUserInfos.add(labelWhereLogin);
@@ -93,7 +100,39 @@ public class PanelHSettingBar extends JPanel {
         panelUserInfos.add(labelLogin);
         panelUserInfos.add(labelPassword);
         panelUserInfos.add(txtChangePassword);
+        panelUserInfos.add(labelChangePassword);
 
         add(panelUserInfos);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        if (e.getSource() == labelChangePassword) {
+            txtChangePassword.setEnabled(true);
+            txtChangePassword.setText("");
+            labelChangePassword.setForeground(colorPalette.getColorButtons());
+            txtChangePassword.requestFocus();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
     }
 }

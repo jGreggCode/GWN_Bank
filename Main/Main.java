@@ -90,7 +90,7 @@ public class Main {
                         System.out.println("Login Status | User " + Session.userAccoundNumber + " is currently logged in.");
     
                         // SQL Syntax to get the user data
-                        PreparedStatement p = con.prepareStatement("SELECT userID, userBalance, userEmail, userName, verificationType FROM users where BINARY(userAccountNumber) = ? limit 1", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                        PreparedStatement p = con.prepareStatement("SELECT userID, userBalance, userEmail, userName, verificationType, userPinCode FROM users where BINARY(userAccountNumber) = ? limit 1", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                         p.setInt(1, Session.userAccoundNumber);
                         ResultSet r = p.executeQuery();
                         
@@ -101,12 +101,14 @@ public class Main {
                             String userEmail = r.getString(3);
                             String userName = r.getString(4);
                             String userVerificationType = r.getString(5);
+                            String userPinCode = r.getString(6);
     
                             Session.userID = userID;
                             Session.userBalance = userBalance;
                             Session.userEmail = userEmail;
                             Session.userName = userName;
                             Session.userVerificationType = userVerificationType;
+                            Session.userPinCode = userPinCode;
                         }
 
                     }

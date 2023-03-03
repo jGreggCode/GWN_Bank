@@ -7,12 +7,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.RenderingHints;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 
-public class MyPasswordField extends JPasswordField {
+public class MyPasswordField extends JPasswordField implements KeyListener {
 
     // Just for deisign!
 
@@ -53,6 +55,7 @@ public class MyPasswordField extends JPasswordField {
         setForeground(Color.decode("#7A8C8D"));
         setFont(new java.awt.Font("sansserif", 0, 13));
         setSelectionColor(colorPalette.getColorBackground());
+        addKeyListener(this);
     }
 
     @Override
@@ -106,4 +109,28 @@ public class MyPasswordField extends JPasswordField {
         }
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, left, 10, right));
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        char c = e.getKeyChar();
+
+        if (!Character.isDigit(c) && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+            System.out.println("Letters or Special Characters are prohibited in password field");
+            this.setEditable(false);
+        } else {
+            this.setEditable(true);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+    }
+
 }

@@ -23,7 +23,7 @@ public class RegisterMessage extends JPanel {
         setVisible(false);
         setBounds(1440 / 2 - (700 / 2), 40, 700, 50);
 
-        labelMessageType.setText("Registration Failed Failed");
+        labelMessageType.setText("Registration Failed");
         labelMessageType.setForeground(Color.white);
         labelMessageType.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
         labelMessageType.setBounds(20, 0, 400, 50);

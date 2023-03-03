@@ -1,5 +1,6 @@
 package Containers;
 
+import javax.swing.BorderFactory;
 // Imports
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -13,30 +14,40 @@ import Backend.Session;
 import Backend.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.awt.event.KeyEvent;
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import Utils.MyTextField;
+import Utils.TextLimit;
 import Utils.MyPasswordField;
 import Utils.Defaults;
+import Utils.Methods;
 import Utils.Button;
 import Utils.ColorPalette;
 
-public class PanelBody extends JPanel implements ActionListener { 
+public class PanelBody extends JPanel implements ActionListener, MouseListener, KeyListener { 
     
     // Prerequisite Objects
     private MainFrame m;
     private LoginMessage loginMessage;
     private User log = new User();
     private ModelLogin dataLogin;
+    private Methods methods = new Methods();
 
     // Label
     private JLabel labelLogin = new JLabel();
+    private JLabel labelPassVisible = new JLabel();
 
     // Text field
     private MyTextField customTextField = new MyTextField();
 
     // Password field
     private MyPasswordField customPasswordField = new MyPasswordField();
+    boolean visible = false;
+    char defChar = customPasswordField.getEchoChar(); 
 
     // Button
     private Button login = new Button();
@@ -66,12 +77,22 @@ public class PanelBody extends JPanel implements ActionListener {
         customTextField.setFont(new Font(def.getFontFam(), 0, 18));
         customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
         customTextField.setBounds(x - (500 / 2), 100, 500, 60);
+        customTextField.addKeyListener(this);
+        customTextField.setDocument(new TextLimit(8));
         
         customPasswordField.setHint("Pin Code");
         customPasswordField.setColumns(6);
         customPasswordField.setFont(new Font(def.getFontFam(), 0, 18));
         customPasswordField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/pass.png")));
         customPasswordField.setBounds(x - (500 / 2), 200, 500, 60);
+        customPasswordField.setDocument(new TextLimit(6));
+
+        labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passInvisible.png")), 24, 24));
+        labelPassVisible.setOpaque(false);
+        labelPassVisible.setBounds(450, 60 / 2 - (50 / 2), 50, 50);
+        labelPassVisible.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        labelPassVisible.addMouseListener(this);
+        customPasswordField.add(labelPassVisible);
 
         login.setBackground(colorPalette.getColorButtons());
         login.setForeground(Color.white);
@@ -104,6 +125,7 @@ public class PanelBody extends JPanel implements ActionListener {
             // Account number has only 10 characters
             if (customTextField.getText().length() > 10) {
                 loginMessage.labelMessageDetail.setText("Invalid Account Number");
+                loginMessage.labelMessageDetail.setBorder(BorderFactory.createLineBorder(Color.red, 1));
                 logMsg.start();
             } else {
                 // If account number is valid
@@ -134,6 +156,7 @@ public class PanelBody extends JPanel implements ActionListener {
                     } else {
                         // Show the login message
                         loginMessage.labelMessageDetail.setText("Incorrect Username and Password");
+                        loginMessage.labelMessageDetail.setBorder(BorderFactory.createLineBorder(Color.red, 1));
                         logMsg.start();
                     }
 
@@ -146,11 +169,28 @@ public class PanelBody extends JPanel implements ActionListener {
         } else {
             // If account number is a string
             loginMessage.labelMessageDetail.setText("Account Number must be a number");
+            loginMessage.labelMessageDetail.setBorder(BorderFactory.createLineBorder(Color.red, 1));
             logMsg.start();
         }
 
     }
 
+    // Mouse event
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getSource() == labelPassVisible) {
+            if (!visible) {
+                customPasswordField.setEchoChar((char)0); 
+                labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passVisible.png")), 24, 24));
+                visible = true;
+            } else {
+                labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passInvisible.png")), 24, 24));
+                customPasswordField.setEchoChar(defChar);
+                visible = false;
+            }
+        }
+    }
+    
     // Thread to show log message
     public class LogMessage extends Thread {
 
@@ -171,5 +211,44 @@ public class PanelBody extends JPanel implements ActionListener {
 
     }
 
-    
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        char c = e.getKeyChar();
+        if (!Character.isDigit(c) && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+            customTextField.setEditable(false);
+        } else {
+            customTextField.setEditable(true);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+    }
 }

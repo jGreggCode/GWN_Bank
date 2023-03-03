@@ -23,6 +23,7 @@ import Utils.Mail;
 import Utils.Methods;
 import Utils.MyPasswordField;
 import Utils.MyTextField;
+import Utils.TextLimit;
 
 public class RegisterFrame extends JFrame implements MouseListener {
     
@@ -31,6 +32,8 @@ public class RegisterFrame extends JFrame implements MouseListener {
     RegisterMessage registerMessage;
 
     // Components
+    // Image
+    ImageIcon icon = new ImageIcon("Images/warning.png");
 
     // Panels
     private JPanelCustom leftPanel = new JPanelCustom(50,0,50,0);
@@ -47,7 +50,8 @@ public class RegisterFrame extends JFrame implements MouseListener {
     labelSee = new JLabel(),
     labelHave = new JLabel(),
     labelHappy = new JLabel(),
-    labelPassVisible = new JLabel();
+    labelPassVisible = new JLabel(),
+    labelWarning = new JLabel();
 
     // Check if password is visible
     boolean visible = false;
@@ -82,6 +86,9 @@ public class RegisterFrame extends JFrame implements MouseListener {
     Methods methods = new Methods();
     Register register = new Register();
 
+    // Boolean
+    private boolean success = false;
+
     // Methods Needed
     // Clear the textfields
     public void clear() {
@@ -101,10 +108,13 @@ public class RegisterFrame extends JFrame implements MouseListener {
         boolean empty = false;
         for (int i = 0; i < txtFields.length; i++) {
             if (txtFields[i].getText().equalsIgnoreCase("")) {
-                txtFields[i].setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                txtFields[i].setSuffixIcon(icon);
+                txtFields[i].setBorder(BorderFactory.createLineBorder(Color.red, 2));
                 empty = true;
             } else {
+                txtFields[i].setSuffixIcon(null);
                 txtFields[i].setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                txtFields[i].remove(labelWarning);
             }
         }
         return empty;
@@ -150,7 +160,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
         labelHappy.setForeground(Color.black);
         labelHappy.setBounds(0,470, 620, 50);
 
-        btnLogin.setText("Login");
+        btnLogin.setText("L o g i n");
         btnLogin.setFont(new Font(def.getFontFam(), Font.PLAIN, 18));
         btnLogin.setForeground(Color.black);
         btnLogin.setBackground(Color.black);
@@ -213,8 +223,9 @@ public class RegisterFrame extends JFrame implements MouseListener {
         txtPassword.setFont(new Font(def.getFontFam(), Font.PLAIN, 18));
         txtPassword.setForeground(Color.black);
         txtPassword.setBounds(620 / 2 - (400 / 2),500, 400, 50);
+        txtPassword.setDocument(new TextLimit(6));
 
-        labelPassVisible.setIcon(new ImageIcon(getClass().getResource("/Images/passInvisible.png")));
+        labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passInvisible.png")), 24, 24));
         labelPassVisible.setOpaque(false);
         labelPassVisible.setBounds(350,0, 50, 50);
         labelPassVisible.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -260,8 +271,12 @@ public class RegisterFrame extends JFrame implements MouseListener {
             String password = String.valueOf(txtPassword.getPassword());
 
             if (password.equalsIgnoreCase("")) {
+                txtPassword.setSuffixIcon(icon);
+                labelPassVisible.setBounds(330,0, 50, 50);
                 txtPassword.setBorder(BorderFactory.createLineBorder(Color.red, 2));
             } else {
+                txtPassword.setSuffixIcon(null);
+                labelPassVisible.setBounds(350,0, 50, 50);
                 txtPassword.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
             }
 
@@ -297,6 +312,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
                             registerMessage.labelMessageDetail.setText("Invalid Verification Code");
                             logMessage.start();
                         } else {
+                            success = true;
                             registerMessage.labelMessageType.setText("Register Successfully");
                             registerMessage.labelMessageDetail.setText("Check your email for your account number.");
                             registerMessage.setBorder(BorderFactory.createLineBorder(Color.green, 1));
@@ -352,10 +368,10 @@ public class RegisterFrame extends JFrame implements MouseListener {
         if (e.getSource() == labelPassVisible) {
             if (!visible) {
                 txtPassword.setEchoChar((char)0); 
-                labelPassVisible.setIcon(new ImageIcon(getClass().getResource("/Images/passVisible.png")));
+                labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passVisible.png")), 24, 24));
                 visible = true;
             } else {
-                labelPassVisible.setIcon(new ImageIcon(getClass().getResource("/Images/passInvisible.png")));
+                labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passInvisible.png")), 24, 24));
                 txtPassword.setEchoChar(defChar);
                 visible = false;
             }
@@ -387,7 +403,11 @@ public class RegisterFrame extends JFrame implements MouseListener {
             try {
                 
                 registerMessage.setVisible(true);
-                Thread.sleep(4000);
+                if (success) {
+                    Thread.sleep(6000);
+                } else {
+                    Thread.sleep(4000);
+                }
                 registerMessage.setVisible(false);
                 
                 

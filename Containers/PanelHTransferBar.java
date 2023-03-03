@@ -2,13 +2,16 @@ package Containers;
 
 // Imports
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import Backend.Session;
 import Backend.TransactionData;
 import Backend.Transfer;
@@ -20,11 +23,13 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PanelHTransferBar extends JPanel implements ChangeListener {
+public class PanelHTransferBar extends JPanel implements ChangeListener, KeyListener {
     
     ColorPalette colorPalette = new ColorPalette();
     Defaults def = new Defaults();
@@ -41,14 +46,14 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
     labelWithdrawQuota = new JLabel(),
     labelDepositQuotaAmmount = new JLabel(),
     labelWithdrawQuotaAmmount = new JLabel();
-    private JSeparator separatorLine = new JSeparator();
-    private JSeparator separatorLine2 = new JSeparator();
+    public JSeparator separatorLine = new JSeparator();
+    public JSeparator separatorLine2 = new JSeparator();
 
     // bottom tab components
-    private JLabel labelAmmount = new JLabel();
-    private JSliderCustom sliderCash = new JSliderCustom();
+    public JLabel labelAmmount = new JLabel();
+    public JSliderCustom sliderCash = new JSliderCustom();
 
-    private MyTextField txtAccountNumber = new MyTextField() {
+    public MyTextField txtAccountNumber = new MyTextField() {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
@@ -63,7 +68,7 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
     }
     };
 
-    private MyTextField txtCash = new MyTextField() {
+    public MyTextField txtCash = new MyTextField() {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
@@ -77,12 +82,15 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
             }
     }
     };
-    private Button btnTransfer = new Button();
-    private ButtonOutLine btnClear = new ButtonOutLine();
+    public Button btnTransfer = new Button();
+    public ButtonOutLine btnClear = new ButtonOutLine();
     
     // Transaction components
     public TransTable tableTransaction = new TransTable();
-    private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
+    public JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
+
+    public InputPinCode inputPinCode = new InputPinCode();
+    public boolean correctCode = false;
 
     public PanelHTransferBar(ModalBox modalBox) {
         this.modalBox = modalBox;
@@ -156,6 +164,8 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
         txtAccountNumber.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
         txtAccountNumber.setHorizontalAlignment(JLabel.CENTER);
         txtAccountNumber.setOpaque(false);
+        txtAccountNumber.setDocument(new TextLimit(8));
+        txtAccountNumber.addKeyListener(this);
 
         txtCash.setBounds(1000 / 2 - (300 / 2), 320, 300, 50);
         txtCash.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
@@ -174,84 +184,8 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
         btnTransfer.setBounds(1000 / 2 - (150 / 2) - 100, 420, 150, 40);
         btnTransfer.setFocusable(false);
         btnTransfer.addActionListener(e -> {
-
-            ModalMessage modalMessage = new ModalMessage();
-
-            System.out.println(txtCash.getText().equals(""));
             
-            if (!txtCash.getText().equals("")) {
-                double ammount = Double.valueOf(txtCash.getText().substring(4));
-                UserBalance userBalance = new UserBalance();
-                UserName name = new UserName();
-                Transfer transfer = new Transfer();
-                int account2 = Integer.parseInt(txtAccountNumber.getText());
-                
-                double balance = 0;
-                String userName = null;
-
-                TransactionData transactionData = new TransactionData();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-                Date dateAndTime = new Date(); 
-                String dateToday = formatter.format(dateAndTime);
-                int oldBalance = Session.userBalance;
-
-                try {
-                    balance = userBalance.getUserBalance(Session.userAccoundNumber);
-                    userName = name.getUserName(account2);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                
-                String message = String.format("Do you want to transfer PHP %,.2f to %s", ammount, userName);
-
-                boolean userFound = transfer.invalidUser(account2);
-
-                if (userFound) {
-                    if (ammount > balance) {
-                        modalBox.labelMessageDetail.setText("Insufficient Balance");
-                        modalBox.labelMessageType.setText("Transaction Failed");
-                        modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                        modalMessage.start();
-                    } else {
-                        int answer = JOptionPane.showConfirmDialog(null, message, "Are you sure?", JOptionPane.YES_NO_OPTION);
-        
-                        if (answer == 0) {
-                            transfer.transfer(ammount, Session.userAccoundNumber, account2);
-                            try {
-        
-                                double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
-                                int newBalance = (int) newAmmount;
-                                labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
-        
-                                modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
-                                modalBox.labelMessageType.setText("Transaction Completed");
-                                modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
-                                transactionData.addDeposit(Session.userAccoundNumber, "Bank Transfer", dateToday, "Philippines", oldBalance, newBalance);
-        
-                                modalMessage.start();
-                            } catch (SQLException e1) {
-                                // TODO Auto-generated catch block
-                                e1.printStackTrace();
-                            }
-                        } else {
-                            modalBox.labelMessageType.setText("Transaction Canceled");
-                            modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
-                            modalBox.setBorder(BorderFactory.createLineBorder(Color.orange, 1));
-                            modalMessage.start();
-                        }
-                    } 
-                } else {
-                    modalBox.labelMessageType.setText("Transaction Failed");
-                    modalBox.labelMessageDetail.setText("Invalid Account Number");
-                    modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                    modalMessage.start();
-                }
-            } else {
-                modalBox.labelMessageType.setText("Transaction Failed");
-                modalBox.labelMessageDetail.setText("Amount field is empty");
-                modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                modalMessage.start();
-            }
+            new InputPinCode().setVisible(true);
 
         });
 
@@ -317,10 +251,167 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
         graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint border
     }
 
+    public class InputPinCode extends JFrame {
+
+        private JLabel enterPinCode = new JLabel();
+        private MyPasswordField psPinCode = new MyPasswordField();
+        private Button btnConfirm = new Button();
+
+        // Panel for code
+        public InputPinCode() {
+            setUndecorated(true);
+            setPreferredSize(new Dimension(400, 300));
+            setSize(getPreferredSize().width, getPreferredSize().height);
+            setResizable(false);
+            setLayout(null);
+            getContentPane().setBackground(colorPalette.getColorBackground());
+            setLocationRelativeTo(null);
+
+            enterPinCode.setText("Enter your pin code");
+            enterPinCode.setForeground(Color.white);
+            enterPinCode.setHorizontalAlignment(JLabel.CENTER);
+            enterPinCode.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
+            enterPinCode.setBounds(0, 80, 400, 50);
+
+            psPinCode.setColumns(6);
+            psPinCode.setHorizontalAlignment(JLabel.CENTER);
+            psPinCode.setBounds(20, 130, 360, 50);
+            psPinCode.setDocument(new TextLimit(6));
+
+            btnConfirm.setText("Confirm");
+            btnConfirm.setForeground(Color.white);
+            btnConfirm.setBackground(colorPalette.getColorButtons());
+            btnConfirm.setHorizontalAlignment(JLabel.CENTER);
+            btnConfirm.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+            btnConfirm.setBounds(400 / 2 - (100 / 2),190,100,50);
+            btnConfirm.addActionListener(e -> {
+
+                String password = String.valueOf(psPinCode.getPassword());
+                    
+                ModalMessage modalMessage = new ModalMessage();
+
+                if (password.equalsIgnoreCase(Session.userPinCode)) {
+
+                    System.out.println(txtCash.getText().equals(""));
+                    
+                    if (!txtCash.getText().equals("")) {
+                        double ammount = Double.valueOf(txtCash.getText().substring(4));
+                        UserBalance userBalance = new UserBalance();
+                        UserName name = new UserName();
+                        Transfer transfer = new Transfer();
+                        int account2 = Integer.parseInt(txtAccountNumber.getText());
+                        
+                        double balance = 0;
+                        String userName = null;
+
+                        TransactionData transactionData = new TransactionData();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+                        Date dateAndTime = new Date(); 
+                        String dateToday = formatter.format(dateAndTime);
+                        int oldBalance = Session.userBalance;
+
+                        try {
+                            balance = userBalance.getUserBalance(Session.userAccoundNumber);
+                            userName = name.getUserName(account2);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                        
+                        String message = String.format("Do you want to transfer PHP %,.2f to %s", ammount, userName);
+
+                        boolean userFound = transfer.invalidUser(account2);
+
+                        if (userFound) {
+
+                            //String pincode = JOptionPane.showInputDialog(null, "PLease enter you pin code");
+                            if (ammount > balance) {
+                                modalBox.labelMessageDetail.setText("Insufficient Balance");
+                                modalBox.labelMessageType.setText("Transaction Failed");
+                                modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                                modalMessage.start();
+                            } else {
+                                int answer = JOptionPane.showConfirmDialog(null, message, "Are you sure?", JOptionPane.YES_NO_OPTION);
+                
+                                if (answer == 0) {
+                                    transfer.transfer(ammount, Session.userAccoundNumber, account2);
+                                    try {
+                
+                                        double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                                        int newBalance = (int) newAmmount;
+                                        labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
+                
+                                        modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                                        modalBox.labelMessageType.setText("Transaction Completed");
+                                        modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+                                        transactionData.addDeposit(Session.userAccoundNumber, "Bank Transfer", dateToday, "Philippines", oldBalance, newBalance);
+        
+                                        modalMessage.start();
+                                    } catch (SQLException e1) {
+                                        // TODO Auto-generated catch block
+                                        e1.printStackTrace();
+                                    }
+                                } else {
+                                    modalBox.labelMessageType.setText("Transaction Canceled");
+                                    modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+                                    modalBox.setBorder(BorderFactory.createLineBorder(Color.orange, 1));
+                                    modalMessage.start();
+                                }
+                            } 
+
+                        } else {
+                            modalBox.labelMessageType.setText("Transaction Failed");
+                            modalBox.labelMessageDetail.setText("Invalid Account Number");
+                            modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                            modalMessage.start();
+                        }
+                    } else {
+                        modalBox.labelMessageType.setText("Transaction Failed");
+                        modalBox.labelMessageDetail.setText("Amount field is empty");
+                        modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                        modalMessage.start();
+                    }
+
+                } else {
+                    modalBox.labelMessageType.setText("Transaction Failed");
+                    modalBox.labelMessageDetail.setText("Invalid Pin Code");
+                    modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                    modalMessage.start();
+                }
+
+                this.dispose();
+            });
+
+            add(enterPinCode);
+            add(psPinCode);
+            add(btnConfirm);
+        }
+    }
+
     @Override
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
         txtCash.setText("PHP " + sliderCash.getValue());
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        char c = e.getKeyChar();
+        if (!Character.isDigit(c) && e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+            txtAccountNumber.setEditable(false);
+        } else {
+            txtAccountNumber.setEditable(true);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
     }
     
     public class ModalMessage extends Thread {
@@ -340,4 +431,5 @@ public class PanelHTransferBar extends JPanel implements ChangeListener {
             
         }
     }
+    
 }

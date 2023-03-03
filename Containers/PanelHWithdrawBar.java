@@ -1,6 +1,7 @@
 package Containers;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 // Imports
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,8 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -154,49 +157,7 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
         btnWithdraw.setFocusable(false);
         btnWithdraw.addActionListener(e -> {
 
-            double ammount = Double.valueOf(txtCash.getText().substring(4));
-            UserBalance userBalance = new UserBalance();
-            Withdraw with = new Withdraw();
-            ModalMessage modalMessage = new ModalMessage();
-            TransactionData transactionData = new TransactionData();
-            double balance = 0;
-            
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-            Date dateAndTime = new Date(); 
-            String dateToday = formatter.format(dateAndTime);
-            int oldBalance = Session.userBalance;
-
-            try {
-                balance = userBalance.getUserBalance(Session.userAccoundNumber);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-
-            if (ammount > balance) {
-                modalBox.labelMessageDetail.setText("Insufficient Balance");
-                modalBox.labelMessageType.setText("Transaction Failed");
-                modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
-                modalMessage.start();
-            } else {
-
-                with.withdraw(ammount, Session.userAccoundNumber);
-                try {
-
-                    double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
-                    int newBalance = (int) newAmmount;
-                    labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
-
-                    modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
-                    modalBox.labelMessageType.setText("Transaction Completed");
-                    modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
-                    transactionData.addDeposit(Session.userAccoundNumber, "Withdraw", dateToday, "Philippines", oldBalance, newBalance);
-
-                    modalMessage.start();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-
-            }
+            new InputPinCode().setVisible(true);
 
         });
 
@@ -264,6 +225,106 @@ public class PanelHWithdrawBar extends JPanel implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
         txtCash.setText("PHP " + sliderCash.getValue());
+    }
+
+    public class InputPinCode extends JFrame {
+
+        private JLabel enterPinCode = new JLabel();
+        private MyPasswordField psPinCode = new MyPasswordField();
+        private Button btnConfirm = new Button();
+
+        // Panel for code
+        public InputPinCode() {
+            setUndecorated(true);
+            setPreferredSize(new Dimension(400, 300));
+            setSize(getPreferredSize().width, getPreferredSize().height);
+            setResizable(false);
+            setLayout(null);
+            getContentPane().setBackground(colorPalette.getColorBackground());
+            setLocationRelativeTo(null);
+
+            enterPinCode.setText("Enter your pin code");
+            enterPinCode.setForeground(Color.white);
+            enterPinCode.setHorizontalAlignment(JLabel.CENTER);
+            enterPinCode.setFont(new Font(def.getFontFam(), Font.BOLD, 20));
+            enterPinCode.setBounds(0, 80, 400, 50);
+
+            psPinCode.setColumns(6);
+            psPinCode.setHorizontalAlignment(JLabel.CENTER);
+            psPinCode.setBounds(20, 130, 360, 50);
+            psPinCode.setDocument(new TextLimit(6));
+
+            btnConfirm.setText("Confirm");
+            btnConfirm.setForeground(Color.white);
+            btnConfirm.setBackground(colorPalette.getColorButtons());
+            btnConfirm.setHorizontalAlignment(JLabel.CENTER);
+            btnConfirm.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+            btnConfirm.setBounds(400 / 2 - (100 / 2),190,100,50);
+            btnConfirm.addActionListener(e -> {
+
+                String password = String.valueOf(psPinCode.getPassword());
+                    
+                ModalMessage modalMessage = new ModalMessage();
+
+                if (password.equalsIgnoreCase(Session.userPinCode)) {
+                    double ammount = Double.valueOf(txtCash.getText().substring(4));
+                    UserBalance userBalance = new UserBalance();
+                    Withdraw with = new Withdraw();
+                    TransactionData transactionData = new TransactionData();
+                    double balance = 0;
+                    
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+                    Date dateAndTime = new Date(); 
+                    String dateToday = formatter.format(dateAndTime);
+                    int oldBalance = Session.userBalance;
+
+                    try {
+                        balance = userBalance.getUserBalance(Session.userAccoundNumber);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                    if (ammount > balance) {
+                        modalBox.labelMessageDetail.setText("Insufficient Balance");
+                        modalBox.labelMessageType.setText("Transaction Failed");
+                        modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                        modalMessage.start();
+                    } else {
+
+                        with.withdraw(ammount, Session.userAccoundNumber);
+                        try {
+
+                            double newAmmount = userBalance.getUserBalance(Session.userAccoundNumber);
+                            int newBalance = (int) newAmmount;
+                            labelCashAmmount.setText(String.format("PHP %,.2f", newAmmount)); 
+
+                            modalBox.setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                            modalBox.labelMessageType.setText("Transaction Completed");
+                            modalBox.labelMessageDetail.setText("Thank you for using GWN BANK");
+                            transactionData.addDeposit(Session.userAccoundNumber, "Withdraw", dateToday, "Philippines", oldBalance, newBalance);
+
+                            modalMessage.start();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+
+                    }
+                } else {
+                    modalBox.labelMessageDetail.setText("Invalid Pin Code");
+                    modalBox.labelMessageType.setText("Transaction Failed");
+                    modalBox.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                    modalMessage.start();
+                }
+
+
+                this.dispose();
+                    
+            });
+
+            add(enterPinCode);
+            add(psPinCode);
+            add(btnConfirm);
+        }
     }
 
     public class ModalMessage extends Thread {
