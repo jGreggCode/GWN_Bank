@@ -13,11 +13,19 @@ public class ColorPalette {
     // orange = fb8b02
     // yellow = fecc0f
 
+    /* 
     private final Color colorText = Color.black;
     private final Color colorBackground = new Color(0x1A1A2E);
     private final Color colorBackground1 = new Color(0x23233d);
     private final Color colorBackground2 = new Color(0x37b6fa);
     private final Color colorButtons = new Color(0xef461e);
+    */
+    
+    private final Color colorText = Color.black;
+    private final Color colorBackground = new Color(0x730007); // dark
+    private final Color colorBackground1 = new Color(0xB70D1A); // light
+    private final Color colorBackground2 = new Color(0xFCFFEC);
+    private final Color colorButtons = new Color(0xD3C153); // buttons etc
 
     public Color getColorText() {
         return colorText;

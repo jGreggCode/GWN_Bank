@@ -11,7 +11,7 @@ public class PanelHeader extends JPanel {
 
     // Header panel components
     JLabel labelWelcome = new JLabel();
-    ImageIcon logo = new ImageIcon("Images/BankLogoN.png");
+    ImageIcon logo = new ImageIcon("Images/newLogo.png");
     Image image = logo.getImage();
     Image resizedImg = image.getScaledInstance(128 * 2, 128 * 2, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);
@@ -28,12 +28,12 @@ public class PanelHeader extends JPanel {
         labelWelcome.setIcon(newLogo);
         labelWelcome.setVerticalTextPosition(JLabel.BOTTOM);
         labelWelcome.setHorizontalTextPosition(JLabel.CENTER);
-        labelWelcome.setIconTextGap(-10);
+        labelWelcome.setIconTextGap(10);
 
         // Welcome Label
-        labelWelcome.setText("Welcome To GWN Bank");
+        labelWelcome.setText("Welcome To Miracle Holdings INC.");
         labelWelcome.setForeground(Color.white);
-        labelWelcome.setFont(new Font(def.getFontFam(), Font.BOLD, 26));
+        labelWelcome.setFont(new Font(def.getFontFam(), Font.BOLD, 19));
         setBounds(x - (320 / 2), 20, 320, 296);
 
         // Add components

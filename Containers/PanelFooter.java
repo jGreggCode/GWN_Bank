@@ -40,7 +40,7 @@ public class PanelFooter extends JPanel implements MouseListener {
     labelProject = new JLabel();
 
     // Images
-    ImageIcon logo = new ImageIcon("Images/JustLogo.png");
+    ImageIcon logo = new ImageIcon("Images/newLogo.png");
     Image image = logo.getImage();
     Image resizedImg = image.getScaledInstance(16, 20, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);
@@ -99,7 +99,7 @@ public class PanelFooter extends JPanel implements MouseListener {
         emailSeparator.setForeground(Color.gray);
         emailSeparator.setBounds(40, 150, 450, 30);
         
-        labelCopyright.setText("Copyright © 2023 GWN. | All rights reserved.");
+        labelCopyright.setText("Copyright © 2023 MH INC. | All rights reserved.");
         labelCopyright.setIcon(newLogo);
         labelCopyright.setFont(new Font(def.getFontFam(), Font.BOLD, 14));
         labelCopyright.setIconTextGap(5);
@@ -109,18 +109,18 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelFooter.setIcon(newFooterLogo);
         labelFooter.setBounds(922, 20, (592 / 2) / 2 + 50, (422 / 2) / 2 + 50);
 
-        labelFooterp.setText("Make the right choice, choose GWN Bank.");
+        labelFooterp.setText("In Miracle, you're in good hands.");
         labelFooterp.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
         labelFooterp.setForeground(Color.white);
         labelFooterp.setBounds(1150, 50, 250, 30);
 
-        labelPrivacy.setText("Privacy Policy".toUpperCase(getLocale()));
+        labelPrivacy.setText("Your success is our Miracle".toUpperCase(getLocale()));
         labelPrivacy.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
-        labelPrivacy.setForeground(colorPalette.getColorButtons());
+        labelPrivacy.setForeground(Color.white);
         labelPrivacy.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelPrivacy.setBounds(1150, 90, 250, 30);
 
-        labelTerms.setText("Terms and condition".toUpperCase(getLocale()));
+        labelTerms.setText("Made by MH Inc Group".toUpperCase(getLocale()));
         labelTerms.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
         labelTerms.setForeground(colorPalette.getColorButtons());
         labelTerms.setCursor(new Cursor(Cursor.HAND_CURSOR));

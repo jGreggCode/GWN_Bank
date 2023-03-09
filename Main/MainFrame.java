@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
     PanelFooter panelFooter = new PanelFooter(loginMsg, this, registerFrame);
 
     // Image logo
-    ImageIcon logo = new ImageIcon("Images/JustLogo.png");
+    ImageIcon logo = new ImageIcon("Images/newLogo.png");
 
     // Utilities
     ColorPalette colors = new ColorPalette();
@@ -27,8 +27,8 @@ public class MainFrame extends JFrame {
     // Main frame
     public MainFrame() {
         // Main frame configuration
-        setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
-        setTitle("GWN Bank (Alpha Build)");
+        setIconImage(new ImageIcon(getClass().getResource("/Images/newLogo.png")).getImage());
+        setTitle("Miracle Holdings (Alpha Build)");
         setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(getPreferredSize().width, getPreferredSize().height);

@@ -29,7 +29,7 @@ public class HomeFrame extends JFrame {
     public HomeFrame() {
         // Home frame configuration
         setTitle("Home");
-        setIconImage(new ImageIcon(getClass().getResource("/Images/JustLogo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/Images/newLogo.png")).getImage());
         setPreferredSize(new Dimension(def.getFrameWidth(), def.getFrameHeight()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(getPreferredSize().width, getPreferredSize().height);
