@@ -1,4 +1,4 @@
-# GWN Bank (Ongoing)
+# Miracle Holdings INC (Ongoing)
 Intermediate Programming Final Project
 
 # Referenced Libraries Needed
