@@ -63,7 +63,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
         setBackground(colorPalette.getColorBackground1());
         setBounds(0, 0, 80, 800);
 
-        labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
+        labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
         labelProfile.setText("Profile");
         labelProfile.setForeground(Color.white);
         labelProfile.setFont(new Font(def.getFontFam(), Font.BOLD, 13));
@@ -145,7 +145,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             depositOpen = false;
             transferOpen = false;
             settingOpen = false;
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/accountClicked.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/userClicked.png")));
 
             labelWIthdraw.setIcon(new ImageIcon(getClass().getResource("/Images/withdraw.png")));
             labelDeposit.setIcon(new ImageIcon(getClass().getResource("/Images/deposit.png")));
@@ -177,7 +177,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             settingOpen = false;
             labelWIthdraw.setIcon(new ImageIcon(getClass().getResource("/Images/withdrawClicked.png")));
 
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
             labelDeposit.setIcon(new ImageIcon(getClass().getResource("/Images/deposit.png")));
             labelBankTransfer.setIcon(new ImageIcon(getClass().getResource("/Images/transfer.png")));
             labelSettings.setIcon(new ImageIcon(getClass().getResource("/Images/setting.png")));
@@ -207,7 +207,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             settingOpen = false;
             labelDeposit.setIcon(new ImageIcon(getClass().getResource("/Images/depositClicked.png")));
             
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
             labelWIthdraw.setIcon(new ImageIcon(getClass().getResource("/Images/withdraw.png")));
             labelBankTransfer.setIcon(new ImageIcon(getClass().getResource("/Images/transfer.png")));
             labelSettings.setIcon(new ImageIcon(getClass().getResource("/Images/setting.png")));
@@ -239,7 +239,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             labelBankTransfer.setIcon(new ImageIcon(getClass().getResource("/Images/transferClicked.png")));
 
             
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
             labelWIthdraw.setIcon(new ImageIcon(getClass().getResource("/Images/withdraw.png")));
             labelDeposit.setIcon(new ImageIcon(getClass().getResource("/Images/deposit.png")));
             labelSettings.setIcon(new ImageIcon(getClass().getResource("/Images/setting.png")));
@@ -264,7 +264,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
             labelSettings.setIcon(new ImageIcon(getClass().getResource("/Images/settingClicked.png")));
 
             
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
             labelWIthdraw.setIcon(new ImageIcon(getClass().getResource("/Images/withdraw.png")));
             labelBankTransfer.setIcon(new ImageIcon(getClass().getResource("/Images/transfer.png")));
             labelDeposit.setIcon(new ImageIcon(getClass().getResource("/Images/deposit.png")));
@@ -289,7 +289,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     public void mouseEntered(MouseEvent e) {
 
         if (e.getSource() == labelProfile) {
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/accountClicked.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/userClicked.png")));
         }
 
         if (e.getSource() == labelWIthdraw) {
@@ -318,7 +318,7 @@ public class PanelHNavBar extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
         
         if (e.getSource() == labelProfile && !userOpen) {
-            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
+            labelProfile.setIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
         }
 
         if (e.getSource() == labelWIthdraw && !withdrawOpen) {

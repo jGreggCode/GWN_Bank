@@ -11,7 +11,9 @@ public class PanelHeader extends JPanel {
 
     // Header panel components
     JLabel labelWelcome = new JLabel();
-    ImageIcon logo = new ImageIcon("Images/newLogo.png");
+    JLabel labelSlogan = new JLabel();
+    JLabel labelWelcome1 = new JLabel();
+    ImageIcon logo = new ImageIcon("Images/mhLogo.png");
     Image image = logo.getImage();
     Image resizedImg = image.getScaledInstance(128 * 2, 128 * 2, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);
@@ -22,21 +24,31 @@ public class PanelHeader extends JPanel {
 
     public PanelHeader() {
         // Header panel configuration
-        this.setOpaque(false);
+        setOpaque(false);
+        setLayout(null);
+        setBounds(x - (600 / 2), 40, 600, 400);
 
         // Icon Label
         labelWelcome.setIcon(newLogo);
         labelWelcome.setVerticalTextPosition(JLabel.BOTTOM);
         labelWelcome.setHorizontalTextPosition(JLabel.CENTER);
-        labelWelcome.setIconTextGap(10);
+        labelWelcome.setBounds(600 / 2 - (128 * 2 / 2), 0, 128 * 2, 128 * 2);
+        
+        labelWelcome1.setText("Welcome To Miracle Holdings INC.");
+        labelWelcome1.setFont(new Font(def.getFontFam(), Font.BOLD, 23));
+        labelWelcome1.setForeground(Color.black);
+        labelWelcome1.setHorizontalAlignment(JLabel.CENTER);
+        labelWelcome1.setBounds(0, 200, 600, 50);
 
-        // Welcome Label
-        labelWelcome.setText("Welcome To Miracle Holdings INC.");
-        labelWelcome.setForeground(Color.white);
-        labelWelcome.setFont(new Font(def.getFontFam(), Font.BOLD, 19));
-        setBounds(x - (320 / 2), 20, 320, 296);
+        labelSlogan.setText("You're in good hands with Miracle, Your success is our Miracle ");
+        labelSlogan.setFont(new Font(def.getFontFam(), Font.BOLD, 19));
+        labelSlogan.setForeground(Color.black);
+        labelSlogan.setHorizontalAlignment(JLabel.CENTER);
+        labelSlogan.setBounds(0, 230, 600, 50);
 
         // Add components
-        this.add(labelWelcome);
+        add(labelWelcome);
+        add(labelSlogan);
+        add(labelWelcome1);
     }
 }

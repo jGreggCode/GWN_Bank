@@ -12,7 +12,7 @@ public class PanelHFooterBar extends JPanel {
     private ColorPalette colorPalette = new ColorPalette();
     private JLabel labelIcon = new JLabel();
 
-    ImageIcon logo = new ImageIcon("Images/BankLogoN.png");
+    ImageIcon logo = new ImageIcon("Images/mhLogo.png");
     Image image = logo.getImage();
     Image resizedImg = image.getScaledInstance(64, 64, Image.SCALE_SMOOTH);
     ImageIcon newLogo = new ImageIcon(resizedImg);

@@ -45,6 +45,7 @@ public class Mail {
             int code = Defaults.verificationCode;
                 
             // Email message
+            
             String msg = "To verify your email address, please use the following One Time Password (OTP): <br><br>";
             String msgTwo = code + "</p> <br><br>";
             String msgThree = "Do not share this OTP with anyone. GWN Bank takes your account security very seriously. GWN Bank Customer Service will never ask you to disclose or verify your GWN Bank password, OTP, credit card, or banking account number. If you receive a suspicious email with a link to update your account information, do not click on the link-instead, report the email to GWN Bank for investigation<br><br>";
@@ -52,8 +53,9 @@ public class Mail {
 
             String fullMsg = msg + msgTwo + msgThree + msgFour;
 
+            String htmlCode = "<h3>To verify your email address, please use the following One Time Password (OTP):</h3> <br/><h4>" + code + "</h4><br/><p>Do not share this OTP with anyone. GWN Bank takes your account security very seriously. GWN Bank Customer Service will never ask you to disclose or verify your GWN Bank password, OTP, credit card, or banking account number. If you receive a suspicious email with a link to update your account information, do not click on the link-instead, report the email to GWN Bank for investigation<br></p><br/>Thank you, <br/>Miracle Holdings Inc. Team";
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(fullMsg, "text/html");
+            mimeBodyPart.setContent(htmlCode, "text/html");
                 
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);

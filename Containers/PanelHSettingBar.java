@@ -1,6 +1,5 @@
 package Containers;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.*;
@@ -9,7 +8,6 @@ import java.awt.event.MouseListener;
 import Utils.ColorPalette;
 import Utils.Defaults;
 import Utils.MyPasswordField;
-import Utils.MyTextField;
 
 import java.awt.Color;
 
@@ -42,16 +40,14 @@ public class PanelHSettingBar extends JPanel implements MouseListener {
            graphics.setColor(getBackground());
            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint background
            graphics.setColor(getForeground());
-           graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint border
         }
     };
 
     public PanelHSettingBar() {
-        setOpaque(true);
-        setBackground(colorPalette.getColorBackground());
         setVisible(false);
         setLayout(null);
         setBounds(80,0, 1360, 1000);
+        setBackground(colorPalette.getColorBackground());
 
         panelUserInfos.setBounds(50, 50, 1240, 300);
         panelUserInfos.setOpaque(false);

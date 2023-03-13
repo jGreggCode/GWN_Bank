@@ -63,24 +63,24 @@ public class PanelFooter extends JPanel implements MouseListener {
         this.registerFrame = registerFrame;
         // Panel footer configuration
         setOpaque(true);
-        setBackground(colorPalette.getColorBackground1());
+        setBackground(colorPalette.getColorBackground3());
         setLayout(null);
         setBounds(0, 728, 1440, 294);
 
-        labelNoCred.setText("E n r o l l   t o   G W N   O n l i n e !");
-        labelNoCred.setForeground(colorPalette.getColorButtons());
+        labelNoCred.setText("Register Now To Miracle Holdigs Application!");
+        labelNoCred.setForeground(colorPalette.getColorBackground4());
         labelNoCred.setFont(new Font(def.getFontFam(), Font.PLAIN, 15));
         labelNoCred.setBounds(40, 40, 350, 20);
 
-        labelStart.setText("Start using GWN Bank today.");
+        labelStart.setText("Start using Miracle Holdings app today.");
         labelStart.setForeground(Color.white);
         labelStart.setFont(new Font(def.getFontFam(), Font.BOLD, 26));
-        labelStart.setBounds(40, 70, 400, 33);
+        labelStart.setBounds(40, 70, 600, 33);
 
         custoMyTextField.setHint("Enter your email to register");
         custoMyTextField.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
         custoMyTextField.setForeground(Color.white);
-        custoMyTextField.setBackground(colorPalette.getColorBackground1());
+        custoMyTextField.setBackground(colorPalette.getColorBackground3());
         custoMyTextField.setCaretColor(Color.white);
         custoMyTextField.setBounds(40, 110, 350, 40);
 
@@ -91,7 +91,7 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelEmailSend.setBackground(colorPalette.getColorButtons());
         labelEmailSend.setForeground(Color.white);
         labelEmailSend.setIconTextGap(5);
-        labelEmailSend.setIcon(new ImageIcon(getClass().getResource("/Images/paper.png")));
+        labelEmailSend.setIcon(new ImageIcon(getClass().getResource("/Images/send-mail.png")));
         labelEmailSend.setBounds(390, 118, 100, 24);
         labelEmailSend.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelEmailSend.addMouseListener(this);
@@ -99,12 +99,12 @@ public class PanelFooter extends JPanel implements MouseListener {
         emailSeparator.setForeground(Color.gray);
         emailSeparator.setBounds(40, 150, 450, 30);
         
-        labelCopyright.setText("Copyright © 2023 MH INC. | All rights reserved.");
+        labelCopyright.setText("Copyright © 2023 Miracle Holdings INC. | All rights reserved.");
         labelCopyright.setIcon(newLogo);
         labelCopyright.setFont(new Font(def.getFontFam(), Font.BOLD, 14));
         labelCopyright.setIconTextGap(5);
         labelCopyright.setForeground(Color.white);
-        labelCopyright.setBounds(40, 180, 400, 20);
+        labelCopyright.setBounds(40, 180, 600, 20);
 
         labelFooter.setIcon(newFooterLogo);
         labelFooter.setBounds(922, 20, (592 / 2) / 2 + 50, (422 / 2) / 2 + 50);
@@ -120,9 +120,9 @@ public class PanelFooter extends JPanel implements MouseListener {
         labelPrivacy.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelPrivacy.setBounds(1150, 90, 250, 30);
 
-        labelTerms.setText("Made by MH Inc Group".toUpperCase(getLocale()));
+        labelTerms.setText("Made by Miracle Group".toUpperCase(getLocale()));
         labelTerms.setFont(new Font(def.getFontFam(), Font.BOLD, 12));
-        labelTerms.setForeground(colorPalette.getColorButtons());
+        labelTerms.setForeground(colorPalette.getColorBackground4());
         labelTerms.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelTerms.setBounds(1150, 125, 250, 30);
 

@@ -2,6 +2,7 @@ package Containers;
 
 // Imports
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,8 +21,6 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
@@ -68,6 +67,8 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
     // Transaction components
     public TransTable tableTransaction = new TransTable();
     private JScrollPane tableScrollPane = new JScrollPane(tableTransaction);
+
+    ImageIcon loginBg = new ImageIcon("Images/loginBG.jpg");
 
     public PanelHDepositBar(ModalBox modalBox) {
         this.modalBox = modalBox;
@@ -217,7 +218,6 @@ public class PanelHDepositBar extends JPanel implements ChangeListener {
         graphics.setColor(getBackground());
         graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint background
         graphics.setColor(getForeground());
-        graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint border
     }
 
     @Override

@@ -40,6 +40,7 @@ public class PanelBody extends JPanel implements ActionListener, MouseListener, 
     // Label
     private JLabel labelLogin = new JLabel();
     private JLabel labelPassVisible = new JLabel();
+    private JLabel labelforgotPassword = new JLabel();
 
     // Text field
     private MyTextField customTextField = new MyTextField();
@@ -66,16 +67,17 @@ public class PanelBody extends JPanel implements ActionListener, MouseListener, 
         setBounds(def.getFrameWidth() / 2 - (1000 / 2), 306, 1000, 400);
 
         int x = this.getSize().width / 2;
+        
 
-        labelLogin.setText("Login to your account");
-        labelLogin.setForeground(Color.white);
-        labelLogin.setFont(new Font(def.getFontFam(), Font.BOLD, 18));
+        labelLogin.setText("Sign in to your account");
+        labelLogin.setForeground(Color.black);
+        labelLogin.setFont(new Font(def.getFontFam(), Font.BOLD, 22));
         labelLogin.setHorizontalAlignment(JLabel.CENTER);
         labelLogin.setBounds(0, 20, 1000, 50);
         
         customTextField.setHint("Account Number");
         customTextField.setFont(new Font(def.getFontFam(), 0, 18));
-        customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/user.png")));
+        customTextField.setPrefixIcon(new ImageIcon(getClass().getResource("/Images/account.png")));
         customTextField.setBounds(x - (500 / 2), 100, 500, 60);
         customTextField.addKeyListener(this);
         customTextField.setDocument(new TextLimit(8));
@@ -87,6 +89,12 @@ public class PanelBody extends JPanel implements ActionListener, MouseListener, 
         customPasswordField.setBounds(x - (500 / 2), 200, 500, 60);
         customPasswordField.setDocument(new TextLimit(6));
 
+        labelforgotPassword.setText("Forgot Password?");
+        labelforgotPassword.setForeground(Color.blue);
+        labelforgotPassword.setFont(new Font(def.getFontFam(), Font.BOLD, 15));
+        labelforgotPassword.setHorizontalAlignment(JLabel.TRAILING);
+        labelforgotPassword.setBounds(x - (480 / 2), 270, 480, 20);
+
         labelPassVisible.setIcon(methods.imageResize(new ImageIcon(getClass().getResource("/Images/passInvisible.png")), 24, 24));
         labelPassVisible.setOpaque(false);
         labelPassVisible.setBounds(450, 60 / 2 - (50 / 2), 50, 50);
@@ -96,7 +104,7 @@ public class PanelBody extends JPanel implements ActionListener, MouseListener, 
 
         login.setBackground(colorPalette.getColorButtons());
         login.setForeground(Color.white);
-        login.setText("L o g i n");
+        login.setText("Sign in");
         login.setFont(new Font(def.getFontFam(), 0, 18));
         login.setBounds(x - (200 / 2), 300, 200, 60);
         login.addActionListener(this);
@@ -106,6 +114,7 @@ public class PanelBody extends JPanel implements ActionListener, MouseListener, 
         add(labelLogin);
         add(customTextField);
         add(customPasswordField);
+        add(labelforgotPassword);
     }
 
     // Action event

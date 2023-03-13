@@ -1,9 +1,15 @@
 package Main;
 
 import java.sql.Connection;
+import java.util.Date;
+
 import Connection.DatabaseConnection;
 import Backend.Session;
 import java.sql.ResultSet;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 
 public class Main {
@@ -27,16 +33,29 @@ public class Main {
     
     // Thread to clear the console every 30 seconds
     public class ConsoleClearing extends Thread {
-
+        Date date = new Date();
+        long timeNow = 1678530842560L;
+        long timeAfter = timeNow +  86400000L;
         @Override
         synchronized public void run() {
-
+            
             try {
 
                 // Clear the console every 30 seconds
                 while (true) {
                     System.out.print("\033[H\033[2J");  
                     System.out.println("\nNOTE: Console will be cleared every 10 seconds.");
+                    System.out.println(date.getTime());
+                    if (date.getTime() >= timeAfter) {
+                        System.out.println("24 hours have past");
+                    } else { 
+                        long now = date.getTime();
+                        DateFormat obj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z");   
+                        // we create instance of the Date and pass milliseconds to the constructor    
+                        Date res = new Date(now);   
+                        // now we format the res by using SimpleDateFormat   
+                        System.out.println(obj.format(res));   
+                    }
                     Thread.sleep(30000);
                 }
 

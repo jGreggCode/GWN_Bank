@@ -22,10 +22,13 @@ public class ColorPalette {
     */
     
     private final Color colorText = Color.black;
-    private final Color colorBackground = new Color(0x730007); // dark
-    private final Color colorBackground1 = new Color(0xB70D1A); // light
-    private final Color colorBackground2 = new Color(0xFCFFEC);
-    private final Color colorButtons = new Color(0xD3C153); // buttons etc
+    private final Color colorWhite = new Color(0xFFFFF0); // white
+    private final Color colorBackground = new Color(0xCC5801); // orange main
+    private final Color colorBackground1 = new Color(0xFE8820); // orange
+    private final Color colorBackground2 = new Color(0xF5761A); // pumpkin
+    private final Color colorBackground3 = new Color(0xC35214); // Alloy Orange
+    private final Color colorBackground4 = new Color(0xFDEE00); // yellow
+    private final Color colorButtons = Color.decode("#DD571C"); // buttons etc
 
     public Color getColorText() {
         return colorText;
@@ -45,6 +48,18 @@ public class ColorPalette {
 
     public Color getColorBackground1() {
         return colorBackground1;
+    }
+
+    public Color getColorBackground3() {
+        return colorBackground3;
+    }
+
+    public Color getColorBackground4() {
+        return colorBackground4;
+    }
+
+    public Color getColorWhite() {
+        return colorWhite;
     }
 
 }

@@ -26,7 +26,7 @@ import Utils.MyTextField;
 import Utils.TextLimit;
 
 public class RegisterFrame extends JFrame implements MouseListener {
-    
+
     // Prerequisite Obejects
     MainFrame mainFrame;
     RegisterMessage registerMessage;
@@ -34,6 +34,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
     // Components
     // Image
     ImageIcon icon = new ImageIcon("Images/warning.png");
+    ImageIcon regisBg = new ImageIcon("Images/loginBG.jpg");
 
     // Panels
     private JPanelCustom leftPanel = new JPanelCustom(50,0,50,0);
@@ -51,7 +52,9 @@ public class RegisterFrame extends JFrame implements MouseListener {
     labelHave = new JLabel(),
     labelHappy = new JLabel(),
     labelPassVisible = new JLabel(),
-    labelWarning = new JLabel();
+    labelWarning = new JLabel(),
+    regisBack = new JLabel();
+    
 
     // Check if password is visible
     boolean visible = false;
@@ -135,7 +138,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(null);
-        getContentPane().setBackground(colors.getColorBackground1());
+        //getContentPane().setBackground(colors.getColorBackground1());
         setLocationRelativeTo(null);
         // Make register message at the top of every components
         add(registerMessage);
@@ -178,7 +181,8 @@ public class RegisterFrame extends JFrame implements MouseListener {
         leftPanel.add(btnLogin);
 
         // Right panel configuration
-        rightPanel.setBackground(colors.getColorBackground1());
+        //rightPanel.setBackground(colors.getColorBackground1());
+        rightPanel.setOpaque(false);
         rightPanel.setBounds(755,0, 620, 1000);
         rightPanel.setLayout(null);
 
@@ -341,6 +345,9 @@ public class RegisterFrame extends JFrame implements MouseListener {
 
         });
 
+        regisBack.setIcon(methods.imageResize(regisBg, 1440, 1000));
+        regisBack.setBounds(0,0,1440, 1000);
+
         // Right panel components
         rightPanel.add(labelRegister);
         rightPanel.add(labelGetStarted);
@@ -360,6 +367,7 @@ public class RegisterFrame extends JFrame implements MouseListener {
         // Adding panels to frame
         add(rightPanel);
         add(leftPanel);
+        add(regisBack);
     }
 
     // Mouse event
